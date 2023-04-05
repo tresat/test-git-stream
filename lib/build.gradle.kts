@@ -42,6 +42,10 @@ testing {
 
 // TODO: uh-oh, here's a todo!
 
+// I'm adding another TODO here
+
+// TODO: And here's another one
+
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
