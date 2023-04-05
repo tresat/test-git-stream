@@ -19,8 +19,8 @@ author:
   on_jvm_team: {{ pr.author | match(list=jvm_authors) }}
 
 jvm_authors:
-  - big-guy
-  - tresat
-  - ghale
-  - jvandort
-  - octylFractal
+  - 'big-guy'
+  - 'tresat'
+  - 'ghale'
+  - 'jvandort'
+  - 'octylFractal'
