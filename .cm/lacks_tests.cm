@@ -24,7 +24,7 @@ automations:
 #      - {{ files | allDocs | reject }} # Not only docs
 #      - {{ files | isFormattingChange | every | reject }} # Not only formatting-only changes
     run:
-      - action: request-changes@v1
+      - action: add-comment@v1
         args:
           comment: 'This PR appears to be lacking tests.  Consider adding tests to cover the new functionality.'
 
