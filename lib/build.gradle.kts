@@ -15,6 +15,8 @@ plugins {
     `java-library`
 }
 
+description = "A sample library project written in Kotlin."
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
