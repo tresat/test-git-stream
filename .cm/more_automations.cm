@@ -1,0 +1,26 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+# This section defines the actions we want gitStream to run on our PRs.
+# Every action only runs if a JVM team member is the author of the change, for prior purposes.
+automations:
+  label_platforms_jvm:
+    if:
+      - {{ author.on_jvm_team }}
+      - {{ change.is_build_script_change }}
+    run:
+      - action: add-label@v1
+        args:
+          label: 'build-script-changes'
+          color: '0000FF'
+
+author:
+  on_jvm_team: {{ pr.author | match(list=jvm_authors) }}
+
+jvm_authors:
+  - big-guy
+  - tresat
+  - ghale
+  - jvandort
+  - octylFractal
