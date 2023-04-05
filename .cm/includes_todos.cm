@@ -25,8 +25,7 @@ automations:
     run:
       - action: request-changes@v1
         args:
-          comment: |
-            There are new TODOs present in this change.  Should any be removed?
+          comment: 'There are new TODOs present in this change.  Should any be removed?'
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
