@@ -19,8 +19,8 @@ automations:
   no_tests:
     if:
       - {{ author.on_jvm_team }}
-      - {{ files | match(regex=r/[^a-zA-Z0-9](Spec|Test|Tests)(\.groovy|\.java)/) | nope }} # No tests included
-#      - {{ files | match(regex=r/src\/main\//) | some }} # Some main src touched
+#      - {{ files | match(regex=r/[^a-zA-Z0-9](Spec|Test|Tests)(\.groovy|\.java)/) | nope }} # No tests included
+      - {{ files | match(regex=r/src\/main\//) | some }} # Some main src touched
 #      - {{ files | allDocs | reject }} # Not only docs
 #      - {{ files | isFormattingChange | every | reject }} # Not only formatting-only changes
     run:
