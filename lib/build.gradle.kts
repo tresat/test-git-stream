@@ -9,11 +9,13 @@
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    id("org.jetbrains.kotlin.jvm") version "1.8.20"
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
 }
+
+description = "This is a sample library project."
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -33,7 +35,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.8.10")
+            useKotlinTest("1.8.20")
         }
     }
 }
