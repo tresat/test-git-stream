@@ -5,7 +5,7 @@ manifest:
   version: 1.0
 automations:
   # Post a comment that lists the best experts for the files that were modified.
-  code_experts:
+  code_experts_2:
     if:
       - true
     run:

@@ -24,3 +24,6 @@ jvm_authors:
   - 'ghale'
   - 'jvandort'
   - 'octylFractal'
+
+change:
+  is_build_script_change: {{ files | match(regex=r/[^a-zA-Z0-9](build|gradle|settings)[^a-zA-Z0-9]/) }}

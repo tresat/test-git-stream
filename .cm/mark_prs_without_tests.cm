@@ -1,8 +1,6 @@
 # -*- mode: yaml -*-
-
 manifest:
   version: 1.0
-
 automations:
   no_tests:
     if:

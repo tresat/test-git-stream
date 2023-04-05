@@ -15,6 +15,8 @@ plugins {
     `java-library`
 }
 
+description = "This is a sample library project."
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
