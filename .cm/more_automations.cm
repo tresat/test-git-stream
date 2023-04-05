@@ -2,6 +2,9 @@
 manifest:
   version: 1.0
 
+include:
+  - .cm/teams.cm
+
 # This section defines the actions we want gitStream to run on our PRs.
 # Every action only runs if a JVM team member is the author of the change, for prior purposes.
 automations:
@@ -14,16 +17,6 @@ automations:
         args:
           label: 'build-script-changes'
           color: '0000FF'
-
-author:
-  on_jvm_team: {{ pr.author | match(list=jvm_authors) }}
-
-jvm_authors:
-  - 'big-guy'
-  - 'tresat'
-  - 'ghale'
-  - 'jvandort'
-  - 'octylFractal'
 
 change:
   is_build_script_change: {{ files | match(regex=r/[^a-zA-Z0-9](build|gradle|settings)[^a-zA-Z0-9]/) }}
