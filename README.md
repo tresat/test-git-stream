@@ -1,0 +1,1 @@
+This repo is for experimenting with and demonstrating [gitStream](https://linearb.io/dev/gitstream/).
