@@ -16,32 +16,19 @@ manifest:
 
 # Every action only runs if a JVM team member is the author of the change, for testing purposes.
 automations:
-
-  # If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
-  add_primary_author_as_reviewer:
+  no_tests:
     if:
       - {{ author.on_jvm_team }}
-      - {{ repo | codeExperts(gt=50) | match(branch.author) | nope }}
+      - {{ files | match(regex=r/[^a-zA-Z0-9](Spec|Test|Tests)(\.groovy|\.java/) | nope }} # No tests included
+      - {{ branch.diff.files_metadata | filter(attr='new_file') | map(attr='additions') | sum > 0 }} # New content added
+      - {{ files | allDocs | reject }} # Not only docs
+      - {{ files | isFormattingChange | every | reject }} # Not only formatting-only changes
     run:
-      - action: add-reviewers@v1
+      - action: request-changes@v1
         args:
-          reviewers: {{ repo | codeExperts(gt=50) }}
-
-  # Also post a comment that lists the best experts for the files that were modified.
-  comment_experts:
-    if:
-      - {{ author.on_jvm_team }}
-    run:
-      - action: add-comment@v1
-        args:
-          # Note the comment starts with | and a new-line as explainCodeExperts generates a multiline comment.
           comment: |
-            {{ repo | explainCodeExperts(gt=10) }}
-
-
-# To simplify the automations section, some calculations are placed under unique YAML keys defined here.
-# Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
-# This section could also appear ahead of the automations section.
+            This PR appears to be lacking tests.  Consider adding tests to cover the new functionality.
+            {{ source.diff.files | matchDiffLines(regex=r/(TODO)|(todo)/) }}
 
 author:
   on_jvm_team: {{ pr.author | match(list=jvm_team_members) }}

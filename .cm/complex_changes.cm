@@ -17,31 +17,23 @@ manifest:
 # Every action only runs if a JVM team member is the author of the change, for testing purposes.
 automations:
 
-  # If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
-  add_primary_author_as_reviewer:
+  # If a PR is very complex, require 2 approvals
+  complex_change:
     if:
       - {{ author.on_jvm_team }}
-      - {{ repo | codeExperts(gt=50) | match(branch.author) | nope }}
+      - {{ branch | estimatedReviewTime >= 45 }}
+      - {{ files | length >= 20 }}
+      - {{ includes_src_changes }}
     run:
-      - action: add-reviewers@v1
+      - action: set-required-approvals@v1
         args:
-          reviewers: {{ repo | codeExperts(gt=50) }}
-
-  # Also post a comment that lists the best experts for the files that were modified.
-  comment_experts:
-    if:
-      - {{ author.on_jvm_team }}
-    run:
-      - action: add-comment@v1
-        args:
-          # Note the comment starts with | and a new-line as explainCodeExperts generates a multiline comment.
-          comment: |
-            {{ repo | explainCodeExperts(gt=10) }}
-
+          approvals: 2
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 # This section could also appear ahead of the automations section.
+
+includes_src_changes: {{ files | match(regex=r/src\//) | some }}
 
 author:
   on_jvm_team: {{ pr.author | match(list=jvm_team_members) }}
