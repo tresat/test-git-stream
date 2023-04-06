@@ -27,7 +27,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            'This PR appears to be lacking tests.  Consider adding tests to cover the new functionality.'
+            This PR appears to be lacking tests.  Consider adding tests to cover the new functionality.
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
