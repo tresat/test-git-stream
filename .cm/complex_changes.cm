@@ -21,7 +21,7 @@ automations:
   complex_change:
     if:
       - {{ author.on_jvm_team }}
-      - {{ branch | estimatedReviewTime >= 45 }}
+#      - {{ branch | estimatedReviewTime >= 45 }}
       - {{ files | length >= 20 }}
       - {{ includes_src_changes }}
     run:
