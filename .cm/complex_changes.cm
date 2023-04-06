@@ -29,6 +29,7 @@ automations:
         args:
           label: "THIS IS COMPLEX"
 
+# To allow this action to block merge, you should enable branch protection, and gitStream has to be set as required check in GitHub.
 #      - action: set-required-approvals@v1
 #        args:
 #          approvals: 2
