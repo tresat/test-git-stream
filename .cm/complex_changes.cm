@@ -33,7 +33,7 @@ automations:
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 # This section could also appear ahead of the automations section.
 
-includes_src_changes: {{ files | includes(regex=r/src\//) | some }}
+includes_src_changes: {{ files | match(term='/src/') | some }}
 
 author:
   on_jvm_team: {{ pr.author | match(list=jvm_team_members) }}
