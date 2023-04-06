@@ -58,8 +58,8 @@ automations:
           color: '0000FF'
   label_platform_execution:
     if:
-      - { { author.on_jvm_team } }
-      - { { is.platform.execution } }
+      - {{ author.on_jvm_team }}
+      - {{ is.platform.execution }}
     run:
       - action: add-label@v1
         args:
@@ -69,8 +69,8 @@ automations:
   # Call out PRs that change the build script (and will be longer to checkout and review)
   label_build_script_change:
     if:
-      - { { author.on_jvm_team } }
-      - { { is.build_script_change } }
+      - {{ author.on_jvm_team }}
+      - {{ is.build_script_change }}
     run:
       - action: add-label@v1
         args:
@@ -89,15 +89,15 @@ is:
   # This is not a complete list, just a demonstration
   # Perhaps a task could generate this list from teh CODEOWNERS, or both this and CODEOWNERS could be generated from different single source of truth?
   platform:
-    jvm: {{ files | match(list=['subprojects/instrumentation-agent']) | any }}
-    cc: {{ files | match(list=['subprojects/code-quality/', 'subprojects/ear/', 'subprojects/platform-jvm/']) | any }}
-    execution: {{ files | match(list=['subprojects/execution/']) | any }}
+    jvm: {{ files | match(list=['subprojects/instrumentation-agent']) | some }}
+    cc: {{ files | match(list=['subprojects/code-quality/', 'subprojects/ear/', 'subprojects/platform-jvm/']) | some }}
+    execution: {{ files | match(list=['subprojects/execution/']) | some }}
 
   # Also just an approximation
-  build_script_change: { { files | match(regex=r/[ ^a-zA-Z0-9 ](build|gradle|settings)[ ^a-zA-Z0-9 ]/) } }
+  build_script_change: {{ files | match(regex=r/[ ^a-zA-Z0-9 ](build|gradle|settings)/) }}
 
 author:
-  on_jvm_team: { { pr.author | match(list=jvm_team_members) } }
+  on_jvm_team: {{ pr.author | match(list=jvm_team_members) }}
 
 jvm_team_members:
   - 'big-guy'
