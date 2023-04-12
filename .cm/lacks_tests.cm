@@ -21,7 +21,7 @@ automations:
       - {{ author.on_jvm_team }}
       - {{ includes_src_changes }}
 #      - {{ includes_test_changes | nope }}
-      - {{ source.diff.files | isFormattingChange | every }} # Not only formatting-only changes
+      - {{ source.diff.files | isFormattingChange | nope }} # Not only formatting-only changes
     run:
       - action: add-comment@v1
         args:
