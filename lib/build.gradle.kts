@@ -15,7 +15,7 @@ plugins {
     `java-library`
 }
 
-description = "This is a sample library project."
+description = "This is a sample library project.  I'm making a build script change here."
 
 repositories {
     // Use Maven Central for resolving dependencies.
