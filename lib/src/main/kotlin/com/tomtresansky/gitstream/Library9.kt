@@ -3,7 +3,6 @@
  */
 package com.tomtresansky.gitstream
 
-// TODO: do something here
 class Library9 {
     fun someLibraryMethod(): Boolean {
         return true
