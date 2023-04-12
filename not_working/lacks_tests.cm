@@ -20,8 +20,8 @@ automations:
     if:
       - {{ author.on_jvm_team }}
       - {{ includes_src_changes }}
-#      - {{ includes_test_changes | nope }}
-#      - {{ not (source.diff.files | isFormattingChange) }} # Not only formatting-only changes
+      - {{ includes_test_changes | nope }}
+      - {{ not (source.diff.files | isFormattingChange) }} # Not only formatting-only changes
     run:
       - action: add-comment@v1
         args:
