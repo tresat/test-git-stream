@@ -21,8 +21,8 @@ automations:
   complex_change:
     if:
       - {{ author.on_jvm_team }}
-      - {{ branch | estimatedReviewTime >= 45 }}
-      - {{ files | length >= 20 }}
+#      - {{ branch | estimatedReviewTime >= 45 }}
+#      - {{ files | length >= 20 }}
       - {{ includes_src_changes }}
     run:
       - action: set-required-approvals@v1
@@ -33,7 +33,7 @@ automations:
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 # This section could also appear ahead of the automations section.
 
-includes_src_changes: {{ files | match(regex=r/src\//) | some }}
+includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
 
 author:
   on_jvm_team: {{ pr.author | match(list=jvm_team_members) }}
