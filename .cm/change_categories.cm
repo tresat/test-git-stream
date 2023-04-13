@@ -83,7 +83,7 @@ automations:
 # The results of these calculations are assigned to `is.formatting`, `is.docs` and `is.tests`.
 is:
   formatting: {{ source.diff.files | isFormattingChange }}
-  docs: {{ files | allDocs }}
+  docs: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | every) }}
   tests: {{ files | allTests }}
 
   # This is not a complete list, just a demonstration

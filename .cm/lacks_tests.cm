@@ -37,7 +37,7 @@ automations:
 
 includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
 includes_test_changes: {{ files | match(regex=r/.*\/(test|integTest|crossVersionTest|docsTest|smokeTest)\//) | some }}
-is_docs_only_change: {{ files | allDocs }}
+is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | every) }}
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
