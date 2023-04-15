@@ -94,7 +94,7 @@ is:
     execution: {{ files | match(list=['subprojects/execution/']) | some }}
 
   # Also just an approximation
-  build_script_change: {{ files | filter(regex=r/\/src\/(samples|snippets)\//) | match(list=build_logic_files) | some }}
+  build_script_change: {{ files | reject(regex=r/\/src\/(samples|snippets)\//) | match(list=build_logic_files) | some }}
 
 build_logic_files:
   - 'build.gradle.kts'
