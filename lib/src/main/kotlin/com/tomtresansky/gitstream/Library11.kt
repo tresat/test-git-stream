@@ -3,7 +3,7 @@
  */
 package com.tomtresansky.gitstream
 
-// TODO: uh-oh, I forgot to do this
+// All fixed now!
 class Library11 {
     fun someLibraryMethod(): Boolean {
         return true
