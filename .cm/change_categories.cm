@@ -239,7 +239,7 @@ platforms:
       - 'subprojects/version-control/'
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.jvm.members)) }}
+  using_gitstream: {{ pr.author | match(list=teams.jvm.members) }}
 
 teams:
   - execution:
