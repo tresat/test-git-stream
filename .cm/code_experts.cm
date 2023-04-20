@@ -44,7 +44,7 @@ automations:
 # This section could also appear ahead of the automations section.
 
 author:
-  using_gitstream: {{ pr.author | match(list=teams.jvm_team) }}
+  using_gitstream: {{ (pr.author | match(list=teams.jvm_team)) or (pr.author | match(list=teams.execution)) }}
 
 teams:
   jvm_team:
@@ -53,6 +53,10 @@ teams:
     - 'ghale'
     - 'jvandort'
     - 'octylFractal'
+  execution:
+    - 'lptr'
+    - 'asodja'
+    - 'FrauBoes'
 
 teams2:
   - execution:
