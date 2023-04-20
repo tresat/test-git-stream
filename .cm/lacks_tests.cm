@@ -41,16 +41,16 @@ is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | 
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
-  using_gitstream: {{ pr.author | match(list=jvm_team) }}
-
-jvm_team:
-  - 'big-guy'
-  - 'tresat'
-  - 'ghale'
-  - 'jvandort'
-  - 'octylFractal'
+  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) }}
 
 teams:
+  jvm_team:
+    members:
+      - 'big-guy'
+      - 'tresat'
+      - 'ghale'
+      - 'jvandort'
+      - 'octylFractal'
   execution:
     members:
       - 'lptr'
@@ -60,10 +60,3 @@ teams:
     members:
       - 'donat'
       - 'reinsch82'
-  jvm:
-    members:
-      - 'big-guy'
-      - 'tresat'
-      - 'ghale'
-      - 'jvandort'
-      - 'octylFractal'
