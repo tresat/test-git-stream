@@ -32,7 +32,14 @@ automations:
 # This section could also appear ahead of the automations section.
 
 author:
-  using_gitstream: {{ pr.author | match(list=teams.jvm.members) }}
+  using_gitstream: {{ pr.author | match(list=jvm_team) }}
+
+jvm_team:
+  - 'big-guy'
+  - 'tresat'
+  - 'ghale'
+  - 'jvandort'
+  - 'octylFractal'
 
 teams:
   - execution:

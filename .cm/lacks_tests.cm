@@ -41,7 +41,14 @@ is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | 
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
-  using_gitstream: {{ pr.author | match(list=teams.jvm.members) }}
+  using_gitstream: {{ pr.author | match(list=jvm_team) }}
+
+jvm_team:
+  - 'big-guy'
+  - 'tresat'
+  - 'ghale'
+  - 'jvandort'
+  - 'octylFractal'
 
 teams:
   execution:
