@@ -41,7 +41,7 @@ is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | 
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.build_scan.members)) }}
 
 teams:
   jvm_team:
@@ -60,3 +60,7 @@ teams:
     members:
       - 'donat'
       - 'reinsch82'
+  build_scan:
+    members:
+      - 'alllex'
+      - 'wolfs'
