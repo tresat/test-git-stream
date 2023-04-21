@@ -41,10 +41,10 @@ is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | 
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.build_scan.members)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.jvm.members)) or (pr.author | match(list=teams.ide.members)) }}
 
 teams:
-  jvm_team:
+  jvm:
     members:
       - 'big-guy'
       - 'tresat'
