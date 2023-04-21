@@ -41,22 +41,22 @@ is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | 
 is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.build_scan)) or (pr.author | match(list=teams.execution)) or (pr.author | match(list=teams.jvm)) or (pr.author | match(list=teams.ide)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) }}
 
 teams:
-  build_scan:
-    - 'alllex'
-    - 'wolfs'
+  jvm_team:
+    members:
+      - 'big-guy'
+      - 'tresat'
+      - 'ghale'
+      - 'jvandort'
+      - 'octylFractal'
   execution:
-    - 'asodja'
-    - 'FrauBoes'
-    - 'lptr'
-  jvm:
-    - 'big-guy'
-    - 'ghale'
-    - 'jvandort'
-    - 'octylFractal'
-    - 'tresat'
+    members:
+      - 'lptr'
+      - 'asodja'
+      - 'FrauBoes'
   ide:
-    - 'donat'
-    - 'reinsch82'
+    members:
+      - 'donat'
+      - 'reinsch82'
