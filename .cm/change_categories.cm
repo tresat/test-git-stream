@@ -228,7 +228,7 @@ platforms:
       - 'subprojects/version-control/'
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.jvm_team.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.build_scan.members)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.jvm.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.build_scan.members)) }}
 
 teams:
   build_scan:
@@ -244,7 +244,7 @@ teams:
     members:
       - 'donat'
       - 'reinsch82'
-  jvm_team:
+  jvm:
     members:
       - 'big-guy'
       - 'ghale'
