@@ -3,7 +3,6 @@
  */
 package com.tomtresansky.gitstream
 
-        // TODO: something
 class Library13 {
     public boolean someLibraryMethod() {
         return true;
