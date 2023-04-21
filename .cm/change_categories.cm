@@ -235,20 +235,19 @@ teams:
     members:
       - 'alllex'
       - 'wolfs'
-  jvm_team:
-    members:
-      - 'big-guy'
-      - 'tresat'
-      - 'ghale'
-      - 'jvandort'
-      - 'octylFractal'
   execution:
     members:
-      - 'lptr'
       - 'asodja'
+      - 'lptr'
       - 'FrauBoes'
   ide:
     members:
       - 'donat'
       - 'reinsch82'
-
+  jvm_team:
+    members:
+      - 'big-guy'
+      - 'ghale'
+      - 'jvandort'
+      - 'octylFractal'
+      - 'tresat'
