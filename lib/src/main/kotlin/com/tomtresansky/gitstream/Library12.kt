@@ -8,4 +8,9 @@ class Library12 {
     fun someLibraryMethod(): Boolean {
         return true
     }
+
+    // TODO: oh noes, another todo comment
+    fun newMetho(): Boolean {
+        return false
+    }
 }
