@@ -20,6 +20,7 @@ automations:
   # If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
   add_primary_author_as_reviewer:
     if:
+      - {{ false }} # disabled for now
       - {{ author.using_gitstream }}
       - {{ repo | codeExperts(gt=50) | match(branch.author) | nope }}
     run:
