@@ -13,4 +13,6 @@ class Library12 {
     fun newMetho(): Boolean {
         return false
     }
+
+    fun whoIsTheExpertHere() = "Tom Tresansky"
 }
