@@ -255,9 +255,9 @@ platforms:
 
 {% for platform in platforms %}
 changes_by_platform_{{ platform.name }}:
-  additions: {{ branch.diff.files_metadata | filter(match(list=platform.subprojects)) | map(attr='additions') | sum }}
-  deletions: {{ branch.diff.files_metadata | filter(match(list=platform.subprojects)) | map(attr='deletions') | sum }}
-  total: {{ branch.diff.files_metadata | filter(match(list=platform.subprojects)) | sum }}
+  additions: {{ branch.diff.files_metadata | match(list=platform.subprojects) | map(attr='additions') | sum }}
+  deletions: {{ branch.diff.files_metadata | match(list=platform.subprojects) | map(attr='deletions') | sum }}
+  total: {{ branch.diff.files_metadata | match(list=platform.subprojects) | sum }}
 {% endfor %}
 
 total_changes:
