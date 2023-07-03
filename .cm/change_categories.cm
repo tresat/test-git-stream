@@ -189,15 +189,16 @@ platforms:
   - ide:
     name: 'ide'
     subprojects:
+      - 'platforms/ide/'
       - 'subprojects/ide/'
       - 'subprojects/tooling-api/'
       - 'subprojects/tooling-api-builders/'
   - jvm:
     name: 'jvm'
     subprojects:
+      - 'platforms/jvm/'
       - 'subprojects/distributions-jvm/'
       - 'subprojects/distributions-publishing/'
-      - 'platforms/jvm/ear/'
       - 'subprojects/jacoco/'
       - 'subprojects/java-compiler-plugin/'
       - 'subprojects/jvm-services/'
