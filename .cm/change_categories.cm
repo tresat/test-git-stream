@@ -103,7 +103,6 @@ platforms:
       - '/build.gradle*'
       - '/settings.gradle*'
       - 'gradle/shared-with-buildSrc/'
-      - 'subprojects/*/build.gradle*'
       - 'subprojects/internal-architecture-testing/'
       - 'subprojects/internal-build-reports/'
       - 'subprojects/internal-integ-testing/'
@@ -114,22 +113,23 @@ platforms:
     subprojects:
       - 'subprojects/api-metadata/'
       - 'subprojects/base-annotations/'
+      - 'subprojects/base-services-groovy/'
       - 'subprojects/configuration-cache/'
+      - 'subprojects/file-collections/'
       - 'subprojects/instrumentation-agent'
       - 'subprojects/internal-instrumentation-api/'
       - 'subprojects/internal-instrumentation-processor/'
+      - 'subprojects/model-core/'
+      - 'subprojects/model-groovy/'
   - core:
     name: 'core'
     subprojects:
       - 'subprojects/base-services/'
-      - 'subprojects/base-services-groovy/'
       - 'subprojects/bootstrap/'
       - 'subprojects/build-option/'
       - 'subprojects/cli/'
-      - 'subprojects/core-platform/'
       - 'subprojects/distributions-basics/'
       - 'subprojects/distributions-core/'
-      - 'subprojects/file-collections/'
       - 'subprojects/file-temp/'
       - 'subprojects/file-watching/'
       - 'subprojects/files/'
@@ -140,15 +140,11 @@ platforms:
       - 'subprojects/logging/'
       - 'subprojects/logging-api/'
       - 'subprojects/messaging/'
-      - 'subprojects/model-core/'
-      - 'subprojects/model-groovy/'
       - 'subprojects/persistent-cache/'
       - 'subprojects/problems/'
       - 'subprojects/process-services/'
       - 'subprojects/snapshots/'
-      - 'subprojects/worker-processes/'
       - 'subprojects/worker-services/'
-      - 'subprojects/workers/'
       - 'subprojects/wrapper/'
       - 'subprojects/wrapper-shared/'
   - documentation:
@@ -174,6 +170,8 @@ platforms:
       - 'subprojects/functional/'
       - 'subprojects/hashing/'
       - 'subprojects/snapshots/'
+      - 'subprojects/worker-processes/'
+      - 'subprojects/workers/'
   - extensibility:
     name: 'extensibility'
     subprojects:
@@ -191,15 +189,16 @@ platforms:
   - ide:
     name: 'ide'
     subprojects:
+      - 'platforms/ide/'
       - 'subprojects/ide/'
       - 'subprojects/tooling-api/'
       - 'subprojects/tooling-api-builders/'
   - jvm:
     name: 'jvm'
     subprojects:
+      - 'platforms/jvm/'
       - 'subprojects/distributions-jvm/'
       - 'subprojects/distributions-publishing/'
-      - 'platforms/jvm/ear/'
       - 'subprojects/jacoco/'
       - 'subprojects/java-compiler-plugin/'
       - 'subprojects/jvm-services/'
@@ -226,6 +225,7 @@ platforms:
   - release_coordination:
     name: 'release-coordination'
     subprojects:
+      - 'subprojects/core-platform/'
       - 'subprojects/distributions-dependencies/'
       - 'subprojects/distributions-full/'
       - 'subprojects/performance/'
