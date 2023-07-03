@@ -15,6 +15,7 @@ plugins {
     `java-library`
 }
 
+// Here's a real change to a build script file
 description = "This is a sample library project."
 
 repositories {
