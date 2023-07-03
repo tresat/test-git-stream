@@ -33,12 +33,9 @@ automations:
       - {{ false }} # disabled for now
       - {{ author.using_gitstream }}
     run:
-      - action: add-comment@v1
+      - action: explain-code-experts@v1
         args:
-          # Note the comment starts with | and a new-line as explainCodeExperts generates a multiline comment.
-          comment: |
-            {{ repo | explainCodeExperts(gt=10) }}
-
+          gt: 10
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
