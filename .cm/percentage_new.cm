@@ -20,31 +20,31 @@ changes:
   # Calculate the ratio of new code
   ratio: {{ (changes.additions / (changes.additions + changes.deletions)) * 100 }}
 
-  author:
-    using_gitstream: { { (pr.author | match(list=teams.build_scan.members)) or (pr.author | match(list=teams.dev_prod.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.jvm.members)) } }
+author:
+  using_gitstream: { { (pr.author | match(list=teams.build_scan.members)) or (pr.author | match(list=teams.dev_prod.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.jvm.members)) } }
 
-  teams:
-    build_scan:
-      members:
-        - 'alllex'
-        - 'wolfs'
-    dev_prod:
-      members:
-        - 'blindpirate'
-    execution:
-      members:
-        - 'asodja'
-        - 'lptr'
-        - 'FrauBoes'
-    ide:
-      members:
-        - 'hegyibalint'
-        - 'donat'
-        - 'reinsch82'
-    jvm:
-      members:
-        - 'big-guy'
-        - 'ghale'
-        - 'jvandort'
-        - 'octylFractal'
-        - 'tresat'
+teams:
+  build_scan:
+    members:
+      - 'alllex'
+      - 'wolfs'
+  dev_prod:
+    members:
+      - 'blindpirate'
+  execution:
+    members:
+      - 'asodja'
+      - 'lptr'
+      - 'FrauBoes'
+  ide:
+    members:
+      - 'hegyibalint'
+      - 'donat'
+      - 'reinsch82'
+  jvm:
+    members:
+      - 'big-guy'
+      - 'ghale'
+      - 'jvandort'
+      - 'octylFractal'
+      - 'tresat'
