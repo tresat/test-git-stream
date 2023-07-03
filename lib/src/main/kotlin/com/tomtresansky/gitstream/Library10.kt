@@ -9,4 +9,6 @@ class Library10 {
     }
 
     fun thisIsATest() = "does this trigger experts"
+
+    fun testAgain() = "this should trigger experts"
 }
