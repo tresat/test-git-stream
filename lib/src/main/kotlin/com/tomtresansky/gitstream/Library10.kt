@@ -7,4 +7,6 @@ class Library10 {
     fun someLibraryMethod(): Boolean {
         return true
     }
+
+    fun thisIsATest() = "does this trigger experts"
 }
