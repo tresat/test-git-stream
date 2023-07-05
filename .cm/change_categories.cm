@@ -72,7 +72,7 @@ automations:
             This PR includes {{ changes.total }} changes.
   
 
-  {% for platform in platforms %}
+  {% for platform in changes %}
   print_changes_by_platform_{{ platform.name }}:
     if:
       - {{ true }}
@@ -80,7 +80,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            This PR includes {{ changes.by_platform_{{ platform.name }} }} changes to the {{ platform.name }} platform.
+            This PR includes {{ platform.count }} changes to the {{ platform.name }} platform.
   {% endfor %}
   # This is {{ (changes.by_platform_{{ platform.name }} / (changes.total)) * 100 | round(2) }}% of the total.
 
@@ -306,7 +306,9 @@ teams:
 
 changes:
 {% for platform in platforms %}
-  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | length }}
+  platform_{{ platform.name }}:
+    name: {{ platform.name }}
+    count: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | length }}
 {% endfor %}
   total: {{ files | length }}
 
