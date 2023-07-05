@@ -62,7 +62,7 @@ automations:
           color: 'E94637'
 
   # Print changes by platform
-  print_changes_by_platform:
+  print_total_changes:
     if:
       - {{ true }}
     run:
@@ -70,6 +70,19 @@ automations:
         args:
           comment: |
             This PR includes {{ changes.total }} changes.
+  
+
+  {% for platform in platforms %}
+  print_changes_by_platform_{{ platform.name }}:
+    if:
+      - {{ true }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            This PR includes {{ changes.by_platform_{{ platform.name }} }} changes to the {{ platform.name }} platform.
+  {% endfor %}
+  # This is {{ (changes.by_platform_{{ platform.name }} / (changes.total)) * 100 | round(2) }}% of the total.
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
@@ -293,7 +306,7 @@ teams:
 
 changes:
 {% for platform in platforms %}
-  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | sum }}
+  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | length }}
 {% endfor %}
-  total: {{ files | sum }}
+  total: {{ files | length }}
 
