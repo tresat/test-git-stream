@@ -82,7 +82,6 @@ automations:
           comment: |
             This PR includes {{ platform.count }} changes to the {{ platform.name }} platform.
   {% endfor %}
-  # This is {{ (changes.by_platform_{{ platform.name }} / (changes.total)) * 100 | round(2) }}% of the total.
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
