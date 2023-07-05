@@ -293,7 +293,7 @@ teams:
 
 changes:
 {% for platform in platforms %}
-  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') match(list=platform.subprojects) | sum }}
+  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | sum }}
 {% endfor %}
   total: {{ files | sum }}
 
