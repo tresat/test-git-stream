@@ -5,7 +5,7 @@ package com.tomtresansky.gitstream
 
 // TODO: do somthing
 class Library10 {
-    public boolean someLibraryMethod() {
+    public boolean wackyLibMethod() {
         return true;
     }
 }
