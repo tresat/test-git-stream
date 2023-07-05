@@ -61,6 +61,16 @@ automations:
           label: 'build-script-change'
           color: 'E94637'
 
+  # Print changes by platform
+  print_changes_by_platform:
+    if:
+      - {{ true }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            This PR includes {{ changes.total }} changes.
+
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
@@ -281,9 +291,9 @@ teams:
       - 'octylFractal'
       - 'tresat'
 
+changes:
 {% for platform in platforms %}
-changes_by_platform_{{ platform.name }}:
-  additions: {{ branch.diff.files_metadata | match(list=platform.subprojects) | map(attr='additions') | sum }}
-  deletions: {{ branch.diff.files_metadata | match(list=platform.subprojects) | map(attr='deletions') | sum }}
-  total: {{ branch.diff.files_metadata | match(list=platform.subprojects) | sum }}
+  by_platform_{{ platform.name }}: {{ source.diff.files | map(attr='new_file') match(list=platform.subprojects) | sum }}
 {% endfor %}
+  total: {{ files | sum }}
+
