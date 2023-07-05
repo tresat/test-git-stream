@@ -8,4 +8,6 @@ class Library10 {
     public boolean someLibraryMethod() {
         return true;
     }
+
+    public boolean newLibMethod() { return false; }
 }
