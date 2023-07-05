@@ -21,7 +21,7 @@ changes:
   ratio: {{ (changes.additions / (changes.additions + changes.deletions)) * 100 }}
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members)) | some }}
 
 teams:
   build_scan:
