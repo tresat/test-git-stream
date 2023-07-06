@@ -296,7 +296,7 @@ changes:
     count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.bt-ge-build-cache.subprojects) | length }}
   platform_jvm:
     name: 'jvm'
-    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.platform_jvm.subprojects) | legnth }}
+    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.platform_jvm.subprojects) | length }}
   total: {{ files | length }}
 
 changes_summary: >
