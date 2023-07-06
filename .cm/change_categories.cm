@@ -65,7 +65,6 @@ automations:
   comment_changes_by_platform:
     if:
       - {{ author.using_gitstream }}
-      - {{ files | match(list=platform.subprojects) | some }}
     run:
       - action: add-comment@v1
         args:
