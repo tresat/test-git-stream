@@ -298,7 +298,7 @@ changes:
 {% endfor %}
   total: {{ files | length }}
 
-changes_summary: |
+changes_summary: >
   Test taco
   Another string
   {% for platform in changes %}
