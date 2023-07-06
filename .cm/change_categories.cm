@@ -299,9 +299,9 @@ changes:
   total: {{ files | length }}
 
 changes_summary:
-  Another string
+  All changes by platform
   {% for platform in changes %}
-  * Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total). |
+  Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
   {% endfor %}
 
 breaker: 'seven'
