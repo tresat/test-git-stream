@@ -70,9 +70,9 @@ automations:
         args:
           comment: 'Changes by platform:\n' +
   {% for platform in changes %}
-            'Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).\n' +
+                   'Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).\n' +
   {% endfor %}
-            ''
+                   ''
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
