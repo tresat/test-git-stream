@@ -7,4 +7,8 @@ class IdeLib01 {
     public boolean someLibraryMethod() {
         return true;
     }
+
+    public int someOtherLibraryMethod() {
+        return 42;
+    }
 }
