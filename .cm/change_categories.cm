@@ -62,25 +62,16 @@ automations:
           color: 'E94637'
 
   # Print changes by platform
-  print_total_changes:
+  print_changes_by_platform:
     if:
-      - {{ true }}
+      - {{ author.using_gitstream }}
     run:
       - action: add-comment@v1
         args:
           comment: |
-            This PR includes {{ changes.total }} changes.
-  
-
+            Changes by platform:
   {% for platform in changes %}
-  print_changes_by_platform_{{ platform.name }}:
-    if:
-      - {{ true }}
-    run:
-      - action: add-comment@v1
-        args:
-          comment: |
-            This PR includes {{ platform.count }} changes to the {{ platform.name }} platform.
+            Platform {{ platform.name }} - {{ platform.count }} ({{ platform.count / (changes.total)) * 100 | round(2) }}% of the total).
   {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
