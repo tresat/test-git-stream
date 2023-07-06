@@ -101,7 +101,6 @@ platforms:
       - 'subprojects/files/'
       - 'subprojects/hashing/'
       - 'subprojects/snapshots/'
-    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.bt_ge_build_cache.subprojects) | length }}
   - build_infrastructure:
     name: 'build-infrastructure'
     subprojects:
@@ -293,14 +292,13 @@ teams:
 
 changes:
   bt_ge_build_cache:
-    name: 'bt-ge-build-cache'
+    count: {{ files | match(list=platforms.bt_ge_build_cache.subprojects) | length }}
   jvm:
-    name: 'jvm'
-    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.jvm.subprojects) | length }}
+    count: {{ files | match(list=platforms.jvm.subprojects) | length }}
   total: {{ files | length }}
 
 changes_summary: >
   All changes by platform\n
-  Platform {{ changes.bt_ge_build_cache.name }} is {{ platforms.bt_ge_build_cache.count }} files ({{ (platforms.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform {{ changes.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ platforms.bt_ge_build_cache.name }} is {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ platforms.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
   Total {{ changes.total }} files.
