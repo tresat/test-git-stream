@@ -91,7 +91,7 @@ build_logic_files:
 # Perhaps a task could generate this list from the CODEOWNERS, or both this and CODEOWNERS could be generated from different single source of truth?
 platforms:
   - bt_ge_build_cache:
-    name: 'bt-ge-build-cache'
+    name: 'bt_ge_build_cache'
     subprojects:
       - 'subprojects/build-cache/'
       - 'subprojects/build-cache-base/'
@@ -102,7 +102,7 @@ platforms:
       - 'subprojects/hashing/'
       - 'subprojects/snapshots/'
   - build_infrastructure:
-    name: 'build-infrastructure'
+    name: 'build_infrastructure'
     subprojects:
       - '.teamcity/'
       - '.github/'
@@ -118,7 +118,7 @@ platforms:
       - 'subprojects/internal-performance-testing/'
       - 'subprojects/internal-testing/'
   - cc:
-    name: 'configuration-cache'
+    name: 'configuration_cache'
     subprojects:
       - 'subprojects/api-metadata/'
       - 'subprojects/base-annotations/'
@@ -188,7 +188,7 @@ platforms:
       - 'subprojects/plugin-use/'
       - 'subprojects/test-kit/'
   - gradle_enterprise:
-    name: 'gradle-enterprise'
+    name: 'gradle_enterprise'
     subprojects:
       - 'subprojects/build-scan-performance/'
       - 'subprojects/enterprise/'
@@ -222,7 +222,7 @@ platforms:
       - 'subprojects/testing-jvm/'
       - 'subprojects/testing-jvm-infrastructure/'
   - kotlin_dsl:
-    name: 'kotlin-dsl'
+    name: 'kotlin_dsl'
     subprojects:
       - 'build-logic/kotlin-dsl/'
       - 'subprojects/kotlin-dsl/'
@@ -232,7 +232,7 @@ platforms:
       - 'subprojects/kotlin-dsl-tooling-builders/'
       - 'subprojects/kotlin-dsl-tooling-models/'
   - release_coordination:
-    name: 'release-coordination'
+    name: 'release_coordination'
     subprojects:
       - 'subprojects/core-platform/'
       - 'subprojects/distributions-dependencies/'
@@ -291,14 +291,15 @@ teams:
       - 'tresat'
 
 changes:
-  bt_ge_build_cache:
-    count: {{ files | match(list=platforms.bt_ge_build_cache.subprojects) | length if files | match(list=platforms.bt_ge_build_cache.subprojects) | length != NaN else 0 }}
-  jvm:
-    count: {{ files | match(list=platforms.jvm.subprojects) | length if files | match(list=platforms.jvm.subprojects) | length != NaN else 0 }}
+{% for platform in platforms %}
+  {{ platform.name }}:
+    count: {{ files | match(list=platform.subprojects) | length if files | match(list=platform.subprojects) | length != NaN else 0 }}
+    name: {{ platform.name }}
+{% endfor %}
   total: {{ files | length }}
 
 changes_summary: >
-  All changes by platform\n
-  Platform {{ platforms.bt_ge_build_cache.name }} is {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform {{ platforms.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
+  Changed files by platform
+  Platform {{ changes.bt_ge_build_cache.name }} includes {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.jvm.name }} includes {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
   Total {{ changes.total }} files.
