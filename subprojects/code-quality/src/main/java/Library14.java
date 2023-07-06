@@ -10,4 +10,6 @@ class Library10 {
     }
 
     public boolean newLibMethod() { return false; }
+
+    private int hereIsANewMethod() { return 0; }
 }

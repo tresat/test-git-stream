@@ -3,9 +3,8 @@
  */
 package com.tomtresansky.gitstream
 
-// TODO: do somthing
-class Library10 {
-    public boolean wackyLibMethod() {
+class IdeLib01 {
+    public boolean someLibraryMethod() {
         return true;
     }
 }

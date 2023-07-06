@@ -17,28 +17,26 @@ manifest:
 # Every action only runs if a JVM team member is the author of the change, for testing purposes.
 automations:
 
-  # Add a label that indicates how many minutes it will take to review the PR and categorizes it
-  estimated_time_to_review:
+  # If a PR is very complex, require 2 approvals
+  complex_change:
     if:
       - {{ author.using_gitstream }}
+      - {{ branch | estimatedReviewTime >= 4 }}
+      - {{ files | length >= 50 }}
+      - {{ includes_src_changes }}
     run:
-      - action: add-label@v1
-        # etr is defined in the last section of this example
+      - action: set-required-approvals@v1
         args:
-          label: "{{ calc.etr }} min review"
-          color: {{ 'E94637' if (calc.etr >= 20) else ('FBBD10' if (calc.etr >= 5) else '36A853') }}
+          approvals: 2
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 # This section could also appear ahead of the automations section.
 
-# This function calculates the estimated time to review and makes it available in the automation above.
-# The name `calc`, and the nesting is arbitrary.
-calc:
-  etr: {{ branch | estimatedReviewTime }}
+includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members)) or (pr.author | match(list=teams.dev_prod.members)) or (pr.author | match(list=teams.execution.members)) or (pr.author | match(list=teams.ide.members)) or (pr.author | match(list=teams.jvm.members)) }}
+  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
 
 teams:
   build_scan:
