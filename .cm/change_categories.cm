@@ -299,4 +299,7 @@ changes:
 {% endfor %}
   total: {{ files | length }}
 
-changes_summary: {% for platform in changes %}Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).\n{% endfor %}
+changes_summary: >
+{% for platform in changes %}
+  Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
+{% endfor %}
