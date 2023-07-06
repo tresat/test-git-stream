@@ -61,17 +61,15 @@ automations:
           label: 'build-script-change'
           color: 'E94637'
 
-  # Print changes by platform
-  print_changes_by_platform:
+  # Print a comment breaking down change % by platform
+  comment_changes_by_platform:
     if:
       - {{ author.using_gitstream }}
+      - {{ files | match(list=platform.subprojects) | some }}
     run:
       - action: add-comment@v1
         args:
-          comment: Changes by platform
-          {% for platform in changes %}
-                   Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
-          {% endfor %}
+          comment: {{ changes_summary }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
@@ -301,3 +299,4 @@ changes:
 {% endfor %}
   total: {{ files | length }}
 
+changes_summary: {% for platform in changes %}Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).\n{% endfor %}
