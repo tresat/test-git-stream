@@ -291,27 +291,16 @@ teams:
       - 'tresat'
 
 changes:
-  platform_bt_ge_build_cache:
+  bt_ge_build_cache:
     name: 'bt-ge-build-cache'
-    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.bt-ge-build-cache.subprojects) | length }}
-  platform_jvm:
+    count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.bt_ge_build_cache.subprojects) | length }}
+  jvm:
     name: 'jvm'
     count: {{ source.diff.files | map(attr='new_file') | match(list=platforms.jvm.subprojects) | length }}
   total: {{ files | length }}
 
 changes_summary: >
   All changes by platform\n
-  Platform: {{ changes.platform_bt_ge_build_cache.name }} is {{ changes.platform_bt_ge_build_cache.count }} files ({{ (changes.platform_bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_build_infrastructure.name }} is {{ changes.platform_build_infrastructure.count }} files ({{ (changes.platform_build_infrastructure.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_configuration-cache.name }} is {{ changes.platform_configuration-cache.count }} files ({{ (changes.platform_configuration-cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_core.name }} is {{ changes.platform_core.count }} files ({{ (changes.platform_core.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_documentation.name }} is {{ changes.platform_documentation.count }} files ({{ (changes.platform_documentation.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_execution.name }} is {{ changes.platform_execution.count }} files ({{ (changes.platform_execution.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_extensibility.name }} is {{ changes.platform_extensibility.count }} files ({{ (changes.platform_extensibility.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_gradle-enterprise.name }} is {{ changes.platform_gradle-enterprise.count }} files ({{ (changes.platform_gradle-enterprise.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_ide.name }} is {{ changes.platform_ide.count }} files ({{ (changes.platform_ide.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_jvm.name }} is {{ changes.platform_jvm.count }} files ({{ (changes.platform_jvm.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_kotlin-dsl.name }} is {{ changes.platform_kotlin-dsl.count }} files ({{ (changes.platform_kotlin-dsl.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_release-coordination.name }} is {{ changes.platform_release-coordination.count }} files ({{ (changes.platform_release-coordination.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.platform_software.name }} is {{ changes.platform_software.count }} files ({{ (changes.platform_software.count / changes.total * 100) | round(2) }}% of the total).
+  Platform: {{ changes.bt_ge_build_cache.name }} is {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform: {{ changes.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
   Total: {{ changes.total }} files.
