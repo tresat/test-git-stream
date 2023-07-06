@@ -300,8 +300,16 @@ changes:
 
 changes_summary:
   All changes by platform
-  {% for platform in changes %}
-  Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
-  {% endfor %}
-
-breaker: 'seven'
+  Platform {{ changes.bt-ge-build-cache.name }} - {{ changes.bt-ge-build-cache.count }} files ({{ (changes.bt-ge-build-cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.build_infrastructure.name }} - {{ changes.build_infrastructure.count }} files ({{ (changes.build_infrastructure.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.configuration-cache.name }} - {{ changes.configuration-cache.count }} files ({{ (changes.configuration-cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.core.name }} - {{ changes.core.count }} files ({{ (changes.core.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.documentation.name }} - {{ changes.documentation.count }} files ({{ (changes.documentation.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.execution.name }} - {{ changes.execution.count }} files ({{ (changes.execution.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.extensibility.name }} - {{ changes.extensibility.count }} files ({{ (changes.extensibility.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.gradle-enterprise.name }} - {{ changes.gradle-enterprise.count }} files ({{ (changes.gradle-enterprise.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.ide.name }} - {{ changes.ide.count }} files ({{ (changes.ide.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.jvm.name }} - {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.kotlin-dsl.name }} - {{ changes.kotlin-dsl.count }} files ({{ (changes.kotlin-dsl.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.release-coordination.name }} - {{ changes.release-coordination.count }} files ({{ (changes.release-coordination.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.software.name }} - {{ changes.software.count }} files ({{ (changes.software.count / changes.total * 100) | round(2) }}% of the total).
