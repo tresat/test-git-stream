@@ -298,7 +298,8 @@ changes:
 {% endfor %}
   total: {{ files | length }}
 
-changes_summary: >
+changes_summary: |
+  Test taco
 {% for platform in changes %}
   Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
 {% endfor %}
