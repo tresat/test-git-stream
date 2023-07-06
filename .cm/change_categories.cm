@@ -301,6 +301,6 @@ changes:
 
 changes_summary: >
   All changes by platform
-  Platform: {{ changes.bt_ge_build_cache.name }} is {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform: {{ changes.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
-  Total: {{ changes.total }} files.
+  Platform {{ changes.bt_ge_build_cache.name }} is {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.jvm.name }} is {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
+  Total {{ changes.total }} files.
