@@ -61,18 +61,14 @@ automations:
           label: 'build-script-change'
           color: 'E94637'
 
-  # Print changes by platform
-  print_changes_by_platform:
+  # Print a comment breaking down change % by platform
+  comment_changes_by_platform:
     if:
       - {{ author.using_gitstream }}
     run:
       - action: add-comment@v1
         args:
-          comment: "Changes by platform:
-                   {% for platform in changes %}
-                   Platform {{ platform.name }} - {{ platform.count }} files ({{ (platform.count / changes.total * 100) | round(2) }}% of the total).
-                   {% endfor %}
-                   "
+          comment: {{ changes_summary }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
@@ -95,7 +91,7 @@ build_logic_files:
 # Perhaps a task could generate this list from the CODEOWNERS, or both this and CODEOWNERS could be generated from different single source of truth?
 platforms:
   - bt_ge_build_cache:
-    name: 'bt-ge-build-cache'
+    name: 'bt_ge_build_cache'
     subprojects:
       - 'subprojects/build-cache/'
       - 'subprojects/build-cache-base/'
@@ -106,7 +102,7 @@ platforms:
       - 'subprojects/hashing/'
       - 'subprojects/snapshots/'
   - build_infrastructure:
-    name: 'build-infrastructure'
+    name: 'build_infrastructure'
     subprojects:
       - '.teamcity/'
       - '.github/'
@@ -122,7 +118,7 @@ platforms:
       - 'subprojects/internal-performance-testing/'
       - 'subprojects/internal-testing/'
   - cc:
-    name: 'configuration-cache'
+    name: 'configuration_cache'
     subprojects:
       - 'subprojects/api-metadata/'
       - 'subprojects/base-annotations/'
@@ -192,7 +188,7 @@ platforms:
       - 'subprojects/plugin-use/'
       - 'subprojects/test-kit/'
   - gradle_enterprise:
-    name: 'gradle-enterprise'
+    name: 'gradle_enterprise'
     subprojects:
       - 'subprojects/build-scan-performance/'
       - 'subprojects/enterprise/'
@@ -226,7 +222,7 @@ platforms:
       - 'subprojects/testing-jvm/'
       - 'subprojects/testing-jvm-infrastructure/'
   - kotlin_dsl:
-    name: 'kotlin-dsl'
+    name: 'kotlin_dsl'
     subprojects:
       - 'build-logic/kotlin-dsl/'
       - 'subprojects/kotlin-dsl/'
@@ -236,7 +232,7 @@ platforms:
       - 'subprojects/kotlin-dsl-tooling-builders/'
       - 'subprojects/kotlin-dsl-tooling-models/'
   - release_coordination:
-    name: 'release-coordination'
+    name: 'release_coordination'
     subprojects:
       - 'subprojects/core-platform/'
       - 'subprojects/distributions-dependencies/'
@@ -295,10 +291,16 @@ teams:
       - 'tresat'
 
 changes:
-{% for platform in platforms %}
-  platform_{{ platform.name }}:
-    name: {{ platform.name }}
-    count: {{ source.diff.files | map(attr='new_file') | match(list=platform.subprojects) | length }}
-{% endfor %}
+  bt_ge_build_cache:
+    count: {{ (files | match(list=platform.bt_ge_build_cache.subprojects) | length) if (files | match(list=platform.bt_ge_build_cache.subprojects) | length) != NaN else 0 }}
+    name: {{ platform.bt_ge_build_cache.name }}
+  jvm:
+    count: {{ (files | match(list=platform.jvm.subprojects) | length) if (files | match(list=platform.jvm.subprojects) | length) != NaN else 0 }}
+    name: {{ platform.jvm.name }}
   total: {{ files | length }}
 
+changes_summary: >
+  Changed files by platform
+  Platform {{ changes.bt_ge_build_cache.name }} includes {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
+  Platform {{ changes.jvm.name }} includes {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
+  Total {{ changes.total }} files.

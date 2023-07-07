@@ -11,6 +11,7 @@ automations:
         args:
           comment: |
             This PR is {{ changes.ratio }}% new code.
+            There are {{ changes.additions }} added lines and {{ changes.deletions }} deleted lines.
 
 changes:
   # Sum all the lines added/edited in the PR
