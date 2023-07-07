@@ -292,7 +292,7 @@ teams:
 
 changes:
 {% for platform in platforms %}
-  {{ platform.name }}:
+  - {{ platform.name }}:
     count: {{ (files | match(list=platform.subprojects) | length) if (files | match(list=platform.subprojects) | length) != NaN else 0 }}
     name: {{ platform.name }}
 {% endfor %}
