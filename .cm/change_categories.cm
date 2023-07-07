@@ -291,11 +291,12 @@ teams:
       - 'tresat'
 
 changes:
-{% for platform in platforms %}
-  - {{ platform.name }}:
-    count: {{ (files | match(list=platform.subprojects) | length) if (files | match(list=platform.subprojects) | length) != NaN else 0 }}
-    name: {{ platform.name }}
-{% endfor %}
+  bt_ge_build_cache:
+    count: {{ (files | match(list=platform.bt_ge_build_cache.subprojects) | length) if (files | match(list=platform.bt_ge_build_cache.subprojects) | length) != NaN else 0 }}
+    name: {{ platform.bt_ge_build_cache.name }}
+  jvm:
+    count: {{ (files | match(list=platform.jvm.subprojects) | length) if (files | match(list=platform.jvm.subprojects) | length) != NaN else 0 }}
+    name: {{ platform.jvm.name }}
   total: {{ files | length }}
 
 changes_summary: >
