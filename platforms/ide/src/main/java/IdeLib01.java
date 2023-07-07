@@ -11,4 +11,7 @@ class IdeLib01 {
     public int someOtherLibraryMethod() {
         return 42;
     }
+    public int someOtherLibraryMethod2() {
+        return 42;
+    }
 }
