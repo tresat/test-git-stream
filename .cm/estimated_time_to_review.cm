@@ -14,19 +14,18 @@ manifest:
 # if all the conditions pass.  You can define multiple automations in a .cm file, but
 # each automation name should be unique within the file.
 
-
 automations:
 
-# Add a label that indicates how many minutes it will take to review the PR and categorizes it
-estimated_time_to_review:
-  if:
-    - {{ author.using_gitstream }}
-  run:
-    - action: add-label@v1
-      # etr is defined in the last section of this example
-      args:
-        label: "{{ calc.etr }} min review"
-        color: {{ 'E94637' if (calc.etr >= 20) else ('FBBD10' if (calc.etr >= 5) else '36A853') }}
+  # Add a label that indicates how many minutes it will take to review the PR and categorizes it
+  estimated_time_to_review:
+    if:
+      - {{ author.using_gitstream }}
+    run:
+      - action: add-label@v1
+        # etr is defined in the last section of this example
+        args:
+          label: "{{ calc.etr }} min review"
+          color: {{ 'E94637' if (calc.etr >= 20) else ('FBBD10' if (calc.etr >= 5) else '36A853') }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.

@@ -15,6 +15,7 @@ manifest:
 # each automation name should be unique within the file.
 
 automations:
+
   summary_table:
     if:
       - {{ is.requested or not pr.author_is_org_member }}

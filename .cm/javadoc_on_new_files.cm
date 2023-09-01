@@ -15,6 +15,7 @@ manifest:
 # each automation name should be unique within the file.
 
 automations:
+
   javadoc_on_new_files:
     # Triggered for new Java files that lack Javadoc content.
     if:
