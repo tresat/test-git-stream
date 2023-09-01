@@ -16,23 +16,30 @@ manifest:
 
 automations:
 
-  # If a PR is very complex, require 2 approvals
-  complex_change:
+  javadoc_on_new_files:
+    # Triggered for new Java files that lack Javadoc content.
     if:
-      - {{ author.using_gitstream }}
-      - {{ branch | estimatedReviewTime >= 40 }}
-      - {{ files | length >= 50 }}
-      - {{ includes_src_changes }}
-    run:
-      - action: set-required-approvals@v1
+      - {{ is.requested or not pr.author_is_org_member }}
+      - {{ author.using_gitstream or not pr.author_is_org_member }}
+      - {{ is.java and is.new }}
+      - {{ source.diff.files | matchDiffLines(regex=r/\/*\*([\s\S]*?)\//) | nope }}
+    run: 
+      - action: add-label@v1
         args:
-          approvals: 2
+          label: "⚠️ Missing Javadoc"
+          color: {{ colors.yellow }}
+      - action: request-changes@v1
+        args:
+          comment: | 
+            This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
 
-# To simplify the automations section, some calculations are placed under unique YAML keys defined here.
-# Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
-# This section could also appear ahead of the automations section.
+is:
+  requested: {{ (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check javadoc') | some) }}
+  java: {{ files | extensions | match(term='java') | every }}
+  new: {{ source.diff.files | map(attr='original_file') | match(regex=r/^$/) | some }}
 
-includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
+colors:
+  yellow: 'fbca04'
 
 author:
   using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
@@ -59,6 +66,6 @@ teams:
     members:
       - 'big-guy'
       - 'ghale'
-      - 'jvandort'
+      - 'jvandort-DISABLED'
       - 'octylFractal'
       - 'tresat'
