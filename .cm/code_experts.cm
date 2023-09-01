@@ -14,25 +14,27 @@ manifest:
 # if all the conditions pass.  You can define multiple automations in a .cm file, but
 # each automation name should be unique within the file.
 
-# If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
-add_primary_author_as_reviewer:
-  if:
-    - {{ is.requested or not pr.author_is_org_member }}
-    - {{ author.using_gitstream or not pr.author_is_org_member }}
-    - {{ repo | codeExperts(gt=50) | match(branch.author) | nope }}
-  run:
-    - action: add-reviewers@v1
-      args:
-        reviewers: {{ repo | codeExperts(gt=50) }}
+automations:
 
-# Also post a comment that lists the best experts for the files that were modified.
-comment_experts:
-  if:
-    - {{ author.using_gitstream }}
-  run:
-    - action: explain-code-experts@v1
-      args:
-        gt: 10
+  # If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
+  add_primary_author_as_reviewer:
+    if:
+      - {{ is.requested or not pr.author_is_org_member }}
+      - {{ author.using_gitstream or not pr.author_is_org_member }}
+      - {{ repo | codeExperts(gt=50) | match(branch.author) | nope }}
+    run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: {{ repo | codeExperts(gt=50) }}
+
+  # Also post a comment that lists the best experts for the files that were modified.
+  comment_experts:
+    if:
+      - {{ author.using_gitstream }}
+    run:
+      - action: explain-code-experts@v1
+        args:
+          gt: 10
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
