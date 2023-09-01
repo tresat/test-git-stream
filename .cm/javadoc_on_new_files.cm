@@ -33,7 +33,7 @@ automations:
             This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
 
 is:
-  requested: { { (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check javadoc') | some) } }
+  requested: {{ (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check javadoc') | some) }}
   java: {{ files | extensions | match(term='java') | every }}
   new: {{ source.diff.files | map(attr='original_file') | match(regex=r/^$/) | some }}
 
