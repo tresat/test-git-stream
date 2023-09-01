@@ -26,6 +26,10 @@ automations:
       - {{ not (is_docs_only_change) }}
       - {{ not (is_formatting_only_change) }}
     run:
+      - action: add-label@v1
+        args:
+          label: "⚠️ Lacks Tests"
+          color: { { colors.yellow } }
       - action: add-comment@v1
         args:
           comment: |
@@ -34,6 +38,9 @@ automations:
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 # This section could also appear ahead of the automations section.
+
+colors:
+  yellow: 'ffb300'
 
 includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
 includes_test_changes: {{ files | match(regex=r/.*\/(test|integTest|crossVersionTest|docsTest|smokeTest)\//) | some }}
