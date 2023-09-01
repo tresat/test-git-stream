@@ -29,17 +29,21 @@ automations:
             <tr>
             <td>Platform</td>
             <td>Added Lines</td>
+            <td>% of Total Line Changes</td>
             <td>Deleted Lines</td>
-            <td>Files</td>
-            <td>% of Total Files</td>
+            <td>% of Total Line Changes</td>
+            <td>Files Changed</td>
+            <td>% of Total Files Changed</td>
             </tr>
             {% for platform in platforms %}
             <tr>
             <td>{{ platform.name }}</td>
-            <td>{{ branch.diff.files_metadata | filter(attr='file', match(list=platform.subprojects)) | map(attr='additions') | sum }}</td>
-            <td>{{ branch.diff.files_metadata | filter(attr='file', match(list=platform.subprojects)) | map(attr='deletions') | sum }}</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum }}</td>
+            <td>{{ (branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum) / (changes.additions + changes.deletions) * 100 | round(2) }}%</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum }}</td>
+            <td>{{ (branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum) / (changes.additions + changes.deletions) * 100 | round(2) }}%</td>
             <td>{{ files | match(list=platform.subprojects) | sum }}</td>
-            <td>{{ (files | match(list=platform.subprojects) | sum) / changes.total * 100 }}%</td>
+            <td>{{ (files | match(list=platform.subprojects) | sum) / changes.total * 100 | round(2) }}%</td>
             </tr>
             {% endfor %}
             </table>
