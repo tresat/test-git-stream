@@ -15,33 +15,30 @@ manifest:
 # each automation name should be unique within the file.
 
 automations:
-
-  # If a PR contains non-trivial source changes and no tests, add a comment to the PR
-  no_tests:
+  javadoc_on_new_files:
+    # Triggered for new Java files that lack Javadoc content.
     if:
       - {{ is.requested or not pr.author_is_org_member }}
       - {{ author.using_gitstream or not pr.author_is_org_member }}
-      - {{ includes_src_changes }}
-      - {{ not (includes_test_changes) }}
-      - {{ not (is_docs_only_change) }}
-      - {{ not (is_formatting_only_change) }}
-    run:
-      - action: add-comment@v1
+      - {{ is.java and is.new }}
+      - {{ source.diff.files | matchDiffLines(regex=r/\/*\*([\s\S]*?)\//) | nope }}
+    run: 
+      - action: add-label@v1
         args:
-          comment: |
-            This PR appears to be lacking tests.  Consider adding tests to cover the new functionality.
-
-# To simplify the automations section, some calculations are placed under unique YAML keys defined here.
-# Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
-# This section could also appear ahead of the automations section.
-
-includes_src_changes: {{ files | match(regex=r/.*\/src\//) | some }}
-includes_test_changes: {{ files | match(regex=r/.*\/(test|integTest|crossVersionTest|docsTest|smokeTest)\//) | some }}
-is_docs_only_change: {{ (files | allDocs) or (files | match(regex=r/\.adoc$/) | every) }} # This won't catch a mix of .adoc and non .adoc changes, see: https://github.com/linear-b/gitstream/issues/93
-is_formatting_only_change: {{ source.diff.files | isFormattingChange }}
+          label: "⚠️ Missing Javadoc"
+          color: {{ colors.yellow }}
+      - action: request-changes@v1
+        args:
+          comment: | 
+            This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
 
 is:
-  requested: { { (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check tests') | some) } }
+  requested: { { (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check javadoc') | some) } }
+  java: {{ files | extensions | match(term='java') | every }}
+  new: {{ source.diff.files | map(attr='original_file') | match(regex=r/^$/) | some }}
+
+colors:
+  yellow: 'fbca04'
 
 author:
   using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
@@ -68,6 +65,6 @@ teams:
     members:
       - 'big-guy'
       - 'ghale'
-      - 'jvandort'
+      - 'jvandort-DISABLED'
       - 'octylFractal'
       - 'tresat'
