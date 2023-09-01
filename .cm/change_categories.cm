@@ -61,15 +61,6 @@ automations:
           label: 'build-script-change'
           color: 'E94637'
 
-  # Print a comment breaking down change % by platform
-  comment_changes_by_platform:
-    if:
-      - {{ author.using_gitstream }}
-    run:
-      - action: add-comment@v1
-        args:
-          comment: {{ changes_summary }}
-
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
@@ -130,43 +121,9 @@ platforms:
       - 'subprojects/internal-instrumentation-processor/'
       - 'subprojects/model-core/'
       - 'subprojects/model-groovy/'
-  - core:
-    name: 'core'
+  - core_execution:
+    name: 'core_execution'
     subprojects:
-      - 'subprojects/base-services/'
-      - 'subprojects/bootstrap/'
-      - 'subprojects/build-option/'
-      - 'subprojects/cli/'
-      - 'subprojects/distributions-basics/'
-      - 'subprojects/distributions-core/'
-      - 'subprojects/file-temp/'
-      - 'subprojects/file-watching/'
-      - 'subprojects/files/'
-      - 'subprojects/hashing/'
-      - 'subprojects/installation-beacon/'
-      - 'subprojects/instrumentation-agent/'
-      - 'subprojects/launcher/'
-      - 'subprojects/logging/'
-      - 'subprojects/logging-api/'
-      - 'subprojects/messaging/'
-      - 'subprojects/persistent-cache/'
-      - 'subprojects/problems/'
-      - 'subprojects/process-services/'
-      - 'subprojects/snapshots/'
-      - 'subprojects/worker-services/'
-      - 'subprojects/wrapper/'
-      - 'subprojects/wrapper-shared/'
-  - documentation:
-    name: 'documentation'
-    subprojects:
-      - 'subprojects/docs/'
-      - 'subprojects/docs-asciidoctor-extensions/'
-      - 'subprojects/docs-asciidoctor-extensions-base/'
-      - 'subprojects/samples/'
-  - execution:
-    name: 'execution'
-    subprojects:
-      - 'subprojects/base-annotations/'
       - 'subprojects/build-cache/'
       - 'subprojects/build-cache-base/'
       - 'subprojects/build-cache-http/'
@@ -181,6 +138,17 @@ platforms:
       - 'subprojects/snapshots/'
       - 'subprojects/worker-processes/'
       - 'subprojects/workers/'
+  - core_execution:
+    name: 'core_runtime'
+    subprojects:
+      - 'subprojects/installation-beacon/'
+  - documentation:
+    name: 'documentation'
+    subprojects:
+      - 'subprojects/docs/'
+      - 'subprojects/docs-asciidoctor-extensions/'
+      - 'subprojects/docs-asciidoctor-extensions-base/'
+      - 'subprojects/samples/'
   - extensibility:
     name: 'extensibility'
     subprojects:
@@ -190,11 +158,7 @@ platforms:
   - gradle_enterprise:
     name: 'gradle_enterprise'
     subprojects:
-      - 'subprojects/build-scan-performance/'
-      - 'subprojects/enterprise/'
-      - 'subprojects/enterprise-logging/'
-      - 'subprojects/enterprise-operations/'
-      - 'subprojects/enterprise-workers/'
+      - 'platforms/enterprise/'
   - ide:
     name: 'ide'
     subprojects:
@@ -224,13 +188,14 @@ platforms:
   - kotlin_dsl:
     name: 'kotlin_dsl'
     subprojects:
+      - 'platforms/core-configuration/kotlin-dsl/'
+      - 'platforms/core-configuration/kotlin-dsl-integ-tests/'
+      - 'platforms/core-configuration/kotlin-dsl-plugins/'
+      - 'platforms/core-configuration/kotlin-dsl-provider-plugins/'
+      - 'platforms/core-configuration/kotlin-dsl-tooling-builders/'
+      - 'platforms/core-configuration/kotlin-dsl-tooling-models/'
       - 'build-logic/kotlin-dsl/'
-      - 'subprojects/kotlin-dsl/'
-      - 'subprojects/kotlin-dsl-integ-tests/'
-      - 'subprojects/kotlin-dsl-plugins/'
-      - 'subprojects/kotlin-dsl-provider-plugins/'
-      - 'subprojects/kotlin-dsl-tooling-builders/'
-      - 'subprojects/kotlin-dsl-tooling-models/'
+      - 'subprojects/docs/src/snippets/kotlinDsl/'
   - release_coordination:
     name: 'release_coordination'
     subprojects:
@@ -274,9 +239,9 @@ teams:
       - 'blindpirate'
   execution:
     members:
-      - 'asodja'
-      - 'lptr'
-      - 'FrauBoes'
+      - 'asodja-DISABLED'
+      - 'lptr-DISABLED'
+      - 'FrauBoes-DISABLED'
   ide:
     members:
       - 'hegyibalint'
@@ -289,18 +254,3 @@ teams:
       - 'jvandort'
       - 'octylFractal'
       - 'tresat'
-
-changes:
-  bt_ge_build_cache:
-    count: {{ (files | match(list=platform.bt_ge_build_cache.subprojects) | length) if (files | match(list=platform.bt_ge_build_cache.subprojects) | length) != NaN else 0 }}
-    name: {{ platform.bt_ge_build_cache.name }}
-  jvm:
-    count: {{ (files | match(list=platform.jvm.subprojects) | length) if (files | match(list=platform.jvm.subprojects) | length) != NaN else 0 }}
-    name: {{ platform.jvm.name }}
-  total: {{ files | length }}
-
-changes_summary: >
-  Changed files by platform
-  Platform {{ changes.bt_ge_build_cache.name }} includes {{ changes.bt_ge_build_cache.count }} files ({{ (changes.bt_ge_build_cache.count / changes.total * 100) | round(2) }}% of the total).
-  Platform {{ changes.jvm.name }} includes {{ changes.jvm.count }} files ({{ (changes.jvm.count / changes.total * 100) | round(2) }}% of the total).
-  Total {{ changes.total }} files.

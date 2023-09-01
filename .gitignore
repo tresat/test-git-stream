@@ -19,3 +19,5 @@ gradle-app.setting
 
 # IDEA
 .idea/
+
+.DS_Store/
