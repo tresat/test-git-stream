@@ -14,9 +14,6 @@ manifest:
 # if all the conditions pass.  You can define multiple automations in a .cm file, but
 # each automation name should be unique within the file.
 
-
-ç
-
 # If someone is a primary author of the files in a change, but NOT the pr author, automatically add them as a reviewer.
 add_primary_author_as_reviewer:
   if:
