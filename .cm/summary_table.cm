@@ -26,11 +26,18 @@ automations:
           comment:
             This PR is {{ changes.ratio | round(2) }}% new code.
             There are {{ changes.additions }} added lines and {{ changes.deletions }} deleted lines.
-            | Platform | Files                                  |
-            | -------- | -------------------------------------- |
+            <table>
+            <tr>
+            <td>Platform</td>
+            <td>Files</td>
+            </tr>
             {% for platform in platforms %}
-            | {{ platform.name }} | {{ files | match(list=platform.subprojects) | sum }} |
+            <tr>
+            <td>{{ platform.name }}</td>
+            <td>{{ files | match(list=platform.subprojects) | sum }}</td>
+            </tr>
             {% endfor %}
+            </table>
 
 changes:
   # Sum all the lines added/edited in the PR
