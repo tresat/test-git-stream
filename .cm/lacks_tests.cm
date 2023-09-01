@@ -29,7 +29,7 @@ automations:
       - action: add-label@v1
         args:
           label: "⚠️ Lacks Tests"
-          color: { { colors.yellow } }
+          color: {{ colors.yellow }}
       - action: add-comment@v1
         args:
           comment: |
