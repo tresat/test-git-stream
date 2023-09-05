@@ -24,13 +24,30 @@ automations:
       - action: add-comment@v1
         args:
           comment:
+            <h3>Change Summary</h3>
             This PR is {{ changes.ratio | round(2) }}% new code.
-            There are {{ changes.additions }} added lines and {{ changes.deletions }} deleted lines.
-            | Platform | Files                                  |
-            | -------- | -------------------------------------- |
+            <table>
+            <tr>
+            <td>Platform</td>
+            <td>Added Lines</td>
+            <td>% of Total Line Changes</td>
+            <td>Deleted Lines</td>
+            <td>% of Total Line Changes</td>
+            <td>Files Changed</td>
+            <td>% of Total Files Changed</td>
+            </tr>
             {% for platform in platforms %}
-            | {{ platform.name }} | {{ files | match(list=platform.subprojects) | sum }} |
+            <tr>
+            <td>{{ platform.name }}</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
+            <td>{{ (branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) / changes.total * 100) | round(2) }}%</td>
+            </tr>
             {% endfor %}
+            </table>
 
 changes:
   # Sum all the lines added/edited in the PR
@@ -39,6 +56,8 @@ changes:
   deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
   # Calculate the ratio of new code
   ratio: {{ (changes.additions / (changes.additions + changes.deletions)) * 100 }}
+  # Total number of files changed
+  total: {{ branch.diff.files_metadata | length }}
 
 is:
   requested: {{ (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check summary') | some) }}

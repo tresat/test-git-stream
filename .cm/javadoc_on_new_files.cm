@@ -28,7 +28,7 @@ automations:
         args:
           label: "⚠️ Missing Javadoc"
           color: {{ colors.yellow }}
-      - action: request-changes@v1
+      - action: add-comment@v1
         args:
           comment: | 
             This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
@@ -39,7 +39,7 @@ is:
   new: {{ source.diff.files | map(attr='original_file') | match(regex=r/^$/) | some }}
 
 colors:
-  yellow: 'fbca04'
+  yellow: 'ffb300'
 
 author:
   using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
