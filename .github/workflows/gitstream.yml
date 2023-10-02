@@ -41,6 +41,7 @@ jobs:
           team1:
             - 'tom'
             - 'bob'
+            - 'mary'
           team2: ("bob", "mary")
         uses: linear-b/gitstream-github-action@v1
         id: rules-engine
