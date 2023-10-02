@@ -32,17 +32,11 @@ on:
 
 jobs:
   gitStream:
-    timeout-minutes: 5
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     name: gitStream workflow automation
     steps:
       - name: Evaluate Rules
-        env:
-          team1:
-            - 'tom'
-            - 'bob'
-            - 'mary'
-          team2: ("bob", "mary")
         uses: linear-b/gitstream-github-action@v1
         id: rules-engine
         with:
