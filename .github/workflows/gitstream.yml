@@ -37,6 +37,11 @@ jobs:
     name: gitStream workflow automation
     steps:
       - name: Evaluate Rules
+        env:
+          team1:
+            - 'tom'
+            - 'bob'
+          team2: ("bob", "mary")
         uses: linear-b/gitstream-github-action@v1
         id: rules-engine
         with:
