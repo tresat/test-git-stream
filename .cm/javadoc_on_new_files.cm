@@ -23,14 +23,14 @@ automations:
       - {{ author.using_gitstream or not pr.author_is_org_member }}
       - {{ is.java and is.new }}
       - {{ source.diff.files | matchDiffLines(regex=r/\/*\*([\s\S]*?)\//) | nope }}
-    run: 
+    run:
       - action: add-label@v1
         args:
           label: "⚠️ Missing Javadoc"
           color: {{ colors.yellow }}
       - action: add-comment@v1
         args:
-          comment: | 
+          comment: |
             This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
 
 is:
@@ -42,13 +42,15 @@ colors:
   yellow: 'ffb300'
 
 author:
-  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
+  using_gitstream: {{ (pr.author | match(list=teams.build_scan.members) | some) or (pr.author | match(list=teams.configuration.members) | some) or (pr.author | match(list=teams.dev_prod.members) | some) or (pr.author | match(list=teams.execution.members) | some) or (pr.author | match(list=teams.ide.members) | some) or (pr.author | match(list=teams.jvm.members) | some) }}
 
 teams:
   build_scan:
     members:
-      - 'alllex'
       - 'wolfs'
+  configuration:
+    members:
+      - 'alllex'
   dev_prod:
     members:
       - 'blindpirate'

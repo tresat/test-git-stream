@@ -20,4 +20,5 @@ gradle-app.setting
 # IDEA
 .idea/
 
-.DS_Store/
+.DS_Store
+.cm/DS_Store
