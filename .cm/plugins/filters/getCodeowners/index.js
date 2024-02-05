@@ -84,6 +84,7 @@ const myFilter = async (files, pr, token, callback) => {
     const message = { text: "Hello ${files}!" };
     const error = null;
     console.log(message)
+    console.log(token)
     return callback(error, message.text);
 };
 
