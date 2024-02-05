@@ -56,26 +56,38 @@
 //     return match.owners;
 // }
 
+// module.exports = {
+//     async: true,
+//     filter: async (files, pr, token, callback) => {
+//         console.log("TESTING ASYNCHRONOUS FILTERS")
+//
+//         // const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
+//         // console.log("Done fileData")
+//         // console.log("fileData", fileData)
+//         // const mapping = codeownersMapping(fileData);
+//         // console.log("Done codeownersMapping")
+//         // console.log("codeownersMapping", mapping)
+//         //
+//         // const resolved = files
+//         //     .map(f => resolveCodeowner(mapping, f))
+//         //     .flat()
+//         //     .filter(i => typeof i === 'string')
+//         //     .map(u => u.replace(/^@/, ""));
+//         //
+//         // const unique = [...new Set(resolved)];
+//
+//         return callback(null, ["heyo"]);
+//     },
+// }
+
+const myFilter = async (files, pr, token, callback) => {
+    const message = { text: "Hello ${author}!" };
+    const error = null;
+    console.log(message)
+    return callback(error, message.text);
+};
+
 module.exports = {
     async: true,
-    filter: async (files, pr, token, callback) => {
-        console.log("TESTING ASYNCHRONOUS FILTERS")
-
-        // const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
-        // console.log("Done fileData")
-        // console.log("fileData", fileData)
-        // const mapping = codeownersMapping(fileData);
-        // console.log("Done codeownersMapping")
-        // console.log("codeownersMapping", mapping)
-        //
-        // const resolved = files
-        //     .map(f => resolveCodeowner(mapping, f))
-        //     .flat()
-        //     .filter(i => typeof i === 'string')
-        //     .map(u => u.replace(/^@/, ""));
-        //
-        // const unique = [...new Set(resolved)];
-
-        return callback(null, ["heyo"]);
-    },
+    filter: myFilter
 }
