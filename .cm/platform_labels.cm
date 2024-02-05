@@ -43,7 +43,7 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: 'Owned by: ' + {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN) }}
+          label: 'Owned by: ' + {{ files | codeowners(pr, env.REPO_READ_TOKEN) }}
 
   # Call out PRs that change the build script (and will be longer to checkout and review)
   label_build_script_change:
@@ -73,8 +73,6 @@ build_logic_files:
   - 'build.gradle'
   - 'settings.gradle.kts'
   - 'settings.gradle'
-
-
 
 author:
   using_gitstream: {{ (pr.author | isEnabledUser ) }}
