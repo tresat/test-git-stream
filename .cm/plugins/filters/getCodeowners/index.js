@@ -59,21 +59,23 @@ function resolveCodeowner(mapping, file) {
 module.exports = {
     async: true,
     filter: async (files, pr, token, callback) => {
-        const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
-        console.log("Done fileData")
-        console.log("fileData", fileData)
-        const mapping = codeownersMapping(fileData);
-        console.log("Done codeownersMapping")
-        console.log("codeownersMapping", mapping)
+        console.log("TESTING ASYNCHRONOUS FILTERS")
 
-        const resolved = files
-            .map(f => resolveCodeowner(mapping, f))
-            .flat()
-            .filter(i => typeof i === 'string')
-            .map(u => u.replace(/^@/, ""));
+        // const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
+        // console.log("Done fileData")
+        // console.log("fileData", fileData)
+        // const mapping = codeownersMapping(fileData);
+        // console.log("Done codeownersMapping")
+        // console.log("codeownersMapping", mapping)
+        //
+        // const resolved = files
+        //     .map(f => resolveCodeowner(mapping, f))
+        //     .flat()
+        //     .filter(i => typeof i === 'string')
+        //     .map(u => u.replace(/^@/, ""));
+        //
+        // const unique = [...new Set(resolved)];
 
-        const unique = [...new Set(resolved)];
-
-        return callback(null, unique);
+        return callback(null, ["heyo"]);
     },
 }
