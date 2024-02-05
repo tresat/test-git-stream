@@ -24,4 +24,4 @@ automations:
         args:
           label: 'hey there'
 
-owners: {{ files | codeowners(pr, env.CODEOWNERS) }}
+owners: {{ files | getCodeowners(pr, env.CODEOWNERS) }}
