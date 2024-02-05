@@ -19,11 +19,13 @@ async function loadCodeownersFile(owner, repo, auth) {
         auth,
     });
 
+    console.log("ahead of getContent")
     const res = await octokit.repos.getContent({
         owner,
         repo,
         path: 'CODEOWNERS'
     });
+    console.log("Done getContent")
 
     return Buffer.from(res.data.content, 'base64').toString()
 }
