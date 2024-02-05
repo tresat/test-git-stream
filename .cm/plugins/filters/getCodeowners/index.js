@@ -10,51 +10,51 @@
  **/
 
 
-const { Octokit } = require("@octokit/rest");
-const ignore = require('./ignore/index.js');
-
-async function loadCodeownersFile(owner, repo, auth) {
-    const octokit = new Octokit({
-        request: { fetch },
-        auth,
-    });
-
-    console.log("ahead of getContent")
-    const res = await octokit.repos.getContent({
-        owner,
-        repo,
-        path: 'CODEOWNERS'
-    });
-    console.log("Done getContent")
-
-    return Buffer.from(res.data.content, 'base64').toString()
-}
-
-function codeownersMapping(data) {
-    return data
-        .toString()
-        .split('\n')
-        .filter(x => x && !x.startsWith('#'))
-        .map(x => x.split("#")[0])
-        .map(x => {
-            const line = x.trim();
-            const [path, ...owners] = line.split(/\s+/);
-            return {path, owners};
-        });
-}
-
-function resolveCodeowner(mapping, file) {
-    const match = mapping
-        .slice()
-        .reverse()
-        .find(x =>
-            ignore()
-                .add(x.path)
-                .ignores(file)
-        );
-    if (!match) return false;
-    return match.owners;
-}
+// const { Octokit } = require("@octokit/rest");
+// const ignore = require('./ignore/index.js');
+//
+// async function loadCodeownersFile(owner, repo, auth) {
+//     const octokit = new Octokit({
+//         request: { fetch },
+//         auth,
+//     });
+//
+//     console.log("ahead of getContent")
+//     const res = await octokit.repos.getContent({
+//         owner,
+//         repo,
+//         path: 'CODEOWNERS'
+//     });
+//     console.log("Done getContent")
+//
+//     return Buffer.from(res.data.content, 'base64').toString()
+// }
+//
+// function codeownersMapping(data) {
+//     return data
+//         .toString()
+//         .split('\n')
+//         .filter(x => x && !x.startsWith('#'))
+//         .map(x => x.split("#")[0])
+//         .map(x => {
+//             const line = x.trim();
+//             const [path, ...owners] = line.split(/\s+/);
+//             return {path, owners};
+//         });
+// }
+//
+// function resolveCodeowner(mapping, file) {
+//     const match = mapping
+//         .slice()
+//         .reverse()
+//         .find(x =>
+//             ignore()
+//                 .add(x.path)
+//                 .ignores(file)
+//         );
+//     if (!match) return false;
+//     return match.owners;
+// }
 
 module.exports = {
     async: true,
