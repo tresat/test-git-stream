@@ -22,4 +22,4 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: 'Owned by: ' | {{ files | getCodeowners(pr, env.REPO_READ_TOKEN) }}
+          label: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN) }}
