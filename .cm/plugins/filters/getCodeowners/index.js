@@ -58,7 +58,11 @@ module.exports = {
     async: true,
     filter: async (files, pr, token, callback) => {
         const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
+        console.log("Done fileData")
+        console.log("fileData", fileData)
         const mapping = codeownersMapping(fileData);
+        console.log("Done codeownersMapping")
+        console.log("codeownersMapping", mapping)
 
         const resolved = files
             .map(f => resolveCodeowner(mapping, f))
