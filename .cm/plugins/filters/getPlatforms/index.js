@@ -135,12 +135,11 @@ function getPlatforms(fileMetadatas) {
 
     // There is no javascript filtering of maps, so we have to convert to an array, filter, and then convert back to a map
     let result = new Map(
-        [...filesByPlatform]
-            .filter(([platform, files]) => files.length > 0 )
+        [...filesByPlatform].filter(([platform, files]) => files.length > 0 )
     );
 
     console.log("Result: " + result);
-    return result;
+    return [result];
 }
 
 module.exports = getPlatforms;

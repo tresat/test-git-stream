@@ -23,13 +23,9 @@ automations:
       - action: add-comment@v1
         args:
           comment:
-            <h3>Change Summary</h3>
-            {% for name, files in platforms %}
-            <tr>
-            <td>{{ name }}</td>
-            <td>{{ files }}</td>
-            </tr>
+            <h3> Changes by Platform </h3>
+            {% for platform, included in platforms %}
+            Did you know that {{ platform }} contains {{ included }}?
             {% endfor %}
-
 
 platforms: {{ branch.diff.files_metadata | getPlatforms }}
