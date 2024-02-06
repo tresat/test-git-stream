@@ -68,6 +68,7 @@ module.exports = {
         const resolved2 = files
             .reduce((map, f) => {
                 const owner = resolveCodeowner(mapping, f)
+                console.log("Mapped: " + f + " -> " + owner)
 
                 if (!map[owner]) {
                     map[owner] = [];
