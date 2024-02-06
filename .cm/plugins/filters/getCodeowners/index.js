@@ -66,7 +66,7 @@ module.exports = {
             .map(u => u.replace(/^@gradle\//, ""));
 
         // Remember, this is an object, not a map, which might be why its iterable easily
-        const resolved2 = files
+        const result = files
             .reduce((map, f) => {
                 const owner = resolveCodeowner(mapping, f)
                 console.log("Mapped: " + f + " -> " + owner)
@@ -78,12 +78,11 @@ module.exports = {
                 map[owner].push(f);
 
                 return map;
-            }, {});
-        console.log("Resolved2 : " + resolved2);
+            }, new Map());
 
-        const unique = [resolved2];
-
-        return callback(null, resolved2);
+        console.log("Result keys: " + result.keys());
+        console.log("Result values: " + result.values());
+        return callback(null, result);
     },
 }
 

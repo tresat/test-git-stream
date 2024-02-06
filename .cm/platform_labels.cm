@@ -24,8 +24,8 @@ automations:
         args:
           comment:
             <h3> Owners of the Changes </h3>
-            {% for owner in owners %}
-            
+            {% for owner, included in owners %}
+            {{ owner }} contains {{ included }}
             {% endfor %}
 
 owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}

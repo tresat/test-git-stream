@@ -25,7 +25,7 @@ automations:
           comment:
             <h3> Changes by Platform </h3>
             {% for platform, included in platforms %}
-            Did you know that {{ platform }} contains {{ included }}?
+            {{ platform }} contains {{ included }}
             {% endfor %}
 
 platforms: {{ branch.diff.files_metadata | getPlatforms }}

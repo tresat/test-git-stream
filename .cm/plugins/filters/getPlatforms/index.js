@@ -138,8 +138,9 @@ function getPlatforms(fileMetadatas) {
         [...filesByPlatform].filter(([platform, files]) => files.length > 0 )
     );
 
-    console.log("Result: " + result);
-    return [result];
+    console.log("Result keys: " + result.keys());
+    console.log("Result values: " + result.values());
+    return result;
 }
 
 module.exports = getPlatforms;
