@@ -65,7 +65,7 @@ module.exports = {
             .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""))
 
-        const unique = [...new Set(resolved)];
+        const unique = [mapping];
 
         return callback(null, unique);
     },
