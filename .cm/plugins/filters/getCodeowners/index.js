@@ -79,7 +79,7 @@ module.exports = {
             }, {});
         console.log("Resolved2 : " + resolved2);
 
-        const unique = [...new Set(resolved2)];
+        const unique = [...resolved2];
 
         return callback(null, unique);
     },
