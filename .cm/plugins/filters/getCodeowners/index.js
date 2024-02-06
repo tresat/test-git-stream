@@ -63,7 +63,7 @@ module.exports = {
             .flat()
             .filter(i => typeof i === 'string')
             .filter(i => i.startsWith('@gradle'))
-            .map(u => u.replace(/^@gradle\//, ""))
+            .map(u => u.replace(/^@gradle\//, ""));
 
         const resolved2 = files
             .reduce((map, f) => {
