@@ -128,10 +128,8 @@ function getPlatforms(fileMetadata) {
         console.log("Mapping: " + f.file);
 
         Object.values(platforms).forEach(platform => {
-            if (platform.subprojects.some(subproject => f.file.includes(subproject))) {
                 console.log("Mapped: " + f.file + " -> " + platform.name);
                 byPlatform[platform.name].push(f.file);
-            }
         });
     });
 
