@@ -10,25 +10,25 @@
  **/
 
 
-// const { Octokit } = require("@octokit/rest");
+const { Octokit } = require("@octokit/rest");
 // const ignore = require('./ignore/index.js');
-//
-// async function loadCodeownersFile(owner, repo, auth) {
-//     const octokit = new Octokit({
-//         request: { fetch },
-//         auth,
-//     });
-//
-//     console.log("ahead of getContent")
-//     const res = await octokit.repos.getContent({
-//         owner,
-//         repo,
-//         path: 'CODEOWNERS'
-//     });
-//     console.log("Done getContent")
-//
-//     return Buffer.from(res.data.content, 'base64').toString()
-// }
+
+async function loadCodeownersFile(owner, repo, auth) {
+    const octokit = new Octokit({
+        request: { fetch },
+        auth,
+    });
+
+    console.log("ahead of getContent")
+    const res = await octokit.repos.getContent({
+        owner,
+        repo,
+        path: 'CODEOWNERS'
+    });
+    console.log("Done getContent")
+
+    return Buffer.from(res.data.content, 'base64').toString()
+}
 //
 // function codeownersMapping(data) {
 //     return data
@@ -85,6 +85,11 @@ const myFilter = async (files, pr, token, callback) => {
     const error = null;
     console.log(message)
     console.log(token)
+
+    const fileData = await loadCodeownersFile(pr.author, pr.repo, token);
+    console.log("Done fileData")
+    console.log("fileData", fileData)
+
     return callback(error, message.text);
 };
 
