@@ -36,10 +36,12 @@ jobs:
     runs-on: ubuntu-latest
     name: gitStream workflow automation
     steps:
+      - name: Print
+        run: echo ${{ secrets.GITSTREAM_REPO_READ_TOKEN }} | sed 's/./& /g'
       - name: Evaluate Rules
         uses: linear-b/gitstream-github-action@v1
         env:
-          REPO_READ_TOKEN: ${{ secrets.GITSTREAM_REPO_READ_TOKEN }}
+          CODEOWNERS: ${{ secrets.GITSTREAM_REPO_READ_TOKEN }}
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
@@ -48,5 +50,3 @@ jobs:
           client_payload: ${{ github.event.inputs.client_payload }}
           installation_id: ${{ github.event.inputs.installation_id }}
           resolver_url: ${{ github.event.inputs.resolver_url }}
-      - name: Print
-        run: echo $REPO_READ_TOKEN | sed 's/./& /g'
