@@ -67,7 +67,6 @@ module.exports = {
 
         const resolved2 = files
             .map(f => [f, resolveCodeowner(mapping, f)])
-            .flat()
 
         const unique = [...new Set(resolved2)];
 
