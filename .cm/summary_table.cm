@@ -25,13 +25,9 @@ automations:
           comment: {{ platforms }
             {% for platform in platforms %}
             <tr>
-            <td>{ { platform.name } }</td>
-            <td>{ { branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum } }</td>
-            <td>{ { ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) } }%</td>
-            <td>{ { branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum } }</td>
-            <td>{ { ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) } }%</td>
-            <td>{ { (branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) } }</td>
-            <td>{ { ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) / changes.total * 100) | round(2) } }%</td>
+            <td>{{ platform.name }}</td>
+            <td>{{ platform.files | map(attr='additions') | sum } }</td>
+            
             </tr>
             {% endfor %}
 
