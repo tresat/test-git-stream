@@ -112,7 +112,7 @@ const platforms = {
  */
 
 function getPlatforms(fileMetadata) {
-    return Object.values(platforms).reduce((map, platform) => {
+    let byPlatform = Object.values(platforms).reduce((map, platform) => {
         console.log("Mapping: " + platform.name);
 
         if (!map[platform.name]) {
@@ -123,6 +123,19 @@ function getPlatforms(fileMetadata) {
 
         return map;
     }, {});
+
+    Object.values(fileMetadata).forEach(f => {
+        console.log("Mapping: " + f.file);
+
+        Object.values(platforms).forEach(platform => {
+            if (platform.subprojects.some(subproject => f.file.includes(subproject))) {
+                console.log("Mapped: " + f.file + " -> " + platform.name);
+                byPlatform[platform.name].push(f.file);
+            }
+        });
+    });
+
+    return map;
 }
 
 module.exports = getPlatforms;
