@@ -66,7 +66,15 @@ module.exports = {
             .map(u => u.replace(/^@gradle\//, ""))
 
         const resolved2 = files
-            .map(f => [f, resolveCodeowner(mapping, f)])
+            .reduce((map, f) => {
+                const owner = resolveCodeowner(mapping, f)
+
+                if (!map[owner]) {
+                    map[owner] = [];
+                }
+
+                map[owner].push(f);
+            }, {});
         console.log("Resolved2 : " + resolved2);
 
         const unique = [...resolved2];
