@@ -127,7 +127,11 @@ function getPlatforms(fileMetadatas) {
         });
     });
 
-    return filesByPlatform.filter(platform => platform.files.length > 0);
+    // There is no javascript filtering of maps, so we have to convert to an array, filter, and then convert back to a map
+    return new Map(
+        [...map0]
+            .filter(([platform, files]) => files.length > 0 )
+    );
 }
 
 module.exports = getPlatforms;
