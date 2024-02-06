@@ -106,34 +106,28 @@ const platforms = {
 /**
  * @module getPlatforms
  * @description Returns a mapping of platforms to the information about the files involved in the PR contained in each platform
- * @param {FileMetadata} fileMetadata - gitStream's list of changes files including path and other context
- * @returns {Map} Returns a mapping of platforms to the given files in that platform
+ * @param {[FileMetadata]} fileMetadata - gitStream's list of metadata about file changes in the PR including path
+ * @returns {[Object]} Returns a list of objects for each platform containing info about the changes to files in that platform
  * @example {{ branch.diff.files_metadata | getPlatforms }}
  */
 
 function getPlatforms(fileMetadata) {
     let byPlatform = Object.values(platforms).reduce((map, platform) => {
-        console.log("Mapping: " + platform.name);
-
-        if (!map[platform.name]) {
-            map[platform.name] = [];
-        }
-
-        console.log("Map: " + map);
-
+        map[platform.name] = [];
         return map;
     }, {});
 
     Object.values(fileMetadata).forEach(f => {
-        console.log("Mapping: " + f.file);
-
-        Object.values(platforms).forEach(platform => {
+        Object.values(platforms).every(platform => {
+            if (platform.subprojects.some(subproject => f.file.includes(subproject))) {
                 console.log("Mapped: " + f.file + " -> " + platform.name);
                 byPlatform[platform.name].push(f.file);
+                return false // break
+            }
         });
     });
 
-    return byPlatform;
+    return byPlatform.filter(p => p.files.length > 0);
 }
 
 module.exports = getPlatforms;
