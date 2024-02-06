@@ -23,11 +23,10 @@ automations:
       - action: add-comment@v1
         args:
           comment: {{ platforms }
-            {% for platform in platforms %}
+            {% for name, files in platforms %}
             <tr>
-            <td>{{ platform.name }}</td>
-            <td>{{ platform.files }}</td>
-            
+            <td>{{ name }}</td>
+            <td>{{ files }}</td>
             </tr>
             {% endfor %}
 
