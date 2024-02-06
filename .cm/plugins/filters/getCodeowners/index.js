@@ -80,8 +80,10 @@ module.exports = {
                 return map;
             }, new Map());
 
-        console.log("Result keys: " + result.keys());
-        console.log("Result values: " + result.values());
+        console.log("Result keys: ");
+        result.keys().forEach(key => console.log(key));
+        console.log("Result values: ");
+        result.values().forEach(value => console.log(value));
         return callback(null, result);
     },
 }
