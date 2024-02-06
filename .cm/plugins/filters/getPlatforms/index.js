@@ -112,12 +112,11 @@ const platforms = {
  */
 
 function getPlatforms(fileMetadata) {
-    return Object.entries(platforms).reduce((map, [platform, { subprojects }]) => {
-        const files = fileMetadata.filter(({ path }) =>
-            subprojects.some(subproject => path.includes(subproject))
-        );
-        if (files.length > 0) {
-            map[platform] = files;
+    return Object.values(platforms).reduce((map, platform) => {
+        console.log("Mapping: " + platform.name);
+
+        if (!map[platform.name]) {
+            map[platform.name] = [];
         }
 
         console.log("Map: " + map);
