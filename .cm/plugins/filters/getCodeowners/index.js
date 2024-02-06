@@ -39,7 +39,7 @@ function codeownersMapping(data) {
         });
 }
 
-function resolveCodeowner(mapping, file) {
+function resolveCodeowners(mapping, file) {
     const match = mapping
         .slice()
         .reverse()
@@ -48,7 +48,7 @@ function resolveCodeowner(mapping, file) {
                 .add(x.path)
                 .ignores(file)
         );
-    if (!match) return false;
+    if (!match) throw new Error("No codeowner found for ${file}");
     return match.owners;
 }
 
@@ -59,31 +59,31 @@ module.exports = {
         const mapping = codeownersMapping(fileData);
 
         const resolved = files
-            .map(f => resolveCodeowner(mapping, f))
+            .map(f => resolveCodeowners(mapping, f))
             .flat()
             .filter(i => typeof i === 'string')
             .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""));
 
-        // Remember, this is an object, not a map, which might be why its iterable easily
         const result = files
             .reduce((map, f) => {
-                const owner = resolveCodeowner(mapping, f)
-                console.log("Mapped: " + f + " -> " + owner)
+                const owners = resolveCodeowners(mapping, f)
 
-                if (!map[owner]) {
-                    map[owner] = [];
-                }
-
-                map[owner].push(f);
+                owners.forEach(owner => {
+                    console.log("Mapped: " + f + " -> " + owner)
+                    if (!map[owner]) {
+                        map[owner] = [];
+                    }
+                    map[owner].push(f);
+                });
 
                 return map;
             }, new Map());
 
         console.log("Result keys: ");
-        result.keys().forEach(key => console.log(key));
+        console.log([...result.keys()]);
         console.log("Result values: ");
-        result.values().forEach(value => console.log(value));
+        console.log([...result.values()]);
         return callback(null, result);
     },
 }

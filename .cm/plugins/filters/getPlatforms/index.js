@@ -139,9 +139,9 @@ function getPlatforms(fileMetadatas) {
     );
 
     console.log("Result keys: ");
-    result.keys().forEach(key => console.log(key));
+    console.log([...result.keys()]);
     console.log("Result values: ");
-    result.values().forEach(value => console.log(value));
+    console.log([...result.values()]);
     return result;
 }
 
