@@ -74,6 +74,8 @@ module.exports = {
                 }
 
                 map[owner].push(f);
+
+                return map;
             }, {});
         console.log("Resolved2 : " + resolved2);
 
