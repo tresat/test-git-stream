@@ -22,6 +22,6 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: 'hey there'
+          label: 'Here are the owners: ' + {{ owners }}
 
-owners: {{ files | getCodeowners(pr, env.CODEOWNERS) }}
+owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}
