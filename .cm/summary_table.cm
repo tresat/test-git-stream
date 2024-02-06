@@ -26,7 +26,7 @@ automations:
             {% for platform in platforms %}
             <tr>
             <td>{{ platform.name }}</td>
-            <td>{{ platform.files | map(attr='additions') | sum } }</td>
+            <td>{{ platform.files }}</td>
             
             </tr>
             {% endfor %}
