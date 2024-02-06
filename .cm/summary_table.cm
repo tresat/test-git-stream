@@ -22,7 +22,8 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment: {{ platforms }
+          comment:
+            <h3>Change Summary</h3>
             {% for name, files in platforms %}
             <tr>
             <td>{{ name }}</td>
