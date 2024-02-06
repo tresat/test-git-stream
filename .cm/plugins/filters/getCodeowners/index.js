@@ -65,7 +65,11 @@ module.exports = {
             .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""))
 
-        const unique = [mapping];
+        const resolved2 = files
+            .map(f => [f, resolveCodeowner(mapping, f)])
+            .flat()
+
+        const unique = [...new Set(resolved2)];
 
         return callback(null, unique);
     },
