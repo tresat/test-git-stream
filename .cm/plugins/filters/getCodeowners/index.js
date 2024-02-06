@@ -62,10 +62,30 @@ module.exports = {
             .map(f => resolveCodeowner(mapping, f))
             .flat()
             .filter(i => typeof i === 'string')
-            .map(u => u.replace(/^@/, ""));
+            .filter(i => i.startsWith('@gradle'))
+            .map(u => u.replace(/^@gradle\//, ""))
 
         const unique = [...new Set(resolved)];
 
         return callback(null, unique);
     },
+}
+
+const ownersToAdditionalLabels = {
+    'bt-architecture-council': [],
+    'bt-build-scan': [],
+    'bt-configuration': [],
+    'bt-core-runtime-maintainers': [],
+    'bt-developer-productivity': [],
+    'bt-devrel-education': [],
+    'bt-execution': [],
+    'bt-extensibility-maintainers': [],
+    'bt-ge-build-cache': [],
+    'bt-jvm': [],
+    'bt-kotlin-dsl-maintainers': [],
+    'bt-ide-experience': [],
+    'bt-native-maintainers': [],
+    'bt-support': [],
+    'ge-build-insights': [],
+    'ge-testing': []
 }
