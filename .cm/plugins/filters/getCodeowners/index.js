@@ -65,6 +65,7 @@ module.exports = {
             .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""));
 
+        // Remember, this is an object, not a map, which might be why its iterable easily
         const resolved2 = files
             .reduce((map, f) => {
                 const owner = resolveCodeowner(mapping, f)
@@ -82,7 +83,7 @@ module.exports = {
 
         const unique = [resolved2];
 
-        return callback(null, unique);
+        return callback(null, resolved2);
     },
 }
 
