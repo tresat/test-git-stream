@@ -20,8 +20,8 @@ automations:
     if:
       - {{ true }}
     run:
-      - action: add-label@v1
+      - action: add-comment@v1
         args:
-          label: 'Here are the owners: ' + {{ owners }}
+          comment: {{ owners }}
 
 owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}
