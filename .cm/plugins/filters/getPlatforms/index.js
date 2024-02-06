@@ -126,4 +126,4 @@ function getPlatforms(fileMetadata) {
     }, {});
 }
 
-module.exports = isEnabledUser;
+module.exports = getPlatforms;
