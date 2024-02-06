@@ -117,13 +117,13 @@ function getPlatforms(fileMetadatas) {
         return map;
     }, new Map());
 
-    Object.values(fileMetadatas).some(fileMetadata => {
-        console.log("Check file: " + fileMetadata.file);
+    Object.values(fileMetadatas).forEach(fileMetadata => {
+        //console.log("Check file: " + fileMetadata.file);
         return Object.values(platforms).some(platform => {
-            console.log("Check platform: " + platform.name);
+            //console.log("Check platform: " + platform.name);
 
             return platform.subprojects.some(subproject => {
-                console.log("Check sub: " + subproject);
+                //console.log("Check sub: " + subproject);
                 if (fileMetadata.file.startsWith(subproject)) {
                     filesByPlatform[platform.name].push(fileMetadata.file);
                     console.log("Mapped: " + fileMetadata.file + " -> " + platform.name);
