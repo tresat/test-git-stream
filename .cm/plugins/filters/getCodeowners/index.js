@@ -19,7 +19,7 @@ async function loadCodeownersFile(owner, repo, auth) {
         auth,
     });
 
-    console.log("ahead of getContent")
+    console.log("ahead of getContent, token: " + auth)
     const res = await octokit.repos.getContent({
         owner,
         repo,
