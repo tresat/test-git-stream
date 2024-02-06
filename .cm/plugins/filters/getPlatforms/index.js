@@ -118,26 +118,29 @@ function getPlatforms(fileMetadatas) {
     }, new Map());
 
     Object.values(fileMetadatas).forEach(fileMetadata => {
+        console.log("Mapping: " + fileMetadata.file);
         Object.values(platforms).every(platform => {
-            console.log("Mapping: " + fileMetadata.file + " -> " + platform.name);
+            console.log("Check platform: " + platform.name);
 
             platform.subprojects.every(subproject => {
                 console.log("Check sub: " + subproject);
+                if (fileMetadata.file.startsWith(subproject)) {
+                    filesByPlatform[platform.name].push(fileMetadata.file);
+                    console.log("Mapped: " + fileMetadata.file + " -> " + platform.name);
+                    return false; // break
+                }
             });
-
-            if (platform.subprojects.some(subproject => fileMetadata.file.includes(subproject))) {
-                console.log("Mapped: " + fileMetadata.file + " -> " + platform.name);
-                filesByPlatform[platform.name].push(fileMetadata.file);
-                return false; // break
-            }
         });
     });
 
     // There is no javascript filtering of maps, so we have to convert to an array, filter, and then convert back to a map
-    return new Map(
+    let result = new Map(
         [...filesByPlatform]
             .filter(([platform, files]) => files.length > 0 )
     );
+
+    console.log("Result: " + result);
+    return result;
 }
 
 module.exports = getPlatforms;
