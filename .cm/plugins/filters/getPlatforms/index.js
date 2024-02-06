@@ -135,7 +135,7 @@ function getPlatforms(fileMetadata) {
         });
     });
 
-    return map;
+    return byPlatform;
 }
 
 module.exports = getPlatforms;
