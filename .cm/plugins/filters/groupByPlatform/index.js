@@ -116,7 +116,10 @@ const platforms = {
 function groupByPlatform(fileMetadatas) {
     const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
-        map.set(platform.name, { files: [] });
+        map.set(platform.name, {
+            name: platform.name,
+            files: []
+        });
         return map;
     }, filesByPlatform);
 
@@ -138,7 +141,7 @@ function groupByPlatform(fileMetadatas) {
     console.log("Result values: ");
     console.log([...result.values()]);
 
-    return result;
+    return [...result.values()];
 }
 
 module.exports = groupByPlatform;
