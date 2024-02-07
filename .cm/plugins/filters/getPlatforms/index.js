@@ -1,3 +1,6 @@
+
+const summarize = require('./summarizeFileStatistics/index.js');
+
 const platforms = {
     bt_ge_build_cache: {
         name: 'bt_ge_build_cache',
@@ -139,6 +142,9 @@ function getPlatforms(fileMetadatas) {
         [...filesByPlatform].filter(([platform, files]) => files.length > 0 )
     );
 
+    console.log("Before summarize: ");
+    summarize(result);
+    
     console.log("Result keys: ");
     console.log([...result.keys()]);
     console.log("Result values: ");
