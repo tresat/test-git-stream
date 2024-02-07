@@ -112,7 +112,7 @@ const platforms = {
  */
 
 function getPlatforms(fileMetadatas) {
-    let filesByPlatform = new Map()
+    const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
         map.set(platform.name, []);
         return map;
@@ -126,7 +126,7 @@ function getPlatforms(fileMetadatas) {
             return platform.subprojects.some(subproject => {
                 //console.log("Check sub: " + subproject);
                 if (fileMetadata.file.startsWith(subproject)) {
-                    filesByPlatform[platform.name].push(fileMetadata.file);
+                    filesByPlatform.get(platform.name).push(fileMetadata.file);
                     console.log("Mapped: " + fileMetadata.file + " -> " + platform.name);
                     return true; // break
                 }

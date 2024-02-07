@@ -74,7 +74,7 @@ module.exports = {
                 if (!map[owner]) {
                     map.set(owner, []);
                 }
-                map[owner].push(f);
+                map.get(owner).push(f);
             });
 
             return map;
