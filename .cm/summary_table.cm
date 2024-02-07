@@ -22,10 +22,6 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment:
-            <h3> Changes by Platform </h3>
-            {% for summary in summaries %}
-            {{ summary | map(attr='name') }} contains {{ summary | map(attr='files') }} files
-            {% endfor %}
+          comment: {{ summaries }}
 
 summaries: {{ branch.diff.files_metadata | groupByPlatform }}
