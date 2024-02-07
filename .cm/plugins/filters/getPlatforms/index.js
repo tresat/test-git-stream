@@ -1,4 +1,4 @@
-const summarize = require('../summarizeFileStatistics/index');
+const summarize = require('../summarizeFileStatistics/index.js');
 
 const platforms = {
     bt_ge_build_cache: {
