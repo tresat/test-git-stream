@@ -11,17 +11,11 @@ function changeStatistics(groupedFiles, fileMetadatas) {
     let totalDeletions = 0
     let totalChangedFiles = 0;
 
-    console.log("Iteration 1");
-    const filtered = new Map(
-        [...groupedFiles].filter(([, summary]) => summary.files.length > 0 )
-    );
-
-    console.log("Iteration 1.5");
     let result = new Map(
-        [...filtered].sort(([, summary]) => summary.files.length )
+        [...groupedFiles].filter(([, summary]) => summary.files.length > 0 )
+            .sort(([, summary]) => summary.files.length)
     );
 
-    console.log("Iteration 2");
     [...result.values()].forEach(summary => {
         summary.additions = 0;
         summary.deletions = 0;
@@ -36,7 +30,6 @@ function changeStatistics(groupedFiles, fileMetadatas) {
         });
     });
 
-    console.log("Iteration 3");
     [...result.values()].forEach(summary => {
         summary.additionPercent = Math.round(summary.additions / (totalAdditions + totalDeletions) * 100, 2);
         summary.deletionPercent = Math.round(summary.deletions / (totalAdditions + totalDeletions) * 100, 2);

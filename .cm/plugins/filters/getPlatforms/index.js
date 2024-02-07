@@ -117,26 +117,21 @@ const platforms = {
 function getPlatforms(fileMetadatas) {
     const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
-        map.set(platform.name, []);
+        map.set(platform.name, { files: [] });
         return map;
     }, filesByPlatform);
 
     Object.values(fileMetadatas).forEach(fileMetadata => {
-        //console.log("Check file: " + fileMetadata.file);
         return Object.values(platforms).some(platform => {
-            //console.log("Check platform: " + platform.name);
-
             return platform.subprojects.some(subproject => {
-                //console.log("Check sub: " + subproject);
                 if (fileMetadata.file.startsWith(subproject)) {
-                    filesByPlatform.get(platform.name).push(fileMetadata.file);
+                    filesByPlatform.get(platform.name).files.push(fileMetadata.file);
                     return true; // break
                 }
             });
         });
     });
 
-    console.log("Before summarize: ");
     let result = summarize(filesByPlatform, fileMetadatas);
     
     console.log("Result keys: ");
