@@ -65,20 +65,20 @@ module.exports = {
             .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""));
 
-        const result = files
-            .reduce((map, f) => {
-                const owners = resolveCodeowners(mapping, f)
+        const result = new Map()
+        files.reduce((map, f) => {
+            const owners = resolveCodeowners(mapping, f)
 
-                owners.forEach(owner => {
-                    console.log("Mapped: " + f + " -> " + owner)
-                    if (!map[owner]) {
-                        map[owner] = [];
-                    }
-                    map[owner].push(f);
-                });
+            owners.forEach(owner => {
+                console.log("Mapped: " + f + " -> " + owner)
+                if (!map[owner]) {
+                    map.set(owner, []);
+                }
+                map[owner].push(f);
+            });
 
-                return map;
-            }, new Map());
+            return map;
+        }, result);
 
         console.log("Result keys: ");
         console.log([...result.keys()]);

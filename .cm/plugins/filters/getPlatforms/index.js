@@ -112,10 +112,11 @@ const platforms = {
  */
 
 function getPlatforms(fileMetadatas) {
-    let filesByPlatform = Object.values(platforms).reduce((map, platform) => {
-        map[platform.name] = [];
+    let filesByPlatform = new Map()
+    Object.values(platforms).reduce((map, platform) => {
+        map.set(platform.name, []);
         return map;
-    }, new Map());
+    }, filesByPlatform);
 
     Object.values(fileMetadatas).forEach(fileMetadata => {
         //console.log("Check file: " + fileMetadata.file);
