@@ -12,9 +12,13 @@ function changeStatistics(groupedFiles, fileMetadatas) {
     let totalChangedFiles = 0;
 
     console.log("Iteration 1");
-    let result = new Map(
+    const filtered = new Map(
         [...groupedFiles].filter(([, summary]) => summary.files.length > 0 )
-            .sort(([, summary]) => summary.files.length)
+    );
+
+    console.log("Iteration 1.5");
+    let result = new Map(
+        [...filtered].sort(([, summary]) => summary.files.length )
     );
 
     console.log("Iteration 2");
