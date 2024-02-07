@@ -123,6 +123,11 @@ function groupByPlatform(fileMetadatas) {
         return map;
     }, filesByPlatform);
 
+    console.log("Pre keys: ");
+    console.log([...filesByPlatform.keys()]);
+    console.log("Pre values: ");
+    console.log([...filesByPlatform.values()]);
+
     Object.values(fileMetadatas).forEach(fileMetadata => {
         return Object.values(platforms).some(platform => {
             return platform.subprojects.some(subproject => {
@@ -133,6 +138,11 @@ function groupByPlatform(fileMetadatas) {
             });
         });
     });
+    
+    console.log("Second keys: ");
+    console.log([...filesByPlatform.keys()]);
+    console.log("Second values: ");
+    console.log([...filesByPlatform.values()]);
 
     let result = summarize(filesByPlatform, fileMetadatas);
 
