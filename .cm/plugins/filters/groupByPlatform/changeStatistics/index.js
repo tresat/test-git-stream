@@ -4,7 +4,7 @@
  * @param {Map} groupedFiles -
  * @param {[FileMetadata]} fileMetadatas -
  * @returns {Map} Returns .
- * @example {{ filesByPlatform | changeStatistics(branch.diff.files_metadata) }}
+ * @example {{ groupByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
 function changeStatistics(groupedFiles, fileMetadatas) {
     let totalAdditions = 0;

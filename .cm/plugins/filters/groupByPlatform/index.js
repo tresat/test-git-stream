@@ -1,4 +1,3 @@
-
 const summarize = require('./changeStatistics/index.js');
 
 const platforms = {
@@ -107,14 +106,14 @@ const platforms = {
 };
 
 /**
- * @module getPlatforms
+ * @module groupByPlatform
  * @description Returns a mapping of platforms to the information about the files involved in the PR contained in each platform
  * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
  * @returns {Object} Returns a list of objects for each platform containing info about the changes to files in that platform
  * @example {{ branch.diff.files_metadata | getPlatforms }}
  */
 
-function getPlatforms(fileMetadatas) {
+function groupByPlatform(fileMetadatas) {
     const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
         map.set(platform.name, { files: [] });
@@ -132,13 +131,7 @@ function getPlatforms(fileMetadatas) {
         });
     });
 
-    let result = summarize(filesByPlatform, fileMetadatas);
-    
-    console.log("Result keys: ");
-    console.log([...result.keys()]);
-    console.log("Result values: ");
-    console.log([...result.values()]);
-    return result;
+    return summarize(filesByPlatform, fileMetadatas);
 }
 
-module.exports = getPlatforms;
+module.exports = groupByPlatform;
