@@ -24,8 +24,8 @@ automations:
         args:
           comment:
             <h3> Changes by Platform </h3>
-            {% for platform, summary in statistics %}
-            {{ platform }} contains {{ summary.files }}
+            {% for summary in summaries %}
+            {{ summary | map(attr='name') }} contains {{ summary | map(attr='files') }} files
             {% endfor %}
 
-statistics: {{ branch.diff.files_metadata | groupByPlatform }}
+summaries: {{ branch.diff.files_metadata | groupByPlatform }}
