@@ -3,7 +3,7 @@
  * @description Summarizes .
  * @param {Map} groupedFiles -
  * @param {Map} fileMetadatas -
- * @returns {boolean} Returns .
+ * @returns {Map} Returns .
  * @example {{ filesByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
 function changeStatistics(groupedFiles, fileMetadatas) {

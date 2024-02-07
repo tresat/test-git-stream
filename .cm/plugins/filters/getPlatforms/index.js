@@ -130,20 +130,14 @@ function getPlatforms(fileMetadatas) {
                 //console.log("Check sub: " + subproject);
                 if (fileMetadata.file.startsWith(subproject)) {
                     filesByPlatform.get(platform.name).push(fileMetadata.file);
-                    console.log("Mapped: " + fileMetadata.file + " -> " + platform.name);
                     return true; // break
                 }
             });
         });
     });
 
-    // There is no javascript filtering of maps, so we have to convert to an array, filter, and then convert back to a map
-    let result = new Map(
-        [...filesByPlatform].filter(([platform, files]) => files.length > 0 )
-    );
-
     console.log("Before summarize: ");
-    summarize(result);
+    let result = summarize(filesByPlatform, fileMetadatas);
     
     console.log("Result keys: ");
     console.log([...result.keys()]);
