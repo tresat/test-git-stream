@@ -1,4 +1,4 @@
-import('../summarizeFileStatistics').then((summarize) => {
+import('../summarizeFileStatistics/index.js').then((summarize) => {
     // Use myModule here
     summarize.summarizeFileStatistics(new Map());
 });
