@@ -7,7 +7,7 @@
  * @example {{ groupByPlatform | summaryTable(branch.diff.files_metadata, 'Platform') }}
  */
 function summaryTable(summaries, title) {
-    let totalFiles = summaries.reduce((summary, acc) => acc += summary.files.length, 0);
+    let totalFiles = summaries.reduce((acc, summary) => acc + summary.files.length, 0);
 
     let result = `<h3> Changes by ${title} </h3>
         <table>
