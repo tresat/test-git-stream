@@ -1,5 +1,5 @@
 const summarize = require('./changeStatistics/index.js');
-const outputTable = require('./outputTable/index.js');
+const outputTable = require('./summaryTable/index.js');
 
 const platforms = {
     bt_ge_build_cache: {
@@ -137,7 +137,7 @@ function groupByPlatform(fileMetadatas) {
 
     let result = summarize(filesByPlatform, fileMetadatas);
     console.log([...result.values()]);
-    let output = outputTable([...result.values()]);
+    let output = summaryTable([...result.values()], 'Platform');
     console.log(output);
     return output;
 }
