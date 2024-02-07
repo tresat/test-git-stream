@@ -1,7 +1,4 @@
-import('../summarizeFileStatistics/index.js').then((summarize) => {
-    // Use myModule here
-    summarize.summarizeFileStatistics(new Map());
-});
+import summarize from '../summarizeFileStatistics/index.js';
 
 const platforms = {
     bt_ge_build_cache: {
@@ -143,6 +140,9 @@ function getPlatforms(fileMetadatas) {
     let result = new Map(
         [...filesByPlatform].filter(([platform, files]) => files.length > 0 )
     );
+    
+    console.log("Start summarizeFileStatistics:");
+    summarize.summarizeFileStatistics(new Map());
 
     console.log("Result keys: ");
     console.log([...result.keys()]);
