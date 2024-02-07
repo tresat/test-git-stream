@@ -7,12 +7,16 @@
  * @example {{ filesByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
 function changeStatistics(groupedFiles, fileMetadatas) {
-    let summaries = [...groupedFiles.values()];
     let totalAdditions = 0;
     let totalDeletions = 0
     let totalChangedFiles = 0;
 
-    summaries.forEach(summary => {
+    let result = new Map(
+        [...groupedFiles].filter(([, summary]) => summary.files.length > 0 )
+            .sort(([, summary]) => summary.files.length)
+    );
+
+    [...result.values()].forEach(summary => {
         summary.additions = 0;
         summary.deletions = 0;
 
@@ -25,11 +29,6 @@ function changeStatistics(groupedFiles, fileMetadatas) {
             totalChangedFiles++;
         });
     });
-
-    let result = new Map(
-        [...groupedFiles].filter(([group, summary]) => summary.files.length > 0 )
-            .sort(([group, summary]) => summary.files.length)
-    );
 
     [...result.values()].forEach(summary => {
         summary.additionPercent = Math.round(summary.additions / (totalAdditions + totalDeletions) * 100, 2);
