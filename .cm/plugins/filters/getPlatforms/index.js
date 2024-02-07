@@ -1,4 +1,7 @@
-const summarize = require('../summarizeFileStatistics');
+import('../summarizeFileStatistics').then((summarize) => {
+    // Use myModule here
+    summarize.summarizeFileStatistics(new Map());
+});
 
 const platforms = {
     bt_ge_build_cache: {
