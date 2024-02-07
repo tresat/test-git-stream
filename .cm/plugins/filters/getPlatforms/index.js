@@ -1,3 +1,5 @@
+const summarize = require('../summarizeFileStatistics/index');
+
 const platforms = {
     bt_ge_build_cache: {
         name: 'bt_ge_build_cache',

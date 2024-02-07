@@ -11,7 +11,6 @@
 
 const { Octokit } = require("@octokit/rest");
 const ignore = require('./ignore/index.js');
-const summarize = require('summarizeFileStatistics');
 
 async function loadCodeownersFile(owner, repo, auth, pathToCodeOwners) {
     const octokit = new Octokit({
