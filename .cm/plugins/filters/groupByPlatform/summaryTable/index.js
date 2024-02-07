@@ -9,17 +9,17 @@
 function summaryTable(summaries, title) {
     let totalFiles = summaries.reduce((acc, summary) => acc + summary.files.length, 0);
 
-    let result = `<h3> Changes by ${title} </h3>
+    let result = `<h3>Changes by ${title}</h3>
         <table>
-        <tr> 
-            <td>${title}</td> 
-            <td>Added Lines</td> 
-            <td>% of Total Line Changes</td> 
-            <td>Deleted Lines</td> 
-            <td>% of Total Line Changes</td> 
-            <td>Files Changed</td> 
-            <td>% of Total Files Changed</td> 
-        </tr>`;
+            <tr> 
+                <td>${title}</td> 
+                <td>Added Lines</td> 
+                <td>% of Total Line Changes</td> 
+                <td>Deleted Lines</td> 
+                <td>% of Total Line Changes</td> 
+                <td>Files Changed</td> 
+                <td>% of Total Files Changed</td> 
+            </tr>`;
 
     summaries.forEach(summary => {
         result += `<tr>

@@ -1,5 +1,5 @@
 const summarize = require('./changeStatistics/index.js');
-const outputTable = require('./summaryTable/index.js');
+const summaryTable = require('./summaryTable/index.js');
 
 const platforms = {
     bt_ge_build_cache: {
