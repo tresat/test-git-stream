@@ -1,10 +1,10 @@
 /**
- * @module summarizeFileStatistics
+ * @module changeStatistics
  * @description Summarizes .
  * @param {Map} groupedFiles -
  * @param {Map} fileMetadatas -
  * @returns {boolean} Returns .
- * @example {{ filesByPlatform | summarizeFileStatistics }}
+ * @example {{ filesByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
 function changeStatistics(groupedFiles, fileMetadatas) {
     let summaries = [...groupedFiles.values()];
@@ -44,4 +44,4 @@ function metadataFor(fileMetadatas, file) {
     return fileMetadatas.find(fileMetadata => fileMetadata.file == file);
 }
 
-module.exports = summarizeFileStatistics;
+module.exports = changeStatistics;
