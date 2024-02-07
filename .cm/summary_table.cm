@@ -28,4 +28,16 @@ automations:
             {{ platform }} contains {{ summary.files }}
             {% endfor %}
 
+  summary_table2:
+    if:
+      - { { true } }
+    run:
+      - action: add-comment@v1
+        args:
+          comment:
+            <h3> Changes by Platform 2 </h3>
+            {% for (platform, summary) in statistics %}
+            {{ platform }} contains {{ summary.files }}
+            {% endfor %}
+
 statistics: {{ branch.diff.files_metadata | groupByPlatform }}
