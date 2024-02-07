@@ -24,7 +24,7 @@ automations:
         args:
           comment:
             <h3> Changes by Platform </h3>
-            {% for summary in statistics.values() %}
+            {% for summary in [...statistics.values()] %}
             {{ summary.files }} contains {{ summary.files.length }} files
             {% endfor %}
 
