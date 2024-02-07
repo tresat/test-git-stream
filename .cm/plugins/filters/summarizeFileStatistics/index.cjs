@@ -10,6 +10,6 @@ function summarizeFileStatistics(fileGroups) {
     let totalDeletions = 0;
 
     return fileGroups;
-};
+}
 
 module.exports = summarizeFileStatistics;

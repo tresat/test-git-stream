@@ -14,6 +14,6 @@ const jvm = ["big-guy", "ghale", "jvandort", "octylFractal", "tresat"];
  */
 function isEnabledUser(username) {
     return (buildScan.includes(username) || configuration.includes(username) || devProd.includes(username) || execution.includes(username) || ide.includes(username) || jvm.includes(username));
-};
+}
 
 module.exports = isEnabledUser;
