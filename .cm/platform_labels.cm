@@ -28,7 +28,6 @@ automations:
   label_platform_{{ platform.name }}:
     if:
       - {{ author.using_gitstream }}
-      - {{ platform.changed | some }}
     run:
       - action: add-label@v1
         args:
