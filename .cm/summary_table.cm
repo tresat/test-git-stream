@@ -30,7 +30,7 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment: {{ summaries }}
+          comment: {{ summaryByPlatform }}
 
 is:
   requested: {{ (pr.comments | match(attr='content', term='@bot-gitstream check all') | some) or (pr.comments | match(attr='content', term='@bot-gitstream check summary') | some) }}
@@ -39,6 +39,6 @@ author:
   using_gitstream: {{ (pr.author | isEnabledUser ) }}
 
 
-summaries: {{ branch.diff.files_metadata | groupByPlatform }}
+summaryByPlatform: {{ branch.diff.files_metadata | groupByPlatform | summaryTable }}
 
 owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}
