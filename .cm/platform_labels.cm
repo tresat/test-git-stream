@@ -49,7 +49,7 @@ automations:
     - action: add-comment@v1
       args:
         comment: |
-          {{ filesByPlatform | map(attr='files') }}
+          Blah
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
