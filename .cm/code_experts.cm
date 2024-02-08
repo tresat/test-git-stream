@@ -19,6 +19,7 @@ manifest:
 
 on:
   - pr_created
+  - commit
 
 automations:
 

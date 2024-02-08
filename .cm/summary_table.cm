@@ -25,10 +25,13 @@ automations:
 
   summary_table:
     if:
-      - {{ true }}
+      - {{ is.requested or not pr.author_is_org_member }}
+      - {{ author.using_gitstream or not pr.author_is_org_member }}
     run:
       - action: add-comment@v1
         args:
           comment: {{ summaries }}
 
 summaries: {{ branch.diff.files_metadata | groupByPlatform }}
+
+owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}
