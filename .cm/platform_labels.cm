@@ -45,43 +45,6 @@ filesByPlatform: {{ branch.diff.files_metadata | groupByPlatform }}
 platforms:
   - bt_ge_build_cache:
     name: 'bt_ge_build_cache'
-    changed: {{ filesByPlatform | filter(attr='name', match='bt_ge_build_cache') | map(attr='files') }}
-  - build_infrastructure:
-    name: 'build_infrastructure'
-    changed: {{ filesByPlatform | filter(attr='name', match='build_infrastructure') | map(attr='files') }}
-  - core_configuration:
-    name: 'core_configuration'
-    changed: {{ filesByPlatform | filter(attr='name', match='core_configuration') | map(attr='files') }}
-  - core_execution:
-    name: 'core_execution'
-    changed: {{ filesByPlatform | filter(attr='name', match='core_execution') | map(attr='files') }}
-  - core_runtime:
-    name: 'core_runtime'
-    changed: {{ filesByPlatform | filter(attr='name', match='core_runtime') | map(attr='files') }}
-  - documentation:
-    name: 'documentation'
-    changed: {{ filesByPlatform | filter(attr='name', match='documentation') | map(attr='files') }}
-  - extensibility:
-    name: 'extensibility'
-    changed: {{ filesByPlatform | filter(attr='name', match='extensibility') | map(attr='files') }}
-  - gradle_enterprise:
-    name: 'gradle_enterprise'
-    changed: {{ filesByPlatform | filter(attr='name', match='gradle_enterprise') | map(attr='files') }}
-  - ide:
-    name: 'ide'
-    changed: {{ filesByPlatform | filter(attr='name', match='ide') | map(attr='files') }}
-  - jvm:
-    name: 'jvm'
-    changed: {{ filesByPlatform | filter(attr='name', match='jvm') | map(attr='files') }}
-  - kotlin_dsl:
-    name: 'kotlin_dsl'
-    changed: {{ filesByPlatform | filter(attr='name', match='kotlin_dsl') | map(attr='files') }}
-  - release_coordination:
-    name: 'release_coordination'
-    changed: {{ filesByPlatform | filter(attr='name', match='release_coordination') | map(attr='files') }}
-  - software:
-    name: 'software'
-    changed: {{ filesByPlatform | filter(attr='name', match='software') | map(attr='files') }}
 
 author:
   using_gitstream: {{ (pr.author | isEnabledUser ) }}
