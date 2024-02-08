@@ -1,5 +1,3 @@
-const summarize = require('./changeStatistics/index.js');
-
 const platforms = {
     bt_ge_build_cache: {
         name: 'bt_ge_build_cache',
@@ -109,7 +107,7 @@ const platforms = {
  * @module groupByPlatform
  * @description Returns a mapping of platforms to the information about the files involved in the PR contained in each platform
  * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
- * @returns {String} Returns a list of objects for each platform containing info about the changes to files in that platform
+ * @returns {Map} Returns a list of objects for each platform containing info about the changes to files in that platform
  * @example {{ branch.diff.files_metadata | getPlatforms }}
  */
 
@@ -134,11 +132,7 @@ function groupByPlatform(fileMetadatas) {
         });
     });
 
-    let result = summarize(filesByPlatform, fileMetadatas);
-    console.log([...result.values()]);
-    // let output = summaryTable([...result.values()], 'Platform');
-    // console.log(output);
-    return output;
+    return filesByPlatform;
 }
 
 module.exports = groupByPlatform;

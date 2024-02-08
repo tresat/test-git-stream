@@ -39,6 +39,6 @@ author:
   using_gitstream: {{ (pr.author | isEnabledUser ) }}
 
 
-summaryByPlatform: {{ branch.diff.files_metadata | groupByPlatform | summaryTable }}
+summaryByPlatform: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable }}
 
 owners: {{ files | getCodeowners(pr, env.REPO_READ_TOKEN, '.github/CODEOWNERS') }}

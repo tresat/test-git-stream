@@ -1,12 +1,12 @@
 /**
- * @module changeStatistics
+ * @module computeStatistics
  * @description Summarizes .
  * @param {Map} groupedFiles -
  * @param {[FileMetadata]} fileMetadatas -
  * @returns {Map} Returns .
  * @example {{ groupByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
-function changeStatistics(groupedFiles, fileMetadatas) {
+function computeStatistics(groupedFiles, fileMetadatas) {
     let totalAdditions = 0;
     let totalDeletions = 0
     let totalChangedFiles = 0;
@@ -43,4 +43,4 @@ function metadataFor(fileMetadatas, file) {
     return fileMetadatas.find(fileMetadata => fileMetadata.file == file);
 }
 
-module.exports = changeStatistics;
+module.exports = computeStatistics;
