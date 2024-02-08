@@ -2,7 +2,6 @@
 manifest:
   version: 1.0
 
-
 # The `automations` section lists automations to run on PRs in this repository.
 # Each automation has an `if` key that defines conditions to run the automation,
 # as well as a `run` key with the actions to do. All the conditions need to be true
