@@ -52,12 +52,12 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment: {{ filesByPlatform }}
+          comment: {{ filesByPlatform | map(attr='name') }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-filesByPlatform: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | filter(attr='name', value='jvm') }}
+filesByPlatform: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | filter(attr='name', term='jvm') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
