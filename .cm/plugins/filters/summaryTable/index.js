@@ -1,14 +1,13 @@
 /**
  * @module summaryTable
  * @description Create a string containing an HTML table describing the given summary statistics.
- * @param {Map} statistics - list of summary data objects
+ * @param {[Object]} statistics - list of summary data objects
  * @param {String} title - how the data is sliced into summaries, for the title of the table
  * @returns {String} Returns the formatted HTMl table string.
  * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata, 'Platform') }}
  */
 function summaryTable(statistics, title) {
-    let summaries = [...summaries.values()]
-    let totalFiles = summaries.reduce((acc, summary) => acc + summary.files.length, 0);
+    let totalFiles = statistics.reduce((acc, summary) => acc + summary.files.length, 0);
 
     let result = `<h3>Changes by ${title}</h3>
         <table>
@@ -22,7 +21,7 @@ function summaryTable(statistics, title) {
                 <td>% of Total Files Changed</td> 
             </tr>`;
 
-    summaries.forEach(summary => {
+    statistics.forEach(summary => {
         result += `<tr>
             <td>${summary.name}</td>
             <td>${summary.additions}</td>

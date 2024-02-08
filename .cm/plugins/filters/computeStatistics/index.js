@@ -1,7 +1,7 @@
 /**
  * @module computeStatistics
  * @description Summarizes .
- * @param {Map} groupedFiles -
+ * @param {[Object]} groupedFiles -
  * @param {[FileMetadata]} fileMetadatas -
  * @returns {Map} Returns .
  * @example {{ groupByPlatform | changeStatistics(branch.diff.files_metadata) }}
@@ -11,12 +11,9 @@ function computeStatistics(groupedFiles, fileMetadatas) {
     let totalDeletions = 0
     let totalChangedFiles = 0;
 
-    let result = new Map(
-        [...groupedFiles].filter(([, summary]) => summary.files.length > 0 )
-            .sort(([, summary]) => summary.files.length)
-    );
+    let result = JSON.parse(JSON.stringify(groupedFiles)); // Deep copy of array
 
-    [...result.values()].forEach(summary => {
+    result.forEach(summary => {
         summary.additions = 0;
         summary.deletions = 0;
 
@@ -30,7 +27,7 @@ function computeStatistics(groupedFiles, fileMetadatas) {
         });
     });
 
-    [...result.values()].forEach(summary => {
+    result.forEach(summary => {
         summary.additionPercent = Math.round(summary.additions / (totalAdditions + totalDeletions) * 100, 2);
         summary.deletionPercent = Math.round(summary.deletions / (totalAdditions + totalDeletions) * 100, 2);
         summary.filesPercent = Math.round(summary.files.length / totalChangedFiles * 100, 2);
