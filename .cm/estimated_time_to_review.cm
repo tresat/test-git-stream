@@ -21,6 +21,7 @@ on:
   - pr_created
 
 automations:
+
   # Add a label that indicates how many minutes it will take to review the PR and categorizes it
   estimated_time_to_review:
     if:
