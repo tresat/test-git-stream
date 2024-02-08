@@ -23,6 +23,16 @@ on:
 
 automations:
 
+  # just to not be first
+  dummy_label:
+    if:
+      - {{ true }}
+    run:
+      - action: add-label@v1
+        args:
+          label: 'dummy'
+          color: 'E94637'
+
   # Label changes by affected platforms (in blue)
   {% for platform in platforms %}
   label_platform_{{ platform.name }}:
@@ -38,13 +48,15 @@ automations:
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-filesByPlatform: {{ branch.diff.files_metadata | groupByPlatform }}
+#filesByPlatform: {{ branch.diff.files_metadata | groupByPlatform }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
 platforms:
   - bt_ge_build_cache:
     name: 'bt_ge_build_cache'
+  - jvm:
+    name: 'jvm'
 
 author:
   using_gitstream: {{ (pr.author | isEnabledUser ) }}
