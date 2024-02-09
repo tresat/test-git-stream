@@ -8,9 +8,8 @@
  * @example {{ statsByPlatform | getByName('jvm', 'name') }}
  */
 
-function getStatisticForGroup(fileMetadatas, groupName, statisticName) {
-
-    return 'red';
+function getStatisticForGroup(statistics, groupName, statisticName) {
+    return statistics.find(s => s.name === groupName).statisticName;
 }
 
 module.exports = getStatisticForGroup;
