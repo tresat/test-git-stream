@@ -135,7 +135,12 @@ function groupByPlatformMap(fileMetadatas) {
         });
     });
 
-    return new Map([...filesByPlatform.entries()].sort((a, b) => b[1].files.length - a[1].files.length));
+    let result = new Map([...filesByPlatform.entries()].sort((a, b) => b[1].files.length - a[1].files.length));
+
+    console.out("Result of groupByPlatformMap: ");
+    console.out(result);
+
+    return result;
 }
 
 module.exports = groupByPlatformMap;
