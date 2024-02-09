@@ -48,11 +48,12 @@ automations:
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'name') }}
-files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
+stats_gen: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) }}
+files_jvm: {{ stats_gen | getStatisticForGroup('jvm', 'name') }}
+files_bt_ge_build_cache: {{ stats_gen | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
 
-byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap | dump }}
-byPlatformJvmFiles: {{ byPlatform | getStatFromMap('jvm', 'files') }}
+byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
+byPlatformJvmFiles: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap('jvm', 'files') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
