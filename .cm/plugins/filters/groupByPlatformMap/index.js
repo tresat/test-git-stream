@@ -112,8 +112,8 @@ const platforms = {
  */
 
 function groupByPlatformMap(fileMetadatas) {
-    console.log("FileMetadata: ");
-    console.log(fileMetadatas);
+    // console.log("FileMetadata: ");
+    // console.log(fileMetadatas);
 
     const filesByPlatform = new Map();
     Object.values(fileMetadatas).forEach(fileMetadata => {
@@ -137,8 +137,8 @@ function groupByPlatformMap(fileMetadatas) {
 
     let result = new Map([...filesByPlatform.entries()].sort((a, b) => b[1].files.length - a[1].files.length));
 
-    console.out("Result of groupByPlatformMap: ");
-    console.out(result);
+    console.log("Result of groupByPlatformMap: ");
+    console.log(result);
 
     return result;
 }
