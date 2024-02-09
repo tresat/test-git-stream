@@ -53,8 +53,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            Jvm {{ files_jvm }}
-            Bt/Ge Build Cache {{ files_bt_ge_build_cache }}
+            {{ byPlatformJvmFiles | dump }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
@@ -63,6 +62,7 @@ files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(b
 files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
 
 byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
+byPlatformJvmFiles: {{ byPlatform | map(attr='files') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
