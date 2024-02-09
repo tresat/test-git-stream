@@ -112,8 +112,8 @@ const platforms = {
  */
 
 function groupByPlatform(fileMetadatas) {
-    console.log("FileMetadata: ");
-    console.log(fileMetadatas);
+    // console.log("FileMetadata: ");
+    // console.log(fileMetadatas);
 
     const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
