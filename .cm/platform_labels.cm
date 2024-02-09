@@ -62,6 +62,8 @@ automations:
 files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'name') }}
 files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
 
+byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
+
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
 platforms:
