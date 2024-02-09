@@ -53,19 +53,16 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            Files Jvm {{ files_jvm }}
-            Files BtGeBuildCache {{ files_bt_ge_build_cache }}
-            Files Jvm (By Map) {{ files_jvm_map | dump }}
+            {{ byPlatformJvmFiles | dump }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-byPlatformList: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) }}
 files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'name') }}
-files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('bt_ge_build_cache', 'name') }}
+files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
 
-byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap }}
-files_jvm_map: {{ branch.diff.files_metadata | groupByPlatformMap | filter(attr='jvm') }}
+byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
+byPlatformJvmFiles: {{ byPlatform | map(attr='jvm') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
