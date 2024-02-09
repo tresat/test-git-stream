@@ -41,7 +41,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            Hardcoded jvm: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') }}
+            Hardcoded jvm: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | dump }}
   {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
