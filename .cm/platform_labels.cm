@@ -33,27 +33,17 @@ automations:
           label: 'dummy'
           color: 'E94637'
 
-  # Label changes by affected platforms (in blue)
-  {% for platform in platforms %}
-  label_platform_{{ platform.name }}:
-    if:
-      - {{ author.using_gitstream }}
-    run:
-      - action: add-label@v1
-        args:
-          label: 'platform:{{ platform.name }}'
-          color: '0000FF'
-  {% endfor %}
-
   # just to not be first
-  sample_comment:
+  {% for platform in platforms %}
+  sample_comment_{{ platform.name }}:
     if:
       - true
     run:
       - action: add-comment@v1
         args:
           comment: |
-            From map: {{ byPlatformJvmFiles }}
+            Looped: {{ byPlatformJvmFiles }}
+  {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
