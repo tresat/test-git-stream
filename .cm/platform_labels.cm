@@ -33,7 +33,7 @@ automations:
           label: 'dummy'
           color: 'E94637'
 
-  {% for platform in platforms %}
+#  {% for platform in platforms %}
   sample_comment:
     if:
       - true
@@ -42,7 +42,7 @@ automations:
         args:
           comment: |
             Hardcoded jvm: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap('jvm', 'files') | dump }}
-  {% endfor %}
+#  {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
