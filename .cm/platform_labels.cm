@@ -42,7 +42,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            Looped 4: {{ byPlatform | dump | getStatFromMap(platform.name, 'files') }}
+            Looped 4: {{ byPlatform[0] | getStatFromMap(platform.name, 'files') }}
   {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
