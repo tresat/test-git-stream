@@ -11,7 +11,7 @@
 function getStatisticForGroup(statistics, groupName, statisticName) {
     let group = statistics.find(s => s.name === groupName);
     console.log('Group: ' + group);
-    let stat = group.statisticName;
+    let stat = group[statisticName];
     console.log('Stat: ' + stat);
     return stat;
 }
