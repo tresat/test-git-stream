@@ -42,7 +42,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            Looped: {{ byPlatformJvmFiles }}
+            Looped 2: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap('jvm', 'files') }}
   {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
