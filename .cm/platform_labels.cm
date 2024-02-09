@@ -61,12 +61,12 @@ automations:
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
 byPlatformList: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) }}
-byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap | dump }}
+byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap }}
 
 files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'files') }}
 files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('bt_ge_build_cache', 'files') }}
 
-byPlatformJvmFiles: {{ byPlatformMap | filter(attr='name', term='jvm') | map(attr='files') }}
+byPlatformJvmFiles: {{ branch.diff.files_metadata | groupByPlatformMap | filter(attr='name', term='jvm') | map(attr='files') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
