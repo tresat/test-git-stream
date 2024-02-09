@@ -64,7 +64,7 @@ byPlatformList: {{ branch.diff.files_metadata | groupByPlatform | computeStatist
 files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'files') }}
 files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('bt_ge_build_cache', 'files') }}
 
-byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap }}
+#byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap }}
 #files_jvm_map: {{ branch.diff.files_metadata | groupByPlatformMap | filter(attr='name', term='jvm') }}
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
