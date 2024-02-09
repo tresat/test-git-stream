@@ -115,32 +115,27 @@ function groupByPlatformMap(fileMetadatas) {
     console.log("FileMetadata: ");
     console.log(fileMetadatas);
 
-    const filesByPlatform = new Map()
-    Object.values(platforms).reduce((map, platform) => {
-        map.set(platform.name, {
-            name: platform.name,
-            files: []
-        });
-        return map;
-    }, filesByPlatform);
-
+    const filesByPlatform = new Map();
     Object.values(fileMetadatas).forEach(fileMetadata => {
         return Object.values(platforms).some(platform => {
             return platform.subprojects.some(subproject => {
                 if (fileMetadata.file.startsWith(subproject)) {
-                    filesByPlatform.get(platform.name).files.push(fileMetadata.file);
+                    let group = filesByPlatform.get(platform.name);
+                    if (!group) {
+                        group = {
+                            name: platform.name,
+                            files: []
+                        };
+                        filesByPlatform.set(platform.name, group);
+                    }
+                    group.files.push(fileMetadata.file);
                     return true; // break
                 }
             });
         });
     });
 
-    let result = new Map([...filesByPlatform.values()].filter(platform => platform.files.length > 0 )
-        .sort(platform => platform.files.length));
-
-    console.log("Map result: ");
-    console.log(result);
-    return result;
+    return new Map([...filesByPlatform.entries()].sort((a, b) => b[1].files.length - a[1].files.length));
 }
 
 module.exports = groupByPlatformMap;
