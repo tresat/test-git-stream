@@ -33,6 +33,7 @@ function computeStatistics(groupedFiles, fileMetadatas) {
         summary.filesPercent = Math.round(summary.files.length / totalChangedFiles * 100, 2);
     });
 
+    console.log("Statistics: ");
     console.log(result)
     return result;
 }
