@@ -60,11 +60,11 @@ automations:
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-byPlatformList: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) }}
-byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap }}
+byPlatformList: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | dump }}
+byPlatformMap: {{ branch.diff.files_metadata | groupByPlatformMap | dump }}
 
 files_jvm: {{ byPlatformList | getStatisticForGroup('jvm', 'files') }}
-files_bt_ge_build_cache: {{ byPlatformList | getStatisticForGroup('files_bt_ge_build_cache', 'files') }}
+files_bt_ge_build_cache: {{ byPlatformList | getStatisticForGroup('bt_ge_build_cache', 'files') }}
 
 byPlatformJvmFiles: {{ byPlatformMap | filter(attr='name', term='jvm') | map(attr='files') }}
 
