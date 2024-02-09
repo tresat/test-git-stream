@@ -10,10 +10,15 @@
 
 function getStatisticForGroup(statistics, groupName, statisticName) {
     let group = statistics.find(s => s.name === groupName);
-    console.log('Group: ' + group);
-    let stat = group[statisticName];
-    console.log('Stat: ' + stat);
-    return stat;
+    if (group) {
+        console.log('Group: ' + group + ' found for: ' + groupName);
+        let stat = group[statisticName];
+        console.log('Stat: ' + stat);
+        return stat;
+    } else {
+        console.log('Group not found: ' + groupName);
+        return null;
+    }
 }
 
 module.exports = getStatisticForGroup;
