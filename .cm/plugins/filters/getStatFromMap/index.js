@@ -11,12 +11,12 @@
 function getStatFromMap(statistics, key, statisticName) {
     let group = statistics.get(key);
     if (group) {
-        console.log('GSFM Group: ' + group + ' found for: ' + groupName);
+        console.log('GSFM Group: ' + group + ' found for: ' + statisticName);
         let stat = group[statisticName];
         console.log('GSFM Stat: ' + stat);
         return stat;
     } else {
-        console.log('GSFM Group not found: ' + groupName);
+        console.log('GSFM Group not found: ' + statisticName);
         return null;
     }
 }
