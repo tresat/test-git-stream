@@ -34,26 +34,24 @@ automations:
           color: 'E94637'
 
   # just to not be first
-  {% for platform in platforms %}
-  sample_comment_{{ platform.name }}:
+  sample_comment:
     if:
       - true
     run:
       - action: add-comment@v1
         args:
           comment: |
-            Looped 4: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') }}
-  {% endfor %}
+            Does this really work: {{ byPlatformJvmFiles | dump }}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-stats_gen: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) }}
-files_jvm: {{ stats_gen | getStatisticForGroup('jvm', 'name') }}
-files_bt_ge_build_cache: {{ stats_gen | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
+files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'name') }}
+files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
 
 byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
-byPlatformJvmFiles: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap('jvm', 'files') }}
+byPlatformJvmFiles: {{ byPlatform | map(attr='jvm') }}
+
 
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
