@@ -50,11 +50,11 @@ automations:
             <tr>
             <td>{{ platform.name }}</td>
             <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'additions') }}</td>
-            <td>{{ ((branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'additions')) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
+            <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'additionPercent') }}%</td>
             <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'deletions') }}</td>
-            <td>{{ ((branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'deletions')) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
-            <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'totalChangedFiles') }}</td>
-            <td>{{ (branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'totalChangedFiles') / changes.total * 100) | round(2) }}%</td>
+            <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'deletionPercent') }}%</td>
+            <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'files') | length }}</td>
+            <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'filesPercent') }}%</td>
             </tr>
             {% endif %}
             {% endfor %}
