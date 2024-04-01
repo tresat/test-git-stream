@@ -45,7 +45,7 @@ automations:
             <td>% of Total Files Changed</td>
             </tr>
             {% for platform in platforms %}
-            {% if (branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | some) }}
+            {% if (branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | some) %}
             <tr>
             <td>{{ platform.name }}</td>
             <td>{{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup(platform.name, 'additions') }}</td>
