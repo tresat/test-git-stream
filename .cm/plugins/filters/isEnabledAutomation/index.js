@@ -1,5 +1,15 @@
 const enabled = new Map();
-enabled.set('platform_labels', ['community', 'tresat']);
+
+// Require Opt-In/User Request/Community PR
+enabled.set('lacks_tests', ['community', 'tresat']);
+enabled.set('summary_table', ['community', 'tresat']);
+
+// Require Opt-In/User Request
+enabled.set('code_experts', []);
+
+// Always run
+enabled.set('add_usual_expert', ['always']);
+enabled.set('platform_labels', ['always']);
 
 /**
  * @module isEnabledAutomation

@@ -1,0 +1,97 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+# The `automations` section lists automations to run on PRs in this repository.
+# Each automation has an `if` key that defines conditions to run the automation,
+# as well as a `run` key with the actions to do. All the conditions need to be true
+# for the actions to run (there is an implicit AND relation between
+# the conditions on each line).  Each condition is specified as a Jinja expression.  You
+# can also use the constant `true` if you want to always run the actions.
+
+# Each automation is independent of the others.  Every time one of the `on` conditions match for
+# this PR, this automations will have its `if` checked to run.  In a way, the `on` conditions
+# function as an implicit first `if` for every automation in the file.
+
+# You can define multiple automations in a .cm file, but each automation name should be unique
+# within the file.  We keep each automation (or very closely related group of automations) in
+# its own file.
+
+on:
+  - pr_created
+  - commit
+
+automations:
+
+  summary_table:
+    if:
+      - {{ ('summary_table' | isEnabledAutomation(pr)) }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment:
+            <h3>Change Summary</h3>
+            This PR is {{ changes.ratio | round(2) }}% new code.
+            <table>
+            <tr>
+            <td>Platform</td>
+            <td>Added Lines</td>
+            <td>% of Total Line Changes</td>
+            <td>Deleted Lines</td>
+            <td>% of Total Line Changes</td>
+            <td>Files Changed</td>
+            <td>% of Total Files Changed</td>
+            </tr>
+            {% for platform in platforms %}
+            <tr>
+            <td>{{ platform.name }}</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='additions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
+            <td>{{ branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='deletions') | sum) / (changes.additions + changes.deletions) * 100) | round(2) }}%</td>
+            <td>{{ (branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) }}</td>
+            <td>{{ ((branch.diff.files_metadata | filter(attr='file', list=platform.subprojects) | map(attr='file') | length) / changes.total * 100) | round(2) }}%</td>
+            </tr>
+            {% endfor %}
+            </table>
+
+changes:
+  # Sum all the lines added/edited in the PR
+  additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
+  # Sum all the line removed in the PR
+  deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
+  # Calculate the ratio of new code
+  ratio: {{ (changes.additions / (changes.additions + changes.deletions)) * 100 }}
+  # Total number of files changed
+  total: {{ branch.diff.files_metadata | length }}
+
+# TODO: It would be very nice to deduplicate this list somehow, but it needs to be defined in YAML and not in JS for the looping template to work
+# Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
+# The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
+platforms:
+  - bt_ge_build_cache:
+    name: 'bt_ge_build_cache'
+  - build_infrastructure:
+    name: 'build_infrastructure'
+  - core_configuration:
+    name: 'core_configuration'
+  - core_execution:
+    name: 'core_execution'
+  - core_runtime:
+    name: 'core_runtime'
+  - documentation:
+    name: 'documentation'
+  - extensibility:
+    name: 'extensibility'
+  - gradle_enterprise:
+    name: 'gradle_enterprise'
+  - ide:
+    name: 'ide'
+  - jvm:
+    name: 'jvm'
+  - kotlin_dsl:
+    name: 'kotlin_dsl'
+  - release_coordination:
+    name: 'release_coordination'
+  - software:
+    name: 'software'

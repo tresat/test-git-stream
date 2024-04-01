@@ -23,32 +23,49 @@ on:
 
 automations:
 
-  {% for platform in platforms %}
-  sample_comment_{{ platform.name }}:
+  # Label changes by affected platforms (in blue)
+  { % for platform in platforms % }
+  platform_label_{{ platform.name }}:
     if:
       - {{ ('platform_labels' | isEnabledAutomation(pr)) }}
+      - {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | some}}
     run:
-      - action: add-comment@v1
+      - action: add-label@v1
         args:
-          comment: |
-            Looped 5 (separate checks is ok): {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') }}
-  {% endfor %}
+          label: 'platform:{{ platform.name }}'
+          color: '0000FF'
+  { % endfor % }
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
 
-files_jvm: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('jvm', 'name') }}
-files_bt_ge_build_cache: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | getStatisticForGroup('files_bt_ge_build_cache', 'name') }}
-
-byPlatform: {{ branch.diff.files_metadata | groupByPlatformMap }}
-byPlatformJvmFiles: {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap('jvm', 'files') }}
-
+# TODO: It would be very nice to deduplicate this list somehow, but it needs to be defined in YAML and not in JS for the looping template to work
 # Keys like `- build_infrastructure:` do not mean anything, they just need to be unique
 # The `name:` field specifies the platform label, e.g. `name: build_infrastructure` => `platform:build_infrastructure` label
 platforms:
   - bt_ge_build_cache:
     name: 'bt_ge_build_cache'
-  - jvm:
-    name: 'jvm'
+  - build_infrastructure:
+    name: 'build_infrastructure'
+  - core_configuration:
+    name: 'core_configuration'
+  - core_execution:
+    name: 'core_execution'
+  - core_runtime:
+    name: 'core_runtime'
+  - documentation:
+    name: 'documentation'
+  - extensibility:
+    name: 'extensibility'
+  - gradle_enterprise:
+    name: 'gradle_enterprise'
   - ide:
     name: 'ide'
+  - jvm:
+    name: 'jvm'
+  - kotlin_dsl:
+    name: 'kotlin_dsl'
+  - release_coordination:
+    name: 'release_coordination'
+  - software:
+    name: 'software'
