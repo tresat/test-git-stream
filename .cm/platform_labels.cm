@@ -24,17 +24,17 @@ on:
 automations:
 
   # Label changes by affected platforms (in blue)
-  { % for platform in platforms % }
+  {% for platform in platforms %}
   platform_label_{{ platform.name }}:
     if:
       - {{ ('platform_labels' | isEnabledAutomation(pr)) }}
-      - {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | some}}
+      - {{ branch.diff.files_metadata | groupByPlatformMap | getStatFromMap(platform.name, 'files') | some }}
     run:
       - action: add-label@v1
         args:
           label: 'platform:{{ platform.name }}'
           color: '0000FF'
-  { % endfor % }
+  {% endfor %}
 
 # To simplify the automations section, some calculations are placed under unique YAML keys defined here.
 # Read the "|" not as "or", but as a "pipe", taking the output of the previous command and passing it to the next command.
