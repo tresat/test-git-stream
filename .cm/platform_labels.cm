@@ -26,7 +26,7 @@ automations:
   # just to not be first
   dummy_label:
     if:
-      - {{ true }}
+      - {{ ('platform_labels' | isEnabledAutomation(pr)) }}
     run:
       - action: add-label@v1
         args:
@@ -37,7 +37,7 @@ automations:
   {% for platform in platforms %}
   sample_comment_{{ platform.name }}:
     if:
-      - true
+      - {{ ('platform_labels' | isEnabledAutomation(pr)) }}
     run:
       - action: add-comment@v1
         args:
@@ -61,6 +61,5 @@ platforms:
     name: 'bt_ge_build_cache'
   - jvm:
     name: 'jvm'
-
-author:
-  using_gitstream: {{ (pr.author | isEnabledUser ) }}
+  - ide:
+    name: 'ide'
