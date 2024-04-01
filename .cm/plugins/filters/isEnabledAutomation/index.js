@@ -38,7 +38,7 @@ enabled.set('platform_labels', ['community', 'tresat']);
  */
 function isEnabledAutomation(automationName, pr) {
     let result = false;
-    const automationActivations = enabled.get(automationName);
+    const automationActivations = enabled.get(automationName) || [];
 
     // Check if always enabled, or enabled by comment
     if (automationActivations.includes('always')) {
