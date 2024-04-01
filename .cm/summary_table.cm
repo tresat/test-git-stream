@@ -30,8 +30,9 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            :chart: **Change Summary**"
-            This PR is {{ changes.ratio | round(2) }}% new code.
+            :chart: **Change Summary: this PR is {{ changes.ratio | round(2) }}% new code**
+            
+            X platforms were affected (GREEN)
             <details>
             <summary>See details</summary>
             <table>
