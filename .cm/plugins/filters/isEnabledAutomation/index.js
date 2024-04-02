@@ -9,6 +9,7 @@ enabled.set('code_experts', []);
 
 // Always run
 enabled.set('add_usual_expert', ['always']);
+enabled.set('misc_labels', ['always']);
 enabled.set('platform_labels', ['always']);
 
 /**
