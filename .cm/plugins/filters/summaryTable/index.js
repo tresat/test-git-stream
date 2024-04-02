@@ -21,7 +21,6 @@ function summaryTable(statistics) {
     console.log("New Ratio: " + newRatio);
 
     let result = ` **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
-
          ${platformsAffected(preppedStatistics)}`;
     //     <details>
     //     <summary>See details</summary>
