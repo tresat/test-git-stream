@@ -2,19 +2,21 @@
  * @module computeStatistics
  * @description Summarizes the changes to files in the PR by platform.
  *
- * @param {[Object]} groupedFiles - list of objects for each platform containing info about the changes to files in that platform, from call to groupByPlatform
+ * @param {Map} groupedFiles - map of platforms for containing info about the changes to files in that platform, from call to groupByPlatform
  * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
  * @returns {[Object]} Returns list of computed summary statistic objects for each platform in the input groupedFiles
- * @example {{ groupByPlatform | changeStatistics(branch.diff.files_metadata) }}
+ * @example {{ fileOwners | groupByPlatform(branch.diff.files_metadata) | changeStatistics(branch.diff.files_metadata) }}
  */
 function computeStatistics(groupedFiles, fileMetadatas) {
     let totalAdditions = 0;
     let totalDeletions = 0
     let totalChangedFiles = 0;
 
-    let result = JSON.parse(JSON.stringify(groupedFiles)); // Deep copy of array
+    let summaries = [...groupedFiles.values()];
+    let result = JSON.parse(JSON.stringify(summaries)); // Deep copy of array
+    console.log("Result: " + result);
 
-    result.forEach(summary => {
+    summaries.forEach(summary => {
         summary.additions = 0;
         summary.deletions = 0;
 
@@ -27,6 +29,7 @@ function computeStatistics(groupedFiles, fileMetadatas) {
             totalChangedFiles++;
         });
     });
+    console.log("summaries: " + summaries);
 
     result.forEach(summary => {
         summary.additionPercent = Math.round(summary.additions / (totalAdditions + totalDeletions) * 100, 2);
