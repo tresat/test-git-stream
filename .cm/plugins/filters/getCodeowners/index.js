@@ -59,15 +59,11 @@ module.exports = {
         const fileData = await loadCodeownersFile(pr.author, pr.repo, token, pathToCodeOwners);
         const mapping = codeownersMapping(fileData);
 
-        const resolved = files
-            .map(f => resolveCodeowners(mapping, f))
-            .flat()
-            .filter(i => typeof i === 'string')
-            .map(u => u.replace(/^@gradle\//, ""));
-
         const result = new Map()
         files.reduce((map, f) => {
             const owners = resolveCodeowners(mapping, f)
+                .filter(i => typeof i === 'string')
+                .map(u => u.replace(/^@gradle\//, ""));
 
             owners.forEach(owner => {
                 console.log("Mapped: " + f + " -> " + owner)
