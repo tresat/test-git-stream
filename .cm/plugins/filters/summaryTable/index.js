@@ -20,37 +20,37 @@ function summaryTable(statistics) {
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
     console.log("New Ratio: " + newRatio);
 
-    let result = ` **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
+    let result = ` **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**`
 
-        ${platformsAffected(preppedStatistics)}
-        <details>
-        <summary>See details</summary>
-        <table>
-            <tr>
-                <td>Platform</td>
-                <td>Added Lines</td>
-                <td>% of Total Line Changes</td>
-                <td>Deleted Lines</td>
-                <td>% of Total Line Changes</td>
-                <td>Files Changed</td>
-                <td>% of Total Files Changed</td>
-            </tr>`;
-
-    preppedStatistics.forEach(summary => {
-        result += `<tr>
-            <td>${summary.name}</td>
-            <td>${summary.additions}</td>
-            <td>${summary.additionPercent}%</td>
-            <td>${summary.deletions}</td>
-            <td>${summary.deletionPercent}%</td>
-            <td>${summary.files.length}</td>
-            <td>${summary.filesPercent}%</td>
-        </tr>`;
-    });
-
-    result += `</table>
-        </details>
-        <automation id="summary_table/summary_table"/>`;
+    //     ${platformsAffected(preppedStatistics)}
+    //     <details>
+    //     <summary>See details</summary>
+    //     <table>
+    //         <tr>
+    //             <td>Platform</td>
+    //             <td>Added Lines</td>
+    //             <td>% of Total Line Changes</td>
+    //             <td>Deleted Lines</td>
+    //             <td>% of Total Line Changes</td>
+    //             <td>Files Changed</td>
+    //             <td>% of Total Files Changed</td>
+    //         </tr>`;
+    //
+    // preppedStatistics.forEach(summary => {
+    //     result += `<tr>
+    //         <td>${summary.name}</td>
+    //         <td>${summary.additions}</td>
+    //         <td>${summary.additionPercent}%</td>
+    //         <td>${summary.deletions}</td>
+    //         <td>${summary.deletionPercent}%</td>
+    //         <td>${summary.files.length}</td>
+    //         <td>${summary.filesPercent}%</td>
+    //     </tr>`;
+    // });
+    //
+    // result += `</table>
+    //     </details>
+    //     <automation id="summary_table/summary_table"/>`;
     console.log("Finished summaryTable: " + result);
 
     return result;
@@ -73,7 +73,7 @@ function platformsAffected(statistics) {
         result += "1 platform was affected";
     }
     if (platformsWithSignificantChanges.length > 1) {
-        result += " :warning: (If possible, only one platform should have significant changes in a PR)";
+        result += " :warning: (if possible, only one platform should have significant changes in a PR)";
     } else {
         result += " :white_check_mark:";
     }
