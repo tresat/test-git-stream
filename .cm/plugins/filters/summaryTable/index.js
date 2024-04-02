@@ -10,19 +10,16 @@
  */
 function summaryTable(statistics) {
     let preppedStatistics = statistics.filter(s => s.files.length > 0)
-        .sort(s => s.additions + s.deletions);
-    console.log("Prepped Statistics: " + preppedStatistics);
+        .sort(s => -(s.additions + s.deletions));
 
     let totalAdditions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.additions, 0);
     let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
-    console.log("Total Additions: " + totalAdditions);
-    console.log("Total Deletions: " + totalDeletions);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
-    console.log("New Ratio: " + newRatio);
 
     let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
-         ${platformsAffected(preppedStatistics)}
-        <details>
+
+${platformsAffected(preppedStatistics)}
+<details>
         <summary>See details</summary>
         <table>
             <tr>
@@ -50,8 +47,8 @@ function summaryTable(statistics) {
     result += `</table>
         </details>
         <automation id="summary_table/summary_table"/>`;
-    console.log("Finished summaryTable: " + result);
 
+    console.log("summaryTable: " + result);
     return result;
 }
 
@@ -63,7 +60,6 @@ function platformsAffected(statistics) {
         return (linesChanged > 1) && (linesChanged / totalLinesChanged >= 0.1);
     };
     let platformsWithSignificantChanges = statistics.filter(platformHasSignificantChanges);
-    console.log("Platforms with significant changes: " + platformsWithSignificantChanges.length);
 
     let result = "";
     if (statistics.length > 1) {
@@ -76,8 +72,6 @@ function platformsAffected(statistics) {
     } else {
         result += " ";
     }
-
-    console.log("Finished platformsAffected: " + result);
     return result;
 }
 
