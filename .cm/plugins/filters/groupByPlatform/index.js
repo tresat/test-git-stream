@@ -115,11 +115,11 @@ const platforms = {
  * @example {{ branch.diff.files_metadata | getPlatforms }}
  */
 
-function groupByPlatform(fileMetadatas, files, pr) {
+function groupByPlatform(fileMetadatas, files, pr, token) {
     // console.log("FileMetadata: ");
     // console.log(fileMetadatas);
 
-    let c = codeowners.getCodeowners(files, pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS')
+    let c = codeowners.getCodeowners(files, pr, token, '.github/CODEOWNERS')
     console.log("Codeowners: " + c);
 
     const filesByPlatform = new Map()
