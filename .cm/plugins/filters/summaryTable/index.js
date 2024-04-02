@@ -19,6 +19,7 @@ function summaryTable(statistics) {
 
     let result = `:bar_chart: **Change Summary (FILTER): this PR is ${Math.round(newRatio, 2)}% new code**
 
+        ${platformsAffected(preppedStatistics)}
         <details>
         <summary>See details</summary>
         <table>
@@ -49,7 +50,6 @@ function summaryTable(statistics) {
         <automation id="summary_table/summary_table"/>`;
 
     return result;
-    return "table here";
 }
 
 function platformsAffected(statistics) {
