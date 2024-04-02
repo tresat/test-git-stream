@@ -16,12 +16,15 @@ function computeStatistics(groupedFiles, fileMetadatas) {
     let result = JSON.parse(JSON.stringify(summaries)); // Deep copy of array
 
     Object.values(summaries).forEach(summary => {
-        console.log("***Calculating summary for platform: " + summary);
+        console.log("***Calculating summary for platform: " + summary.name);
+        console.log("***Platform has files: " + summary.files);
         summary.additions = 0;
         summary.deletions = 0;
 
         summary.files.forEach(file => {
+            console.log("***Calculating summary for file: " + file);
             let fileMetadata = metadataFor(fileMetadatas, file);
+            console.log("***File metadata: " + fileMetadata);
             summary.additions += fileMetadata.additions;
             summary.deletions += fileMetadata.deletions;
             totalAdditions += summary.additions;
