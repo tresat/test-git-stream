@@ -24,6 +24,14 @@ on:
 
 automations:
 
+  summary_table2:
+    if:
+      - {{ ('summary_table' | isEnabledAutomation(pr)) }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) }}
+
   summary_table:
     if:
       - {{ ('summary_table' | isEnabledAutomation(pr)) }}

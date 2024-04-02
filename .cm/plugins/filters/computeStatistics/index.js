@@ -1,9 +1,10 @@
 /**
  * @module computeStatistics
- * @description Summarizes .
- * @param {[Object]} groupedFiles -
- * @param {[FileMetadata]} fileMetadatas -
- * @returns {Map} Returns .
+ * @description Summarizes the changes to files in the PR by platform.
+ *
+ * @param {[Object]} groupedFiles - list of objects for each platform containing info about the changes to files in that platform, from call to groupByPlatform
+ * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
+ * @returns {[Object]} Returns list of computed summary statistic objects for each platform in the input groupedFiles
  * @example {{ groupByPlatform | changeStatistics(branch.diff.files_metadata) }}
  */
 function computeStatistics(groupedFiles, fileMetadatas) {

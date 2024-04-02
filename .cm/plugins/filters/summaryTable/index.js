@@ -1,18 +1,25 @@
 /**
  * @module summaryTable
  * @description Create a string containing an HTML table describing the given summary statistics.
- * @param {[Object]} statistics - list of summary data objects
- * @param {String} title - how the data is sliced into summaries, for the title of the table
+ *
+ * The table should be in descending order of the number of lines changed, and should only include platforms with non-0 changes.
+ *
+ * @param {[Object]} statistics - list of summary data objects from computeStatistics
  * @returns {String} Returns the formatted HTMl table string.
- * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata, 'Platform') }}
+ * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata) }}
  */
-function summaryTable(statistics, title) {
-    let totalFiles = statistics.reduce((acc, summary) => acc + summary.files.length, 0);
+function summaryTable(statistics) {
+    let preppedStatistics = statistics.reduce((acc, summary) => acc + summary.files.length, 0)
+        .sort(s => s.additions + s.deletions);
 
-    let result = `<h3>Changes by ${title}</h3>
+    let result = `:bar_chart: **Change Summary (FILTER): this PR is {{ changes.ratio | round(2) }}% new code**
+            
+        ${platformsAffected(preppedStatistics)}
+        <details>
+        <summary>See details</summary>
         <table>
             <tr> 
-                <td>${title}</td> 
+                <td>Platform</td> 
                 <td>Added Lines</td> 
                 <td>% of Total Line Changes</td> 
                 <td>Deleted Lines</td> 
@@ -21,7 +28,7 @@ function summaryTable(statistics, title) {
                 <td>% of Total Files Changed</td> 
             </tr>`;
 
-    statistics.forEach(summary => {
+    preppedStatistics.forEach(summary => {
         result += `<tr>
             <td>${summary.name}</td>
             <td>${summary.additions}</td>
@@ -29,11 +36,32 @@ function summaryTable(statistics, title) {
             <td>${summary.deletions}</td>
             <td>${summary.deletionPercent}%</td>
             <td>${summary.files.length}</td>
-            <td>${Math.round(summary.files.length / totalFiles * 100)}%</td>
+            <td>${summary.filesPercent}%</td>
         </tr>`;
     });
 
-    result += '</table>';
+    result += `</table>
+        </details>
+        <automation id="summary_table/summary_table"/>`;
+
+    return result;
+}
+
+function platformsAffected(statistics) {
+    // Significance is defined as a platform having more than 10% of the total lines changed
+    let totalLinesChanged = statistics.reduce((acc, summary) => acc + summary.additions + summary.deletions, 0);
+    let platformHasSignificantChanges = function(summary) {
+        let linesChanged = summary.additions + summary.deletions;
+        return linesChanged > 1 && linesChanged / totalLinesChanged > 0.1;
+    }
+    let platformsWithSignificantChanges = statistics.filter(platformHasSignificantChanges);
+
+    let result = statistics.length + " platforms were affected";
+    if (platformsWithSignificantChanges.length > 1) {
+        result += " :warning: (If possible, only one platform should have significant changes in a PR)";
+    } else {
+        result += " :white_check_mark:";
+    }
 
     return result;
 }
