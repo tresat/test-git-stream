@@ -73,9 +73,9 @@ function platformsAffected(statistics) {
         result += "1 platform was affected";
     }
     if (platformsWithSignificantChanges.length > 1) {
-        result += " :warning: (if possible, only one platform should have significant changes in a PR)";
+        result += " (if possible, only one platform should have significant changes in a PR)";
     } else {
-        result += " :white_check_mark:";
+        result += " ";
     }
 
     console.log("Finished platformsAffected: " + result);
