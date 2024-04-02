@@ -11,9 +11,12 @@
 function summaryTable(statistics) {
     let preppedStatistics = Object.values(statistics).filter(s => s.files.length > 0);
 // no sort        .sort(s => s.additions + s.deletions);
+    console.log("Prepped Statistics: " + preppedStatistics);
 
-    let totalAdditions = preppedStatistics.reduce((acc, summary) => acc + summary.additions, 0);
-    let totalDeletions = preppedStatistics.reduce((acc, summary) => acc + summary.deletions, 0);
+    let totalAdditions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.additions, 0);
+    let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
+    console.log("Total Additions: " + totalAdditions);
+    console.log("Total Deletions: " + totalDeletions);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
     // let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
