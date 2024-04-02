@@ -9,7 +9,7 @@
 
 function groupByPlatform(fileMetadatas, fileOwners) {
     const filesByPlatform = new Map();
-    fileOwners.keys().forEach(platform => {
+    [...fileOwners.keys()].forEach(platform => {
         filesByPlatform.set(platform, {
             name: platform,
             files: []
