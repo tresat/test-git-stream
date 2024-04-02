@@ -9,8 +9,9 @@
  * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata) }}
  */
 function summaryTable(statistics) {
-    let preppedStatistics = statistics.reduce((acc, summary) => acc + summary.files.length, 0);
-    preppedStatistics = preppedStatistics.sort(s => s.additions + s.deletions);
+    let preppedStatistics = statistics
+        .filter(s => summary.files.length > 0)
+        .sort(s => s.additions + s.deletions);
 
     let result = `:bar_chart: **Change Summary (FILTER): this PR is {{ changes.ratio | round(2) }}% new code**
             
