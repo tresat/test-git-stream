@@ -10,7 +10,7 @@
  */
 function summaryTable(statistics) {
     let preppedStatistics = statistics
-        .filter(s => summary.files.length > 0)
+        .filter(s => s.files.length > 0)
         .sort(s => s.additions + s.deletions);
 
     let result = `:bar_chart: **Change Summary (FILTER): this PR is {{ changes.ratio | round(2) }}% new code**
