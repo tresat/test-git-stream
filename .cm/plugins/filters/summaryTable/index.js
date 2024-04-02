@@ -13,7 +13,11 @@ function summaryTable(statistics) {
         .filter(s => s.files.length > 0)
         .sort(s => s.additions + s.deletions);
 
-    let result = `:bar_chart: **Change Summary (FILTER): this PR is {{ changes.ratio | round(2) }}% new code**
+    let totalAdditions = preppedStatistics.reduce((acc, summary) => acc + summary.additions, 0);
+    let totalDeletions = preppedStatistics.reduce((acc, summary) => acc + summary.deletions, 0);
+    let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
+
+    let result = `:bar_chart: **Change Summary (FILTER): this PR is ${Math.round(newRatio, 2)}% new code**
             
         ${platformsAffected(preppedStatistics)}
         <details>
