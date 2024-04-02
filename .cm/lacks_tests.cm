@@ -20,11 +20,12 @@ manifest:
 on:
   - pr_created
   - commit
+  - comment_added
 
 automations:
 
   # If a PR contains non-trivial source changes and no tests, add a comment to the PR
-  no_tests:
+  lacks_tests:
     if:
       - {{ ('lacks_tests' | isEnabledAutomation(pr)) }}
       - {{ includes_src_changes }}

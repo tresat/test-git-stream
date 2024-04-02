@@ -20,6 +20,7 @@ manifest:
 on:
   - pr_created
   - commit
+  - comment_added
 
 automations:
 
