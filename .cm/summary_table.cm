@@ -31,4 +31,4 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            :bar_chart: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) | safe }}
+            ":bar_chart:" + {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) | safe }}
