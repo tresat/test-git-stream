@@ -1,5 +1,3 @@
-const codeowners = require('./getCodeowners/index.js');
-
 const platforms = {
     bt_ge_build_cache: {
         name: 'bt_ge_build_cache',
@@ -109,18 +107,14 @@ const platforms = {
  * @module groupByPlatform
  * @description Returns a mapping of platforms to the information about the files involved in the PR contained in each platform
  * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
- * @param {string[]} files - the gitStream's files context variable
- * @param {Object} pr - the gitStream's pr context variable
+ * @param {Map} map of files to their owners
  * @returns {[Object]} Returns a list of objects for each platform containing info about the changes to files in that platform
  * @example {{ branch.diff.files_metadata | getPlatforms }}
  */
 
-function groupByPlatform(fileMetadatas, files, pr, token) {
+function groupByPlatform(fileMetadatas, fileOwners) {
     // console.log("FileMetadata: ");
     // console.log(fileMetadatas);
-
-    let c = codeowners(files, pr, token, '.github/CODEOWNERS')
-    console.log("Codeowners: " + c);
 
     const filesByPlatform = new Map()
     Object.values(platforms).reduce((map, platform) => {
