@@ -17,39 +17,38 @@ function summaryTable(statistics) {
     let totalDeletions = preppedStatistics.reduce((acc, summary) => acc + summary.deletions, 0);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
-    // let result = `:bar_chart: **Change Summary (FILTER): this PR is ${Math.round(newRatio, 2)}% new code**
-    //
-    //     ${platformsAffected(preppedStatistics)}
-    //     <details>
-    //     <summary>See details</summary>
-    //     <table>
-    //         <tr>
-    //             <td>Platform</td>
-    //             <td>Added Lines</td>
-    //             <td>% of Total Line Changes</td>
-    //             <td>Deleted Lines</td>
-    //             <td>% of Total Line Changes</td>
-    //             <td>Files Changed</td>
-    //             <td>% of Total Files Changed</td>
-    //         </tr>`;
-    //
-    // preppedStatistics.forEach(summary => {
-    //     result += `<tr>
-    //         <td>${summary.name}</td>
-    //         <td>${summary.additions}</td>
-    //         <td>${summary.additionPercent}%</td>
-    //         <td>${summary.deletions}</td>
-    //         <td>${summary.deletionPercent}%</td>
-    //         <td>${summary.files.length}</td>
-    //         <td>${summary.filesPercent}%</td>
-    //     </tr>`;
-    // });
-    //
-    // result += `</table>
-    //     </details>
-    //     <automation id="summary_table/summary_table"/>`;
-    //
-    // return result;
+    let result = `:bar_chart: **Change Summary (FILTER): this PR is ${Math.round(newRatio, 2)}% new code**
+
+        <details>
+        <summary>See details</summary>
+        <table>
+            <tr>
+                <td>Platform</td>
+                <td>Added Lines</td>
+                <td>% of Total Line Changes</td>
+                <td>Deleted Lines</td>
+                <td>% of Total Line Changes</td>
+                <td>Files Changed</td>
+                <td>% of Total Files Changed</td>
+            </tr>`;
+
+    preppedStatistics.forEach(summary => {
+        result += `<tr>
+            <td>${summary.name}</td>
+            <td>${summary.additions}</td>
+            <td>${summary.additionPercent}%</td>
+            <td>${summary.deletions}</td>
+            <td>${summary.deletionPercent}%</td>
+            <td>${summary.files.length}</td>
+            <td>${summary.filesPercent}%</td>
+        </tr>`;
+    });
+
+    result += `</table>
+        </details>
+        <automation id="summary_table/summary_table"/>`;
+
+    return result;
     return "table here";
 }
 
