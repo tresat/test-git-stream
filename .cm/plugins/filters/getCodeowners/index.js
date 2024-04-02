@@ -63,7 +63,6 @@ module.exports = {
             .map(f => resolveCodeowners(mapping, f))
             .flat()
             .filter(i => typeof i === 'string')
-            .filter(i => i.startsWith('@gradle'))
             .map(u => u.replace(/^@gradle\//, ""));
 
         const result = new Map()
