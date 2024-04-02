@@ -14,9 +14,9 @@ function computeStatistics(groupedFiles, fileMetadatas) {
 
     let summaries = [...groupedFiles.values()];
     let result = JSON.parse(JSON.stringify(summaries)); // Deep copy of array
-    console.log("Result: " + result);
 
-    summaries.forEach(summary => {
+    Object.values(summaries).forEach(summary => {
+        console.log("***Calculating summary for platform: " + summary);
         summary.additions = 0;
         summary.deletions = 0;
 
@@ -28,8 +28,8 @@ function computeStatistics(groupedFiles, fileMetadatas) {
             totalDeletions += summary.deletions;
             totalChangedFiles++;
         });
+        console.log("***Result of calculation: " + summary);
     });
-    console.log("summaries: " + summaries);
 
     result.forEach(summary => {
         summary.additionPercent = Math.round(summary.additions / (totalAdditions + totalDeletions) * 100, 2);
@@ -37,7 +37,7 @@ function computeStatistics(groupedFiles, fileMetadatas) {
         summary.filesPercent = Math.round(summary.files.length / totalChangedFiles * 100, 2);
     });
 
-    console.log("Statistics: ");
+    console.log("computeStatistics: ");
     console.log(result)
     return result;
 }

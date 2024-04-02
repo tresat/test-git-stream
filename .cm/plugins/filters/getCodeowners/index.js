@@ -66,7 +66,7 @@ module.exports = {
                 .map(u => u.replace(/^@gradle\//, ""));
 
             owners.forEach(owner => {
-                console.log("Mapped: " + f + " -> " + owner)
+                //console.log("Ownership: " + f + " -> " + owner)
                 if (!map[owner]) {
                     map.set(owner, []);
                 }
@@ -76,29 +76,8 @@ module.exports = {
             return map;
         }, result);
 
-        console.log("Result keys: ");
-        console.log([...result.keys()]);
-        console.log("Result values: ");
+        console.log("getCodeowners: ");
         console.log([...result.values()]);
         return callback(null, result);
     },
 }
-
-// const ownersToAdditionalLabels = {
-//     'bt-architecture-council': [],
-//     'bt-build-scan': [],
-//     'bt-configuration': [],
-//     'bt-core-runtime-maintainers': [],
-//     'bt-developer-productivity': [],
-//     'bt-devrel-education': [],
-//     'bt-execution': [],
-//     'bt-extensibility-maintainers': [],
-//     'bt-ge-build-cache': [],
-//     'bt-jvm': [],
-//     'bt-kotlin-dsl-maintainers': [],
-//     'bt-ide-experience': [],
-//     'bt-native-maintainers': [],
-//     'bt-support': [],
-//     'ge-build-insights': [],
-//     'ge-testing': []
-// }
