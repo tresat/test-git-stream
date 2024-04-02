@@ -17,39 +17,41 @@ function summaryTable(statistics) {
     let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
     console.log("Total Additions: " + totalAdditions);
     console.log("Total Deletions: " + totalDeletions);
-    // let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
+    let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
+    console.log("New Ratio: " + newRatio);
 
-    // let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
-    //
-    //     ${platformsAffected(preppedStatistics)}
-    //     <details>
-    //     <summary>See details</summary>
-    //     <table>
-    //         <tr>
-    //             <td>Platform</td>
-    //             <td>Added Lines</td>
-    //             <td>% of Total Line Changes</td>
-    //             <td>Deleted Lines</td>
-    //             <td>% of Total Line Changes</td>
-    //             <td>Files Changed</td>
-    //             <td>% of Total Files Changed</td>
-    //         </tr>`;
-    //
-    // preppedStatistics.forEach(summary => {
-    //     result += `<tr>
-    //         <td>${summary.name}</td>
-    //         <td>${summary.additions}</td>
-    //         <td>${summary.additionPercent}%</td>
-    //         <td>${summary.deletions}</td>
-    //         <td>${summary.deletionPercent}%</td>
-    //         <td>${summary.files.length}</td>
-    //         <td>${summary.filesPercent}%</td>
-    //     </tr>`;
-    // });
+    let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
 
-    let result = `</table>
+        ${platformsAffected(preppedStatistics)}
+        <details>
+        <summary>See details</summary>
+        <table>
+            <tr>
+                <td>Platform</td>
+                <td>Added Lines</td>
+                <td>% of Total Line Changes</td>
+                <td>Deleted Lines</td>
+                <td>% of Total Line Changes</td>
+                <td>Files Changed</td>
+                <td>% of Total Files Changed</td>
+            </tr>`;
+
+    preppedStatistics.forEach(summary => {
+        result += `<tr>
+            <td>${summary.name}</td>
+            <td>${summary.additions}</td>
+            <td>${summary.additionPercent}%</td>
+            <td>${summary.deletions}</td>
+            <td>${summary.deletionPercent}%</td>
+            <td>${summary.files.length}</td>
+            <td>${summary.filesPercent}%</td>
+        </tr>`;
+    });
+
+    result += `</table>
         </details>
         <automation id="summary_table/summary_table"/>`;
+    console.log("Finished summaryTable: " + result);
 
     return result;
 }
@@ -62,6 +64,7 @@ function platformsAffected(statistics) {
         return (linesChanged > 1) && (linesChanged / totalLinesChanged >= 0.1);
     };
     let platformsWithSignificantChanges = statistics.filter(platformHasSignificantChanges);
+    console.log("Platforms with significant changes: " + platformsWithSignificantChanges.length);
 
     let result = "";
     if (statistics.length > 1) {
@@ -75,6 +78,7 @@ function platformsAffected(statistics) {
         result += " :white_check_mark:";
     }
 
+    console.log("Finished platformsAffected: " + result);
     return result;
 }
 
