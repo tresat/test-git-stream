@@ -34,6 +34,6 @@ automations:
             {{ generated_comment }}
 
 generated_comment: |
-  {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) }}
+  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) }}
 
 owners: {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') }}
