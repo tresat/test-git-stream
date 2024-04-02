@@ -30,4 +30,5 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment: {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) }}
+          comment: |
+            {{ branch.diff.files_metadata | groupByPlatform | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata) }}
