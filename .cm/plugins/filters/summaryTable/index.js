@@ -17,7 +17,7 @@ function summaryTable(statistics) {
     let totalDeletions = preppedStatistics.reduce((acc, summary) => acc + summary.deletions, 0);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
-    let result = `:bar_chart: **Change Summary (FILTER): this PR is ${Math.round(newRatio, 2)}% new code**
+    let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
 
         ${platformsAffected(preppedStatistics)}
         <details>
@@ -53,22 +53,28 @@ function summaryTable(statistics) {
 }
 
 function platformsAffected(statistics) {
-    // Significance is defined as a platform having more than 10% of the total lines changed
-    let totalLinesChanged = statistics.reduce((acc, summary) => acc + summary.additions + summary.deletions, 0);
-    let platformHasSignificantChanges = function(summary) {
-        let linesChanged = summary.additions + summary.deletions;
-        return linesChanged > 1 && linesChanged / totalLinesChanged > 0.1;
-    }
-    let platformsWithSignificantChanges = statistics.filter(platformHasSignificantChanges);
-
-    let result = statistics.length + " platforms were affected";
-    if (platformsWithSignificantChanges.length > 1) {
-        result += " :warning: (If possible, only one platform should have significant changes in a PR)";
-    } else {
-        result += " :white_check_mark:";
-    }
-
-    return result;
+    // // Significance is defined as a platform having more than 10% of the total lines changed
+    // let totalLinesChanged = statistics.reduce((acc, summary) => acc + summary.additions + summary.deletions, 0);
+    // let platformHasSignificantChanges = function(summary) {
+    //     let linesChanged = summary.additions + summary.deletions;
+    //     return (linesChanged > 1) && (linesChanged / totalLinesChanged >= 0.1);
+    // }
+    // let platformsWithSignificantChanges = statistics.filter(platformHasSignificantChanges);
+    //
+    // let result = "";
+    // if (statistics.length > 1) {
+    //     result += statistics.length + " platforms were affected";
+    // } else {
+    //     result += "1 platform was affected";
+    // }
+    // if (platformsWithSignificantChanges.length > 1) {
+    //     result += " :warning: (If possible, only one platform should have significant changes in a PR)";
+    // } else {
+    //     result += " :white_check_mark:";
+    // }
+    //
+    // return result;
+    return "PLATFORMS AFFECTED";
 }
 
 module.exports = summaryTable;
