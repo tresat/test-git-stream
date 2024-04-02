@@ -9,7 +9,7 @@
  * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata) }}
  */
 function summaryTable(statistics) {
-    let preppedStatistics = statistics
+    let preppedStatistics = Object.values(statistics)
         .filter(s => s.files.length > 0)
         .sort(s => s.additions + s.deletions);
 
