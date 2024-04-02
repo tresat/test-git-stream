@@ -119,7 +119,7 @@ function groupByPlatform(fileMetadatas, files, pr, token) {
     // console.log("FileMetadata: ");
     // console.log(fileMetadatas);
 
-    let c = codeowners.getCodeowners(files, pr, token, '.github/CODEOWNERS')
+    let c = getCodeowners(files, pr, token, '.github/CODEOWNERS')
     console.log("Codeowners: " + c);
 
     const filesByPlatform = new Map()
