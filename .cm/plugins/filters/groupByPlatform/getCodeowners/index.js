@@ -70,6 +70,7 @@ module.exports = {
             const owners = resolveCodeowners(mapping, f)
 
             owners.forEach(owner => {
+                console.log("Mapped: " + f + " -> " + owner)
                 if (!map[owner]) {
                     map.set(owner, []);
                 }
@@ -79,6 +80,10 @@ module.exports = {
             return map;
         }, result);
 
+        console.log("Result keys: ");
+        console.log([...result.keys()]);
+        console.log("Result values: ");
+        console.log([...result.values()]);
         return callback(null, result);
     },
 }
