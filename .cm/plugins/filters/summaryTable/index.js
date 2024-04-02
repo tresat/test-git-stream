@@ -17,7 +17,7 @@ function summaryTable(statistics) {
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
     let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
-
+<br>
 ${platformsAffected(preppedStatistics)}
 <details>
         <summary>See details</summary>
