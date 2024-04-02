@@ -8,10 +8,7 @@
  */
 
 function groupByPlatform(fileMetadatas, fileOwners) {
-    console.log("FileMetadata: ");
-    console.log(fileMetadatas);
-
-    const filesByPlatform = new Map()
+    const filesByPlatform = new Map();
     fileOwners.keys().forEach(platform => {
         filesByPlatform.set(platform, {
             name: platform,
@@ -20,16 +17,17 @@ function groupByPlatform(fileMetadatas, fileOwners) {
     });
 
     Object.values(fileMetadatas).forEach(fileMetadata => {
-        fileOwners.keys().forEach(platform => {
+        [...fileOwners.keys()].forEach(platform => {
             const files = fileOwners.get(platform);
-            if (files.includes(fileMetadata.path)) {
-                filesByPlatform.get(platform).files.push(fileMetadata);
+            if (files.includes(fileMetadata.file)) {
+                filesByPlatform.get(platform).files.push(fileMetadata.file);
             }
         });
     });
 
-    return [...filesByPlatform.values()].filter(platform => platform.files.length > 0 )
-        .sort(platform => platform.files.length);
+    console.log("groupByPlatform: ");
+    console.log([...filesByPlatform.values()]);
+    return filesByPlatform;
 }
 
 module.exports = groupByPlatform;
