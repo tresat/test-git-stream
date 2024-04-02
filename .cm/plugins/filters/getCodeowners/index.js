@@ -26,6 +26,7 @@ async function loadCodeownersFile(owner, repo, auth, pathToCodeOwners) {
 
     return Buffer.from(res.data.content, 'base64').toString()
 }
+
 function codeownersMapping(data) {
     return data
         .toString()
