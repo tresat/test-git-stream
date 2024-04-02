@@ -24,14 +24,14 @@ function computeStatistics(groupedFiles, fileMetadatas) {
         summary.files.forEach(file => {
             console.log("***Calculating summary for file: " + file);
             let fileMetadata = metadataFor(fileMetadatas, file);
-            console.log("***File metadata: " + fileMetadata);
+            console.log("***File metadata: " + Object.values(fileMetadata));
             summary.additions += fileMetadata.additions;
             summary.deletions += fileMetadata.deletions;
             totalAdditions += summary.additions;
             totalDeletions += summary.deletions;
             totalChangedFiles++;
         });
-        console.log("***Result of calculation: " + summary);
+        console.log("***Result of calculation: " + Object.values(summary));
     });
 
     result.forEach(summary => {
