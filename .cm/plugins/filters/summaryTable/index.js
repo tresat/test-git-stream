@@ -7,7 +7,7 @@
  * @param {[Object]} statistics - list of summary data objects from computeStatistics
  * @param {String} title - description of how data is grouped
  * @returns {String} Returns the formatted HTMl table string.
- * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata) }}
+ * @example {{ owners | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
  */
 function summaryTable(statistics, title) {
     let preppedStatistics = statistics.filter(s => s.files.length > 0)

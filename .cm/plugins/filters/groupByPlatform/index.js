@@ -4,9 +4,10 @@
  * @param {Map} fileOwners mapping of platform name to a list of files involved in the change located in that platform
  * @param {[FileMetadata]} fileMetadatas - gitStream's list of metadata about file changes in the PR including path
  * @returns {[Object]} Returns a list of objects for each platform containing info about the changes to files in that platform
- * @example {{ branch.diff.files_metadata | getPlatforms }}
+ * @example {{ owners | groupByPlatform(branch.diff.files_metadata) }}
  */
 
+//TODO: rename this to groupBy
 function groupByPlatform(fileOwners, fileMetadatas) {
     const filesByPlatform = new Map();
     [...fileOwners.keys()].forEach(platform => {

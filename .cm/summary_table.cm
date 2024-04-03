@@ -35,6 +35,6 @@ automations:
             {{ by_owner_comment }}
 
 by_platform_comment: |
-  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata, 'Platform') }}
+  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
 by_owner_comment: |
-  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable(branch.diff.files_metadata, 'Owner') }}
+  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') }}
