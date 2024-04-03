@@ -22,7 +22,7 @@ function summaryTable(statistics, title) {
     // Only title by Platform
     if (title === "Platform") {
         result += `
-<br>${platformsAffected(preppedStatistics)}`;
+  <br>${platformsAffected(preppedStatistics)}`;
     }
 
     result += `

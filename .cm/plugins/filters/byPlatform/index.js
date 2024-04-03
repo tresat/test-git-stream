@@ -16,7 +16,9 @@ function byPlatform(files) {
     });
 
     console.log("byPlatform: ");
-    console.log([...result.values()]);
+    [...result.keys()].forEach(platform => {
+        console.log("[" + platform + ": [" + result.get(platform).join(", ") + "]]");
+    });
     return result;
 }
 
