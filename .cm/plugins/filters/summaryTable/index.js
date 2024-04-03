@@ -27,7 +27,7 @@ function summaryTable(statistics, title) {
 
     result += `
   <details>
-  <summary>See details (by ${title})</summary>
+  <summary>See details</summary>
   <table>
             <tr>
                 <td>${title}</td>
