@@ -17,13 +17,12 @@ manifest:
 # within the file.  We keep each automation (or very closely related group of automations) in
 # its own file.
 
-{% set platform_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform')) %}
-{% set owner_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner')) %}
-
 on:
   - pr_created
   - commit
   - comment_added
+
+{% set ticketid = "777" %}
 
 automations:
 
@@ -34,4 +33,19 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ platform_comment }}
+            {{ by_platform_comment }}
+            {{ by_owner_comment }}
+
+  test_variable:
+    if:
+      - {{ ('summary_table' | isEnabledAutomation(pr)) }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            {{ ticketid }}
+
+by_platform_comment: |
+  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
+by_owner_comment: |
+  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') }}
