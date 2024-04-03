@@ -74,7 +74,7 @@ module.exports = {
 
         console.log("getCodeowners: ");
         [...result.keys()].forEach(owner => {
-            console.log(owner + ": " + result.get(owner).join(", "));
+            console.log("[" + owner + ": [" + result.get(owner).join(", ") + "]]");
         });
         return callback(null, result);
     },

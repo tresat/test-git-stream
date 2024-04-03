@@ -5,10 +5,11 @@
  * The table should be in descending order of the number of lines changed, and should only include platforms with non-0 changes.
  *
  * @param {[Object]} statistics - list of summary data objects from computeStatistics
+ * @param {String} title - description of how data is grouped
  * @returns {String} Returns the formatted HTMl table string.
  * @example {{ branch.diff.files_metadata | groupByPlatform | computeStatistics | summaryTable(branch.diff.files_metadata) }}
  */
-function summaryTable(statistics) {
+function summaryTable(statistics, title) {
     let preppedStatistics = statistics.filter(s => s.files.length > 0)
         .sort(s => -(s.additions + s.deletions));
 
@@ -16,13 +17,20 @@ function summaryTable(statistics) {
     let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
-    let result = `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
-  <br>${platformsAffected(preppedStatistics)}
+    let result = "";
+
+    // Only title by Platform
+    if (title === "Platform") {
+        result += `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
+<br>${platformsAffected(preppedStatistics)}`;
+    }
+
+    result += `
   <details>
-  <summary>See details</summary>
+  <summary>See details (by ${title})</summary>
   <table>
             <tr>
-                <td>Platform</td>
+                <td>${title}</td>
                 <td>Added Lines</td>
                 <td>% of Total Line Changes</td>
                 <td>Deleted Lines</td>
@@ -67,7 +75,7 @@ function platformsAffected(statistics) {
         result += "1 platform was affected";
     }
     if (platformsWithSignificantChanges.length > 1) {
-        result += " (if possible, only one platform should have significant changes in a PR)";
+        result += " (:warning: if possible, only one platform should have significant changes in a PR)";
     } else {
         result += " ";
     }
