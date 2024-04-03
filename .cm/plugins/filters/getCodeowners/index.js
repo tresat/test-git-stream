@@ -73,7 +73,7 @@ module.exports = {
                     }
                     let assigned = result.get(owner);
                     console.log("*** PRE assignment: " + assigned);
-                    assigned = assigned.push(f);
+                    assigned.push(f);
                     console.log("*** AFTER push : " + assigned);
                     result.set(owner, assigned);
                     console.log("*** POST assignment: " + result.get(owner));
