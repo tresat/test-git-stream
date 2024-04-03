@@ -60,15 +60,18 @@ module.exports = {
         const mapping = codeownersMapping(fileData);
 
         const result = new Map()
-        files.map(f => resolveCodeowners(mapping, f))
-            .filter(i => typeof i === 'string')
-            .map(u => u.replace(/^@gradle\//, ""))
-            .forEach(owner => {
-                if (!result[owner]) {
-                    result.set(owner, []);
-                }
-                result.get(owner).push(f);
-            });
+        files.map(f => {
+            const owners = resolveCodeowners(mapping, f);
+            console.log("*** file: " + f + " owners: " + owners);
+            owners.filter(i => typeof i === 'string')
+                .map(u => u.replace(/^@gradle\//, ""))
+                .forEach(owner => {
+                    if (!result[owner]) {
+                        result.set(owner, []);
+                    }
+                    result.get(owner).push(f);
+                });
+        });
 
         console.log("getCodeowners: ");
         [...result.keys()].forEach(owner => {
