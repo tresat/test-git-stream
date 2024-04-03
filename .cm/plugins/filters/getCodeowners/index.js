@@ -67,14 +67,14 @@ module.exports = {
                 .map(u => u.replace(/^@gradle\//, ""))
                 .forEach(owner => {
                     console.log("*** assigning owner: " + owner);
-                    if (!result[owner]) {
+                    if (!result.has(owner)) {
                         result.set(owner, []);
                     }
                     let files = result.get(owner);
-                    console.log("*** PRE assignment: " + files);
+                    console.log("*** PRE assignment: " + f);
                     files = files.push(f);
-                    console.log("*** POST assignment: " + files);
                     result.set(owner, files);
+                    console.log("*** POST assignment: " + f);
                 });
             console.log("*** POST file: " + f + " owners: " + owners);
         });
