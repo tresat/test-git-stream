@@ -7,7 +7,7 @@
  * @param {[Object]} statistics - list of summary data objects from computeStatistics
  * @param {String} title - description of how data is grouped
  * @returns {String} Returns the formatted HTMl table string.
- * @example {{ owners | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
+ * @example {{ owners | categorize(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
  */
 function summaryTable(statistics, title) {
     let preppedStatistics = statistics.filter(s => s.files.length > 0)
@@ -17,7 +17,7 @@ function summaryTable(statistics, title) {
     let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
-    let result = ":bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**";
+    let result = `:bar_chart: **Changes by ${title}: this PR is ${Math.round(newRatio, 2)}% new code**`;
 
     // Only title by Platform
     if (title === "Platform") {
@@ -53,7 +53,7 @@ function summaryTable(statistics, title) {
 
     result += `</table>
         </details>
-        <automation id="summary_table/summary_table"/>'`;
+        <automation id="summary_table/summary_table"/>`;
 
     console.log("summaryTable: " + result);
     return result;

@@ -1,12 +1,12 @@
 /**
- * @module getCodeowners
- * @description Resolves the PR's code owners based on the repository's CODEOWNERS file
+ * @module byCodeowner
+ * @description Groups the PR's files' by platform based on their directory.
  * @param {string[]} files - the gitStream's files context variable
  * @param {Object} pr - the gitStream's pr context variable
  * @param {string} token - access token with repo:read scope, used to read the CODEOWNERS file
  * @param {string} pathToCodeOwners - path from repo root to CODEOWNERS file
- * @returns {string[]} user names
- * @example {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') }}
+ * @returns {Map} - Map from owner name to list of files they own
+ * @example {{ files | byCodeowner(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') }}
  **/
 
 const { Octokit } = require("@octokit/rest");
@@ -72,7 +72,7 @@ module.exports = {
                 });
         });
 
-        console.log("getCodeowners: ");
+        console.log("byCodeowner: ");
         [...result.keys()].forEach(owner => {
             console.log("[" + owner + ": [" + result.get(owner).join(", ") + "]]");
         });
