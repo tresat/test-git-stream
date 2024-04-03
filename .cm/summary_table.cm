@@ -17,7 +17,12 @@ manifest:
 # within the file.  We keep each automation (or very closely related group of automations) in
 # its own file.
 
-{% set ticketid = "777" %}
+dummy: nothing
+
+{% set ticketid = "777" + files | some %}
+{% set ticketid = ticketid + (files | some) %}
+{% for a in [] %}
+{% endfor %}
 
 on:
   - pr_created
