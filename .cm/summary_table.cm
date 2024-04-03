@@ -19,7 +19,6 @@ manifest:
 
 {% set platform_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform')) %}
 {% set owner_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner')) %}
-{% set table_comment = platform_comment + owner_comment %}
 
 on:
   - pr_created
@@ -35,4 +34,4 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ table_comment }}
+            {{ platform_comment }}
