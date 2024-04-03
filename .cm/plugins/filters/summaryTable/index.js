@@ -21,7 +21,7 @@ function summaryTable(statistics, title) {
 
     // Only title by Platform
     if (title === "Platform") {
-        result += `:bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
+        result += `':bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
 <br>${platformsAffected(preppedStatistics)}`;
     }
 
@@ -53,7 +53,7 @@ function summaryTable(statistics, title) {
 
     result += `</table>
         </details>
-        <automation id="summary_table/summary_table"/>`;
+        <automation id="summary_table/summary_table"/>'`;
 
     console.log("summaryTable: " + result);
     return result;
