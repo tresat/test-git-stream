@@ -19,9 +19,9 @@ manifest:
 
 dummy: nothing
 
-{% set ticketid = "777" + files | some %}
-{% set ticketid = ticketid + (files | some) %}
-{% for a in [] %}
+{% set complete_summary = files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') %}
+{% set complete_summary = complete_summary + files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') %}
+{% for a in [] %} # Don't know why this is needed, but it seems to be needed else the automation doesn't run
 {% endfor %}
 
 on:
@@ -48,7 +48,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ ticketid }}
+            {{ complete_summary }}
 
 by_platform_comment: |
   {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
