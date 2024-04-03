@@ -17,6 +17,10 @@ manifest:
 # within the file.  We keep each automation (or very closely related group of automations) in
 # its own file.
 
+{% set platform_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform')) %}
+{% set owner_comment = (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner')) %}
+{% set table_comment = platform_comment + owner_comment %}
+
 on:
   - pr_created
   - commit
@@ -32,6 +36,3 @@ automations:
         args:
           comment: |
             {{ table_comment }}
-
-table_comment: |
-  {{ (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform')) + (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner')) }}
