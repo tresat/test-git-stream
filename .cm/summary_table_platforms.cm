@@ -17,13 +17,6 @@ manifest:
 # within the file.  We keep each automation (or very closely related group of automations) in
 # its own file.
 
-dummy: nothing
-
-{% set complete_summary = files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') %}
-{% set complete_summary = complete_summary + (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS')) | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') %}
-{% for a in [] %} # Don't know why this is needed, but it seems to be needed else the automation doesn't run
-{% endfor %}
-
 on:
   - pr_created
   - commit
@@ -31,26 +24,14 @@ on:
 
 automations:
 
-  summary_table:
+  summary_table_platforms:
     if:
-      - {{ ('summary_table' | isEnabledAutomation(pr)) }}
+      - {{ ('summary_table_platforms' | isEnabledAutomation(pr)) }}
     run:
       - action: add-comment@v1
         args:
           comment: |
             {{ by_platform_comment }}
-            {{ by_owner_comment }}
-
-  test_variable:
-    if:
-      - {{ ('summary_table' | isEnabledAutomation(pr)) }}
-    run:
-      - action: add-comment@v1
-        args:
-          comment: |
-            {{ complete_summary }}
 
 by_platform_comment: |
   {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
-by_owner_comment: |
-  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') }}

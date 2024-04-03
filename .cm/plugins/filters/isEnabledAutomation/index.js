@@ -2,7 +2,8 @@ const enabled = new Map();
 
 // Require Opt-In/User Request/Community PR
 enabled.set('lacks_tests', ['community', 'tresat']);
-enabled.set('summary_table', ['community', 'tresat']);
+enabled.set('summary_table_owners', ['tresat']);
+enabled.set('summary_table_platforms', ['community', 'tresat']);
 
 // Require Opt-In/User Request
 enabled.set('code_experts', []);

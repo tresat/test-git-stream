@@ -17,11 +17,11 @@ function summaryTable(statistics, title) {
     let totalDeletions = Object.values(preppedStatistics).reduce((acc, summary) => acc + summary.deletions, 0);
     let newRatio = totalAdditions / (totalAdditions + totalDeletions) * 100;
 
-    let result = "";
+    let result = ":bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**";
 
     // Only title by Platform
     if (title === "Platform") {
-        result += `':bar_chart: **Change Summary: this PR is ${Math.round(newRatio, 2)}% new code**
+        result += `
 <br>${platformsAffected(preppedStatistics)}`;
     }
 
