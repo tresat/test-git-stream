@@ -70,10 +70,10 @@ module.exports = {
                     if (!result.has(owner)) {
                         result.set(owner, []);
                     }
-                    let files = result.get(owner);
-                    console.log("*** PRE assignment: " + f);
-                    files = files.push(f);
-                    result.set(owner, files);
+                    let assigned = result.get(owner);
+                    console.log("*** PRE assignment: " + assigned);
+                    assigned = assigned.push(f);
+                    result.set(owner, assigned);
                     console.log("*** POST assignment: " + f);
                 });
             console.log("*** POST file: " + f + " owners: " + owners);
