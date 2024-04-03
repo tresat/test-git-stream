@@ -22,8 +22,6 @@ on:
   - commit
   - comment_added
 
-{% set ticketid = "777" %}
-
 automations:
 
   summary_table:
@@ -43,7 +41,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ ticketid }}
+            {{ by_platform_comment }}
 
 by_platform_comment: |
   {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
