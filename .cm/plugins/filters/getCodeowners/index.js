@@ -62,19 +62,21 @@ module.exports = {
         const result = new Map()
         files.map(f => {
             const owners = resolveCodeowners(mapping, f);
-            console.log("*** PRE file: " + f + " owners: " + owners);
+            console.log("*** PRE file: " + f + " codeowners: " + owners);
             owners.filter(i => typeof i === 'string')
                 .map(u => u.replace(/^@gradle\//, ""))
                 .forEach(owner => {
                     console.log("*** assigning owner: " + owner);
                     if (!result.has(owner)) {
+                        console.log("*** allocating new array for owner: " + owner);
                         result.set(owner, []);
                     }
                     let assigned = result.get(owner);
                     console.log("*** PRE assignment: " + assigned);
                     assigned = assigned.push(f);
+                    console.log("*** AFTER push : " + assigned);
                     result.set(owner, assigned);
-                    console.log("*** POST assignment: " + f);
+                    console.log("*** POST assignment: " + result.get(owner));
                 });
             console.log("*** POST file: " + f + " owners: " + owners);
         });
