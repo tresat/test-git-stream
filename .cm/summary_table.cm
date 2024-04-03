@@ -31,9 +31,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ by_platform_comment }} {{ by_owner_comment }}
+            {{ table_comment }}
 
-by_platform_comment: |
-  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
-by_owner_comment: |
-  {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner') }}
+table_comment: |
+  {{ (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform')) + (files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Owner')) }}
