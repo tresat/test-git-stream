@@ -17,6 +17,8 @@ manifest:
 # within the file.  We keep each automation (or very closely related group of automations) in
 # its own file.
 
+{% set ticketid = "777" %}
+
 on:
   - pr_created
   - commit
@@ -41,7 +43,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            {{ by_platform_comment }}
+            {{ ticketid }}
 
 by_platform_comment: |
   {{ files | getCodeowners(pr, env.CODEOWNERS_TOKEN, '.github/CODEOWNERS') | groupByPlatform(branch.diff.files_metadata) | computeStatistics(branch.diff.files_metadata) | summaryTable('Platform') }}
