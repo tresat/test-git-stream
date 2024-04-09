@@ -1,6 +1,8 @@
 const enabled = new Map();
 
 // Require Opt-In/User Request/Community PR
+enabled.set('includes_todos', ['community', 'tresat']);
+enabled.set('javadoc_on_new_files', ['community', 'tresat']);
 enabled.set('lacks_tests', ['community', 'tresat']);
 enabled.set('summary_table_owners', ['tresat']);
 enabled.set('summary_table_platforms', ['community', 'tresat']);
@@ -10,6 +12,8 @@ enabled.set('code_experts', []);
 
 // Always run
 enabled.set('add_usual_expert', ['always']);
+enabled.set('complex_changes', ['always']);
+enabled.set('estimated_time_to_review', ['always']);
 enabled.set('misc_labels', ['always']);
 enabled.set('platform_labels', ['always']);
 

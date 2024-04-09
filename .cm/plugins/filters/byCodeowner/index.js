@@ -1,6 +1,6 @@
 /**
  * @module byCodeowner
- * @description Groups the PR's files' by platform based on their directory.
+ * @description Groups the PR's files' by owner based on the CODEOWNERs file.
  * @param {string[]} files - the gitStream's files context variable
  * @param {Object} pr - the gitStream's pr context variable
  * @param {string} token - access token with repo:read scope, used to read the CODEOWNERS file

@@ -1,6 +1,6 @@
 /**
  * @module byPlatform
- * @description Groups the PR's code owners based on the repository's CODEOWNERS file
+ * @description Groups the PR's files by platform based on the file's path.
  * @param {string[]} files - the gitStream's files context variable
  * @returns {Map} - Map from platform to list of files in this PR in it
  * @example {{ owners | byPlatform }}
@@ -23,7 +23,15 @@ function byPlatform(files) {
 }
 
 function getPlatform(file) {
-    return 'Sample';
+    let result = null; // Default to null in case no platform is found
+
+    if (file.startsWith('/platforms/')) {
+        const parts = file.split('/');
+        result = parts[2];
+    }
+
+    console.log(file + " = " + result);
+    return result;
 }
 
 module.exports = byPlatform;
