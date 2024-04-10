@@ -9,12 +9,11 @@
  */
 
 function readField(objects, objectName, fieldName) {
-    let group = statistics.find(s => s.name === objectName);
+    let group = objects.find(s => s.name === objectName);
     if (group) {
-        let stat = group[fieldName];
-        return stat;
+        return group[fieldName];
     } else {
-        console.log('statisticForGroup not found: ' + objectName + '.' + fieldName);
+        console.log('readField named object with field not found: ' + objectName + '.' + fieldName);
         return null;
     }
 }
