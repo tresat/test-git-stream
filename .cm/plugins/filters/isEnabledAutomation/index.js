@@ -53,7 +53,7 @@ enabled.set('platform_labels', ['always']);
  * @example {{ 'platform_labels' | isEnabledAutomation(pr) }}
  */
 function isEnabledAutomation(automationName, pr) {
-    let result = false;
+    let result;
     const automationActivations = enabled.get(automationName) || [];
 
     // Check if always enabled, or enabled by comment
@@ -61,7 +61,10 @@ function isEnabledAutomation(automationName, pr) {
         result = true;
     } else {
         result = Object.values(pr.comments).some(comment => {
-            return comment.content.startsWith('@bot-gitstream check all') || comment.content.startsWith('@bot-gitstream check ' + automationName);
+            const checks = extractCheckNames(comment.content);
+            if (checks.includes(automationName)) {
+                return true;
+            }
         });
     }
 
@@ -75,6 +78,17 @@ function isEnabledAutomation(automationName, pr) {
     }
 
     return result;
+}
+
+function extractCheckNames(inputString) {
+    const checksPart = inputString.split('@bot-gitstream check');
+    if (checksPart.length === 2) {
+        const checks = checksPart[1].split(' ');
+        const namePattern = /^[a-zA-Z_]+$/;
+        return checks.filter(check => namePattern.test(check));
+    } else {
+        return [];
+    }
 }
 
 module.exports = isEnabledAutomation;
