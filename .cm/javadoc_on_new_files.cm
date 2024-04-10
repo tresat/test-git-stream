@@ -39,7 +39,7 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-            This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
+            :warning: This PR creates new top-level Java classes, but has no Javadoc present. Please document all top-level classes with Javadoc.
 
 is:
   java: {{ files | extensions | match(term='java') | every }}
