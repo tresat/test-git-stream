@@ -9,11 +9,16 @@
  */
 
 function readField(objects, objectName, fieldName) {
-    let group = objects.find(s => s.name === objectName);
+    let group = Object.values(objects).find(s => s.name === objectName);
     if (group) {
-        return group[fieldName];
+        const result = group[fieldName];
+        if (result === undefined) {
+            throw "readField: field '" + fieldName + "' not found on object named '" + objectName + "' with fields '" + Object.keys(group) + "'";
+        } else {
+            return result;
+        }
     } else {
-        console.log('readField named object with field not found: ' + objectName + '.' + fieldName);
+        console.log("readField: named object with field not found '" + objectName + '.' + fieldName + "'");
         return null;
     }
 }
